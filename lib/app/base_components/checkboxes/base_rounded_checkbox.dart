@@ -3,10 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 
 class BaseRoundedCheckbox extends StatelessWidget {
-  final bool value;
-  final void Function(bool)? callback;
-  final bool isCircle;
-  final double? radius;
   const BaseRoundedCheckbox({
     required this.value,
     super.key,
@@ -14,6 +10,10 @@ class BaseRoundedCheckbox extends StatelessWidget {
     this.isCircle = false,
     this.radius,
   });
+  final bool value;
+  final void Function({required bool flag})? callback;
+  final bool isCircle;
+  final double? radius;
 
   OutlinedBorder get _shape => isCircle
       ? const CircleBorder()
@@ -35,8 +35,9 @@ class BaseRoundedCheckbox extends StatelessWidget {
       ),
       child: Checkbox(
         value: value,
-        onChanged:
-            callback != null ? (isSelected) => callback!(isSelected!) : null,
+        onChanged: callback != null
+            ? (isSelected) => callback!(flag: isSelected!)
+            : null,
         fillColor: MaterialStateProperty.resolveWith<Color>((states) {
           if (states.contains(MaterialState.disabled)) {
             return Colors.transparent;
