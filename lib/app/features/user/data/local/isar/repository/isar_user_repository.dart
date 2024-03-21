@@ -4,26 +4,26 @@ import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.da
 import 'package:yandex_sirius/app/features/user/domain/repository/local_user_repository.dart';
 
 class IsarUserRepository extends LocalUserRepository {
+  IsarUserRepository({required this.util, required this.userUseCase});
   final IsarUserUtil util;
   final UserUseCase userUseCase;
-  IsarUserRepository({required this.util, required this.userUseCase});
   @override
   Future<UserModel> saveUser(UserModel user) async {
-    var res = await util.saveUser(user);
+    final res = await util.saveUser(user);
     userUseCase.writeUser(res);
     return res;
   }
 
   @override
   Future<UserModel> loadUser() async {
-    var res = await util.loadUser();
+    final res = await util.loadUser();
     userUseCase.writeUser(res);
     return res;
   }
 
   @override
   Future<bool> deleteUser() async {
-    var res = await util.deleteUser();
+    final res = await util.deleteUser();
     return res;
   }
 }

@@ -10,7 +10,6 @@ part 'user_state.dart';
 part 'user_bloc.freezed.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final RemoteUserRepository remoteRepository;
   UserBloc({required this.remoteRepository}) : super(const _Initial()) {
     on<UserEvent>((event, emit) async {
       await event.map(
@@ -22,6 +21,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       );
     });
   }
+  final RemoteUserRepository remoteRepository;
   FutureOr<void> start(UserEvent event, Emitter<UserState> emit) {
     //TODO:
     throw UnimplementedError();

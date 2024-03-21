@@ -4,41 +4,41 @@ import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.da
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 
 class FirebaseUserRepository extends RemoteUserRepository {
+  FirebaseUserRepository({required this.util, required this.userUseCase});
   final FirebaseUserUtil util;
   final UserUseCase userUseCase;
-  FirebaseUserRepository({required this.util, required this.userUseCase});
   @override
   Future<UserModel> signUp(
       UserModel user, String login, String password) async {
-    var res = await util.signUp(user, login, password);
+    final res = await util.signUp(user, login, password);
     userUseCase.writeUser(res);
     return res;
   }
 
   @override
   Future<UserModel> signIn(String login, String password) async {
-    var res = await util.signIn(login, password);
+    final res = await util.signIn(login, password);
     userUseCase.writeUser(res);
     return res;
   }
 
   @override
   Future<UserModel> getUser(String userId) async {
-    var res = await util.getUser(userId);
+    final res = await util.getUser(userId);
     userUseCase.writeUser(res);
     return res;
   }
 
   @override
   Future<UserModel> updateAvatar(String userId, String photoAvatar) async {
-    var res = await util.updateAvatar(userId, photoAvatar);
+    final res = await util.updateAvatar(userId, photoAvatar);
     userUseCase.writeUser(res);
     return res;
   }
 
   @override
   Future<UserModel> updateUser(UserModel user) async {
-    var res = await util.updateUser(user);
+    final res = await util.updateUser(user);
     userUseCase.writeUser(res);
     return res;
   }

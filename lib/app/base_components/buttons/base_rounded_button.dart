@@ -3,13 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 
 class BaseRoundedButton extends StatelessWidget {
-  final String primaryText;
-  final Color? backgroundColor;
-  final String? secondaryText;
-  final Color? textColor;
-  final void Function() action;
-  final bool isExpand;
-
   const BaseRoundedButton({
     required this.primaryText,
     required this.action,
@@ -19,6 +12,12 @@ class BaseRoundedButton extends StatelessWidget {
     this.textColor,
     this.isExpand = true,
   });
+  final String primaryText;
+  final Color? backgroundColor;
+  final String? secondaryText;
+  final Color? textColor;
+  final void Function() action;
+  final bool isExpand;
 
   @override
   Widget build(BuildContext context) {
