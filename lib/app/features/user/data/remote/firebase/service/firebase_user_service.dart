@@ -20,7 +20,6 @@ class FirebaseUserService {
   }
 
   Future<FirebaseApiUserModel> getUser(String userId) async {
-
     var snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
     var user = FirebaseApiUserModel.fromJson(snapshot.data()!);
@@ -82,6 +81,7 @@ class FirebaseUserService {
       return null;
     }
   }
+
 //TODO
   Future<FirebaseApiUserModel> signIn(String login, String password) async {
     try {
