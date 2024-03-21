@@ -16,7 +16,7 @@ class FirebaseUserUtil {
       UserModel user, String login, String password) async {
     var apiUser = mapper.userModelToApi(user);
     var apiResult = await service.signUp(apiUser, login, password);
-    return mapper.userModelFromApi(apiResult);
+    return mapper.userModelFromApi(apiResult!);
   }
 
   Future<UserModel> signIn(String login, String password) async {
