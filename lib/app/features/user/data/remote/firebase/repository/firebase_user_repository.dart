@@ -1,5 +1,5 @@
 import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
-import 'package:yandex_sirius/app/features/user/data/firebase/util/firebase_user_util.dart';
+import 'package:yandex_sirius/app/features/user/data/remote/firebase/util/firebase_user_util.dart';
 import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 
@@ -13,9 +13,9 @@ class FirebaseUserRepository extends RemoteUserRepository {
     var res = await util.signUp(user, login, password);
     userUseCase.writeUser(res);
     return res;
-  } 
+  }
 
-   @override
+  @override
   Future<UserModel> signIn(String login, String password) async {
     var res = await util.signIn(login, password);
     userUseCase.writeUser(res);

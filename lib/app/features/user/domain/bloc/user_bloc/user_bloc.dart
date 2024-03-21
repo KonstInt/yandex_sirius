@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         login: (event) async => await login(event, emit),
         logout: (event) async => await logout(event, emit),
         updateUser: (event) async => await updateUser(event, emit),
-        updateAvatar:(event) async => await updateAvatar(event, emit),
+        updateAvatar: (event) async => await updateAvatar(event, emit),
       );
     });
   }
@@ -26,18 +26,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     //TODO:
     throw UnimplementedError();
   }
-  FutureOr<void>login(UserEvent event, Emitter<UserState> emit) {
+
+  FutureOr<void> login(UserEvent event, Emitter<UserState> emit) {
     //TODO:
     throw UnimplementedError();
   }
-  FutureOr<void>logout(UserEvent event, Emitter<UserState> emit) {
+
+  FutureOr<void> logout(UserEvent event, Emitter<UserState> emit) {
     //TODO:
     throw UnimplementedError();
   }
+
   FutureOr<void> updateUser(UserEvent event, Emitter<UserState> emit) {
     //TODO:
     throw UnimplementedError();
   }
+
   FutureOr<void> updateAvatar(UserEvent event, Emitter<UserState> emit) {
     //TODO:
     throw UnimplementedError();

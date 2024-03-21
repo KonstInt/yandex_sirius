@@ -1,5 +1,5 @@
-import 'package:yandex_sirius/app/features/user/data/firebase/models/friend/firebase_api_friend_model.dart';
-import 'package:yandex_sirius/app/features/user/data/firebase/models/user/firebase_api_user_model.dart';
+import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/friend/firebase_api_friend_model.dart';
+import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 
 class FirebaseUserService {
   //TODO: FirebaseServiceImpl

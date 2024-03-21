@@ -11,7 +11,5 @@ class UserUseCase {
     _userStreamController.add(user);
   }
 
-  
-
   StreamController<UserModel> get broadcast => _userStreamController;
 }

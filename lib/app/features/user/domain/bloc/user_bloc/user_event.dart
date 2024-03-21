@@ -6,5 +6,6 @@ class UserEvent with _$UserEvent {
   const factory UserEvent.login() = _Login;
   const factory UserEvent.logout() = _Logout;
   const factory UserEvent.updateUser({required UserModel user}) = _UpdateUser;
-  const factory UserEvent.updateAvatar({required String imagePath}) = _UpdateAvatar;
+  const factory UserEvent.updateAvatar({required String imagePath}) =
+      _UpdateAvatar;
 }

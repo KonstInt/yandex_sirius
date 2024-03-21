@@ -1,5 +1,5 @@
-import 'package:yandex_sirius/app/features/user/data/firebase/mappers/firebase_user_mapper.dart';
-import 'package:yandex_sirius/app/features/user/data/firebase/service/firebase_user_service.dart';
+import 'package:yandex_sirius/app/features/user/data/remote/firebase/mappers/firebase_user_mapper.dart';
+import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
 
 class FirebaseUserUtil {
@@ -19,7 +19,7 @@ class FirebaseUserUtil {
     return mapper.userModelFromApi(apiResult);
   }
 
-   Future<UserModel> signIn(String login, String password) async {
+  Future<UserModel> signIn(String login, String password) async {
     var apiResult = await service.signIn(login, password);
     return mapper.userModelFromApi(apiResult);
   }
