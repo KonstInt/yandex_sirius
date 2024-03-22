@@ -39,4 +39,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get home => 'Главная';
+
+  @override
+  String get name => 'Имя';
+
+  @override
+  String get surname => 'Фамилия';
+
+  @override
+  String get alias => 'Никнейм';
 }

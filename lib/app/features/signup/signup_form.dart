@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../l10n/app_localizations_ru.dart';
 import 'cubit/signup_cubit.dart';
@@ -29,6 +33,10 @@ class SignUpForm extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              _ImagePicker(),
+              const SizedBox(height: 8),
+              _NickName(),
+              const SizedBox(height: 8),
               _EmailInput(),
               const SizedBox(height: 8),
               _PasswordInput(),
@@ -44,6 +52,28 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
+class _NickName extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizationsRu();
+    return BlocBuilder<SignupCubit, SignupState>(
+      buildWhen: (previous, current) => previous.alias != current.alias,
+      builder: (context, state) {
+        return TextField(
+          key: const Key('nick_input'),
+          onChanged: (email) =>
+              context.read<SignupCubit>().nicknameChanged(email),
+          decoration: InputDecoration(
+            labelText: l10n.alias,
+            helperText: '',
+          ),
+          textInputAction: TextInputAction.next,
+        );
+      },
+    );
+  }
+}
+
 class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,12 +84,13 @@ class _EmailInput extends StatelessWidget {
         return TextField(
           key: const Key('signUpForm_emailInput_textField'),
           onChanged: (email) => context.read<SignupCubit>().emailChanged(email),
-          keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             labelText: l10n.email,
             helperText: '',
-            errorText: state.email != '' ? l10n.invalidEmail : null,
+            errorText: state.errorMessage != null ? l10n.invalidEmail : null,
           ),
+          textInputAction: TextInputAction.next,
+
         );
       },
     );
@@ -81,8 +112,8 @@ class _PasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: l10n.password,
             helperText: '',
-            errorText: state.password != '' ? l10n.invalidPassword : null,
           ),
+          textInputAction: TextInputAction.next,
         );
       },
     );
@@ -106,6 +137,7 @@ class _ConfirmedPasswordInput extends StatelessWidget {
             labelText: l10n.confirmPassword,
             helperText: '',
           ),
+          textInputAction: TextInputAction.next,
         );
       },
     );
@@ -133,6 +165,55 @@ class _SignUpButton extends StatelessWidget {
                     : null,
                 child: Text(l10n.signUp),
               );
+      },
+    );
+  }
+}
+
+class _ImagePicker extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SignupCubit, SignupState>(
+      buildWhen: (previous, current) => previous.photo != current.photo,
+      builder: (context, state) {
+        return Center(
+          child: Stack(
+            children: [
+              Container(
+                height: 200,
+                width: 200,
+                alignment: Alignment.bottomCenter,
+                key: const Key("image_picker"),
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.black45,
+                  ),
+                  image: (state.photo == '')
+                      ? null
+                      : DecorationImage(
+                          image: MemoryImage(base64Decode(state.photo)),
+                          fit: BoxFit.cover,
+                        ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 140, left: 70),
+                child: IconButton(
+                  onPressed: () {
+                    context.read<SignupCubit>().photoChanged();
+                  },
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    size: 45,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }

@@ -4,6 +4,7 @@ import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../../../../firebase_options.dart';
+import '../../../../domain/exceptions/eceptions.dart';
 
 class FirebaseUserService {
   FirebaseUserService() {
@@ -11,7 +12,6 @@ class FirebaseUserService {
   }
 
   Future<void> _initializeFirebase() async {
-    //TODO
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   }
@@ -50,27 +50,20 @@ class FirebaseUserService {
         email: login,
         password: password,
       );
-      String? token = await credential.user!.getIdToken();
-      var newUser = apiUserModel.copyWith(id: token!);
+      String? token = await credential.user?.getIdToken() ?? '';
+      var newUser = apiUserModel.copyWith(id: token ?? '');
       await FirebaseFirestore.instance
           .collection('users')
           .doc(token)
           .set(newUser.toJson());
       return newUser;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-      return null;
-    } catch (e) {
-      print(e);
-      return null;
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const SignUpWithEmailAndPasswordFailure();
     }
   }
 
-//TODO
   Future<FirebaseApiUserModel> signIn(String login, String password) async {
     try {
       final credential = await FirebaseAuth.instance
@@ -81,13 +74,10 @@ class FirebaseUserService {
       var user = FirebaseApiUserModel.fromJson(snapshot.data()!);
       return user;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const LogInWithEmailAndPasswordFailure();
     }
-    throw UnimplementedError();
   }
 
   Future<FirebaseApiUserModel> updateUser(FirebaseApiUserModel user) async {
@@ -96,7 +86,7 @@ class FirebaseUserService {
         .collection('users')
         .doc(token)
         .update(user.toJson());
-    throw UnimplementedError();
+    return user;
   }
 
   Future<FirebaseApiUserModel> updateAvatar(
@@ -104,6 +94,6 @@ class FirebaseUserService {
     FirebaseFirestore.instance.collection('users').doc(userId).update({
       'photoUrl': photoAvatar,
     });
-    throw UnimplementedError();
+    return getUser(userId);
   }
 }

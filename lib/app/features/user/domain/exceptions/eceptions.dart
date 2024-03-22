@@ -8,6 +8,10 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
         return const SignUpWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
         );
+      case 'The email address is already in use by another account.':
+        return const SignUpWithEmailAndPasswordFailure(
+            'The email address is already in use by another account'
+        );
       case 'user-disabled':
         return const SignUpWithEmailAndPasswordFailure(
           'This user has been disabled. Please contact support for help.',

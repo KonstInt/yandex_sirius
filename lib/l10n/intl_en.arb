@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "authenticationFailure": "Authentication failure",
+  "email": "Email",
+  "invalidEmail": "Invalid email",
+  "password": "Password",
+  "invalidPassword": "Invalid Password",
+  "login": "Login",
+  "createAccount": "Create account",
+  "signUpFailure": "Sign up failure",
+  "confirmPassword": "Confirm password",
+  "passwordNotMatch": "Password do not match",
+  "signUp": "Sign up",
+  "home": "Home",
+  "name": "Name",
+  "surname": "Surname",
+  "alias" : "Alias"
+}

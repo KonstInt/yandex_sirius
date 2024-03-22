@@ -16,11 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignupState {
+  String get photo => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get alias => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get secondName => throw _privateConstructorUsedError;
   FormzSubmissionStatus get status => throw _privateConstructorUsedError;
   bool get isValid => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -37,11 +36,10 @@ abstract class $SignupStateCopyWith<$Res> {
       _$SignupStateCopyWithImpl<$Res, SignupState>;
   @useResult
   $Res call(
-      {String email,
+      {String photo,
+      String email,
       String password,
       String alias,
-      String name,
-      String secondName,
       FormzSubmissionStatus status,
       bool isValid,
       String? errorMessage});
@@ -60,16 +58,19 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? photo = null,
     Object? email = null,
     Object? password = null,
     Object? alias = null,
-    Object? name = null,
-    Object? secondName = null,
     Object? status = null,
     Object? isValid = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
+      photo: null == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -81,14 +82,6 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
       alias: null == alias
           ? _value.alias
           : alias // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      secondName: null == secondName
-          ? _value.secondName
-          : secondName // ignore: cast_nullable_to_non_nullable
               as String,
       status: null == status
           ? _value.status
@@ -115,11 +108,10 @@ abstract class _$$SignupStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String email,
+      {String photo,
+      String email,
       String password,
       String alias,
-      String name,
-      String secondName,
       FormzSubmissionStatus status,
       bool isValid,
       String? errorMessage});
@@ -136,16 +128,19 @@ class __$$SignupStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? photo = null,
     Object? email = null,
     Object? password = null,
     Object? alias = null,
-    Object? name = null,
-    Object? secondName = null,
     Object? status = null,
     Object? isValid = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$SignupStateImpl(
+      photo: null == photo
+          ? _value.photo
+          : photo // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -157,14 +152,6 @@ class __$$SignupStateImplCopyWithImpl<$Res>
       alias: null == alias
           ? _value.alias
           : alias // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      secondName: null == secondName
-          ? _value.secondName
-          : secondName // ignore: cast_nullable_to_non_nullable
               as String,
       status: null == status
           ? _value.status
@@ -186,15 +173,17 @@ class __$$SignupStateImplCopyWithImpl<$Res>
 
 class _$SignupStateImpl implements _SignupState {
   const _$SignupStateImpl(
-      {this.email = '',
+      {this.photo = '',
+      this.email = '',
       this.password = '',
       this.alias = '',
-      this.name = '',
-      this.secondName = '',
       this.status = FormzSubmissionStatus.initial,
       this.isValid = false,
       this.errorMessage});
 
+  @override
+  @JsonKey()
+  final String photo;
   @override
   @JsonKey()
   final String email;
@@ -206,12 +195,6 @@ class _$SignupStateImpl implements _SignupState {
   final String alias;
   @override
   @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
-  final String secondName;
-  @override
-  @JsonKey()
   final FormzSubmissionStatus status;
   @override
   @JsonKey()
@@ -221,7 +204,7 @@ class _$SignupStateImpl implements _SignupState {
 
   @override
   String toString() {
-    return 'SignupState(email: $email, password: $password, alias: $alias, name: $name, secondName: $secondName, status: $status, isValid: $isValid, errorMessage: $errorMessage)';
+    return 'SignupState(photo: $photo, email: $email, password: $password, alias: $alias, status: $status, isValid: $isValid, errorMessage: $errorMessage)';
   }
 
   @override
@@ -229,13 +212,11 @@ class _$SignupStateImpl implements _SignupState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignupStateImpl &&
+            (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.alias, alias) || other.alias == alias) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.secondName, secondName) ||
-                other.secondName == secondName) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.isValid, isValid) || other.isValid == isValid) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -243,8 +224,8 @@ class _$SignupStateImpl implements _SignupState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password, alias, name,
-      secondName, status, isValid, errorMessage);
+  int get hashCode => Object.hash(runtimeType, photo, email, password, alias,
+      status, isValid, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -255,25 +236,22 @@ class _$SignupStateImpl implements _SignupState {
 
 abstract class _SignupState implements SignupState {
   const factory _SignupState(
-      {final String email,
+      {final String photo,
+      final String email,
       final String password,
       final String alias,
-      final String name,
-      final String secondName,
       final FormzSubmissionStatus status,
       final bool isValid,
       final String? errorMessage}) = _$SignupStateImpl;
 
+  @override
+  String get photo;
   @override
   String get email;
   @override
   String get password;
   @override
   String get alias;
-  @override
-  String get name;
-  @override
-  String get secondName;
   @override
   FormzSubmissionStatus get status;
   @override

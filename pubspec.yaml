@@ -25,6 +25,7 @@ dependencies:
   cloud_firestore:
   flutter_localizations:
       sdk: flutter
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
