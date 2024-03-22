@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/friend/firebase_api_friend_model.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,7 +11,6 @@ class FirebaseUserService {
   }
 
   Future<void> _initializeFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
     //TODO
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
@@ -54,16 +51,7 @@ class FirebaseUserService {
         password: password,
       );
       String? token = await credential.user!.getIdToken();
-      var newUser = FirebaseApiUserModel(
-        id: token!,
-        name: apiUserModel.name,
-        secondName: apiUserModel.secondName,
-        nickname: apiUserModel.nickname,
-        photoUrl: apiUserModel.photoUrl,
-        friendList: apiUserModel.friendList,
-        isOnline: apiUserModel.isOnline,
-        isGeoTrackingOn: apiUserModel.isGeoTrackingOn,
-      );
+      var newUser = apiUserModel.copyWith(id: token!);
       await FirebaseFirestore.instance
           .collection('users')
           .doc(token)
