@@ -20,7 +20,7 @@ class MapManager {
     });
   }
   final RemoteMapRepository remoteMapRepository;
-  final UserManager userUseCase;
+  final UserUseCase userUseCase;
   late final StreamController _pollingController;
   List<MapTagModel> _friendsTag = [];
   bool isStartTrackFriendCallFlag = false;
