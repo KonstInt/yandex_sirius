@@ -3,6 +3,7 @@ part of 'signup_cubit.dart';
 @freezed
 class SignupState with _$SignupState {
   const factory SignupState({
+    String? id,
     @Default('') String name,
     @Default('') String surname,
     @Default('') String photo,

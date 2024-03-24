@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: BlocProvider<SignupCubit>.value(
           value: signupCubit,
-          child: const SignUpForm1(),
+          child:  SignUpForm1(),
         ),
       ),
     );

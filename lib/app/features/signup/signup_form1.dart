@@ -16,7 +16,6 @@ class SignUpForm1 extends StatelessWidget {
         if (state.status.isSuccess) {
           Navigator.of(context).pop();
         } else if (state.status.isFailure && state.errorMessage != null) {
-          print(state.errorMessage!.contains('password'));
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -146,9 +145,11 @@ class _SignUpButton extends StatelessWidget {
                   ),
                   backgroundColor: Colors.orangeAccent,
                 ),
-                onPressed: state.isValid
-                    ? () => context.read<SignupCubit>().signUpFormSubmitted()
-                    : null,
+                onPressed: () {
+                  if (state.isValid) {
+                    context.read<SignupCubit>().authenticationSubmitted();
+                  }
+                },
                 child: Text(l10n.signUp),
               );
       },

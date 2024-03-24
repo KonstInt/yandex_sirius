@@ -43,6 +43,22 @@ class FirebaseUserService {
     return friends;
   }
 
+  Future<String?> authentication(String login, String password) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: login,
+        password: password,
+      );
+      String? token = await credential.user?.getIdToken() ?? '';
+      return token;
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const SignUpWithEmailAndPasswordFailure();
+    }
+  }
+
   Future<FirebaseApiUserModel?> signUp(
       FirebaseApiUserModel apiUserModel, String login, String password) async {
     try {
