@@ -31,10 +31,36 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-  void nicknameChanged(String value) {
+  void surnameChanged(String value) {
+    bool checker =
+        (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
+        isValid: checker,
+        surname: value,
+      ),
+    );
+  }
+
+  void nameChanged(String value) {
+    bool checker =
+        (state.alias != '' && state.name != '' && state.surname != '');
+    emit(
+      state.copyWith(
+        isValid: checker,
+        name: value,
+      ),
+    );
+  }
+
+  void nicknameChanged(String value) {
+    bool checker =
+        (state.alias != '' && state.name != '' && state.surname != '');
+    emit(
+      state.copyWith(
+        isValid: checker,
         alias: value,
+        errorMessage: null,
       ),
     );
   }
@@ -91,6 +117,7 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   Future<void> signUpFormSubmitted() async {
+    try {
       var user = FirebaseApiUserModel(
           id: state.id!,
           name: state.name,
@@ -101,5 +128,15 @@ class SignupCubit extends Cubit<SignupState> {
           isOnline: true,
           isGeoTrackingOn: true);
       await _authenticationRepository.signUp(user, state.email, state.password);
+    } on NicknameAlreadyExistsException catch (e) {
+      emit(
+        state.copyWith(
+          errorMessage: e.message,
+          status: FormzSubmissionStatus.failure,
+        ),
+      );
+    } catch (_) {
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
+    }
   }
 }

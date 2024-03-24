@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Неверный пароль"),
         "login": MessageLookupByLibrary.simpleMessage("Вход"),
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
+        "next": MessageLookupByLibrary.simpleMessage("Далее"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "passwordNotMatch":
             MessageLookupByLibrary.simpleMessage("Пароли не совпадают"),

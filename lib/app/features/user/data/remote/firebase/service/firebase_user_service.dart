@@ -48,14 +48,23 @@ class FirebaseUserService {
     }
   }
 
+
   Future<FirebaseApiUserModel?> signUp(
       FirebaseApiUserModel apiUserModel, String login, String password) async {
-      var newUser = apiUserModel.copyWith(id: apiUserModel.id);
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(apiUserModel.id)
-          .set(newUser.toJson());
-      return newUser;
+    bool nicknameExists = await checkIfNicknameExists(apiUserModel.nickname);
+    if (nicknameExists) {
+      throw const NicknameAlreadyExistsException();
+    }
+    var newUser = apiUserModel.copyWith(id: apiUserModel.id);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(apiUserModel.id)
+        .set(newUser.toJson());
+    await FirebaseFirestore.instance
+        .collection('nicknames')
+        .doc(apiUserModel.nickname)
+        .set(newUser.toJson());
+    return newUser;
   }
 
   Future<FirebaseApiUserModel> signIn(String login, String password) async {
@@ -90,4 +99,11 @@ class FirebaseUserService {
     });
     return getUser(userId);
   }
+}
+
+
+Future<bool> checkIfNicknameExists(String nickname) async {
+  CollectionReference nicknamesRef = FirebaseFirestore.instance.collection('nicknames');
+  QuerySnapshot querySnapshot = await nicknamesRef.where('nickname', isEqualTo: nickname).get();
+  return querySnapshot.docs.isNotEmpty;
 }

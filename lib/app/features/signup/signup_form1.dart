@@ -14,7 +14,11 @@ class SignUpForm1 extends StatelessWidget {
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(content: Text('success')),
+            );
         } else if (state.status.isFailure && state.errorMessage != null) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -138,7 +142,7 @@ class _SignUpButton extends StatelessWidget {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-                key: const Key('signUpForm_continue_elevatedButton'),
+                key: const Key('next_elevatedButton'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -150,7 +154,7 @@ class _SignUpButton extends StatelessWidget {
                     context.read<SignupCubit>().authenticationSubmitted();
                   }
                 },
-                child: Text(l10n.signUp),
+                child: Text(l10n.next),
               );
       },
     );

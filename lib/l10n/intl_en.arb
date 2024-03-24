@@ -14,5 +14,6 @@
   "home": "Home",
   "name": "Name",
   "surname": "Surname",
-  "alias" : "Alias"
+  "alias" : "Alias",
+  "next" : "Next"
 }

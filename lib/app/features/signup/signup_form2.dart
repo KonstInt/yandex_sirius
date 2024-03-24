@@ -15,7 +15,11 @@ class SignUpForm2 extends StatelessWidget {
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(content: Text('success')),
+            );
         } else if (state.status.isFailure && state.errorMessage != null) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -56,11 +60,17 @@ class _NickName extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('nick_input'),
-          onChanged: (email) =>
-              context.read<SignupCubit>().nicknameChanged(email),
+          onChanged: (nickName) =>
+              context.read<SignupCubit>().nicknameChanged(nickName),
           decoration: InputDecoration(
             labelText: l10n.alias,
             helperText: '',
+            errorText:  (state.errorMessage != null)
+                ? (state.errorMessage!.contains('Nickname') ||
+                state.errorMessage!.contains('Nickname.'))
+                ? state.errorMessage
+                : null
+                : null,
           ),
           textInputAction: TextInputAction.next,
         );
@@ -78,8 +88,7 @@ class _Name extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('name'),
-          onChanged: (email) =>
-              context.read<SignupCubit>().nicknameChanged(email),
+          onChanged: (name) => context.read<SignupCubit>().nameChanged(name),
           decoration: InputDecoration(
             labelText: l10n.name,
             helperText: '',
@@ -100,8 +109,8 @@ class _Surname extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('_Surname'),
-          onChanged: (email) =>
-              context.read<SignupCubit>().nicknameChanged(email),
+          onChanged: (surname) =>
+              context.read<SignupCubit>().surnameChanged(surname),
           decoration: InputDecoration(
             labelText: l10n.surname,
             helperText: '',

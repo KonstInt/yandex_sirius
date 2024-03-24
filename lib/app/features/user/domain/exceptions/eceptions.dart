@@ -61,5 +61,12 @@ class LogInWithEmailAndPasswordFailure implements Exception {
   }
   final String message;
 }
+class NicknameAlreadyExistsException implements Exception {
+  const NicknameAlreadyExistsException([
+    this.message = 'Nickname already exists.',
+  ]);
+
+  final String message;
+}
 
 class LogOutFailure implements Exception {}
