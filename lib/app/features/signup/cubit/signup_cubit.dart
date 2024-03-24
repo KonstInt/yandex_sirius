@@ -25,6 +25,7 @@ class SignupCubit extends Cubit<SignupState> {
     emit(
       state.copyWith(
         email: email,
+        errorMessage: null,
       ),
     );
   }
@@ -39,10 +40,10 @@ class SignupCubit extends Cubit<SignupState> {
 
   void passwordChanged(String value) {
     final password = value;
-
     emit(
       state.copyWith(
         password: password,
+        errorMessage: null,
       ),
     );
   }
@@ -64,13 +65,13 @@ class SignupCubit extends Cubit<SignupState> {
 
   void confirmedPasswordChanged(String value) {
     final confirmedPassword = value;
-    var check = state.isValid;
     emit(
       state.copyWith(
         isValid: (confirmedPassword == state.password) ? true : false,
       ),
     );
   }
+
 
   Future<void> signUpFormSubmitted() async {
     try {
@@ -83,7 +84,7 @@ class SignupCubit extends Cubit<SignupState> {
           friendList: [],
           isOnline: true,
           isGeoTrackingOn: true);
-      _authenticationRepository.signUp(user, state.email, state.password);
+      await _authenticationRepository.signUp(user, state.email, state.password);
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(
         state.copyWith(

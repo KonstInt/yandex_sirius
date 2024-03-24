@@ -1,25 +1,22 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:yandex_sirius/app/features/signup/presentation.dart';
 
-import '../../../l10n/app_localizations_ru.dart';
-import 'cubit/signup_cubit.dart';
+import '../../../generated/l10n.dart';
 
-class SignUpForm extends StatelessWidget {
-  const SignUpForm({super.key});
+class SignUpForm2 extends StatelessWidget {
+  const SignUpForm2({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
+    final l10n = S.of(context);
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
           Navigator.of(context).pop();
-        } else if (state.status.isFailure) {
+        } else if (state.status.isFailure && state.errorMessage != null) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -37,11 +34,9 @@ class SignUpForm extends StatelessWidget {
               const SizedBox(height: 8),
               _NickName(),
               const SizedBox(height: 8),
-              _EmailInput(),
+              _Name(),
               const SizedBox(height: 8),
-              _PasswordInput(),
-              const SizedBox(height: 8),
-              _ConfirmedPasswordInput(),
+              _Surname(),
               const SizedBox(height: 8),
               _SignUpButton(),
             ],
@@ -55,7 +50,7 @@ class SignUpForm extends StatelessWidget {
 class _NickName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
+    final l10n = S.of(context);
     return BlocBuilder<SignupCubit, SignupState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
@@ -74,43 +69,19 @@ class _NickName extends StatelessWidget {
   }
 }
 
-class _EmailInput extends StatelessWidget {
+class _Name extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
+    final l10n = S.of(context);
     return BlocBuilder<SignupCubit, SignupState>(
-      buildWhen: (previous, current) => previous.email != current.email,
+      buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
-          key: const Key('signUpForm_emailInput_textField'),
-          onChanged: (email) => context.read<SignupCubit>().emailChanged(email),
+          key: const Key('name'),
+          onChanged: (email) =>
+              context.read<SignupCubit>().nicknameChanged(email),
           decoration: InputDecoration(
-            labelText: l10n.email,
-            helperText: '',
-            errorText: state.errorMessage != null ? l10n.invalidEmail : null,
-          ),
-          textInputAction: TextInputAction.next,
-
-        );
-      },
-    );
-  }
-}
-
-class _PasswordInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
-    return BlocBuilder<SignupCubit, SignupState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) {
-        return TextField(
-          key: const Key('signUpForm_passwordInput_textField'),
-          onChanged: (password) =>
-              context.read<SignupCubit>().passwordChanged(password),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: l10n.password,
+            labelText: l10n.name,
             helperText: '',
           ),
           textInputAction: TextInputAction.next,
@@ -120,21 +91,19 @@ class _PasswordInput extends StatelessWidget {
   }
 }
 
-class _ConfirmedPasswordInput extends StatelessWidget {
+class _Surname extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
+    final l10n = S.of(context);
     return BlocBuilder<SignupCubit, SignupState>(
-      buildWhen: (previous, current) => previous.password != current.password,
+      buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
-          key: const Key('signUpForm_confirmedPasswordInput_textField'),
-          onChanged: (confirmedPassword) => context
-              .read<SignupCubit>()
-              .confirmedPasswordChanged(confirmedPassword),
-          obscureText: true,
+          key: const Key('_Surname'),
+          onChanged: (email) =>
+              context.read<SignupCubit>().nicknameChanged(email),
           decoration: InputDecoration(
-            labelText: l10n.confirmPassword,
+            labelText: l10n.surname,
             helperText: '',
           ),
           textInputAction: TextInputAction.next,
@@ -147,7 +116,7 @@ class _ConfirmedPasswordInput extends StatelessWidget {
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
+    final l10n = S.of(context);
     return BlocBuilder<SignupCubit, SignupState>(
       builder: (context, state) {
         return state.status.isInProgress

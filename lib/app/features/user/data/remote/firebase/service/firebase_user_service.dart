@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../../../../firebase_options.dart';
 import '../../../../domain/exceptions/eceptions.dart';
@@ -57,7 +58,7 @@ class FirebaseUserService {
           .doc(token)
           .set(newUser.toJson());
       return newUser;
-    } on FirebaseAuthException catch (e) {
+    } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();

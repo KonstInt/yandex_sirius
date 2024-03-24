@@ -16,6 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignupState {
+  String get name => throw _privateConstructorUsedError;
+  String get surname => throw _privateConstructorUsedError;
   String get photo => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
@@ -36,7 +38,9 @@ abstract class $SignupStateCopyWith<$Res> {
       _$SignupStateCopyWithImpl<$Res, SignupState>;
   @useResult
   $Res call(
-      {String photo,
+      {String name,
+      String surname,
+      String photo,
       String email,
       String password,
       String alias,
@@ -58,6 +62,8 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
+    Object? surname = null,
     Object? photo = null,
     Object? email = null,
     Object? password = null,
@@ -67,6 +73,14 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      surname: null == surname
+          ? _value.surname
+          : surname // ignore: cast_nullable_to_non_nullable
+              as String,
       photo: null == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -108,7 +122,9 @@ abstract class _$$SignupStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String photo,
+      {String name,
+      String surname,
+      String photo,
       String email,
       String password,
       String alias,
@@ -128,6 +144,8 @@ class __$$SignupStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
+    Object? surname = null,
     Object? photo = null,
     Object? email = null,
     Object? password = null,
@@ -137,6 +155,14 @@ class __$$SignupStateImplCopyWithImpl<$Res>
     Object? errorMessage = freezed,
   }) {
     return _then(_$SignupStateImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      surname: null == surname
+          ? _value.surname
+          : surname // ignore: cast_nullable_to_non_nullable
+              as String,
       photo: null == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
@@ -173,7 +199,9 @@ class __$$SignupStateImplCopyWithImpl<$Res>
 
 class _$SignupStateImpl implements _SignupState {
   const _$SignupStateImpl(
-      {this.photo = '',
+      {this.name = '',
+      this.surname = '',
+      this.photo = '',
       this.email = '',
       this.password = '',
       this.alias = '',
@@ -181,6 +209,12 @@ class _$SignupStateImpl implements _SignupState {
       this.isValid = false,
       this.errorMessage});
 
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String surname;
   @override
   @JsonKey()
   final String photo;
@@ -204,7 +238,7 @@ class _$SignupStateImpl implements _SignupState {
 
   @override
   String toString() {
-    return 'SignupState(photo: $photo, email: $email, password: $password, alias: $alias, status: $status, isValid: $isValid, errorMessage: $errorMessage)';
+    return 'SignupState(name: $name, surname: $surname, photo: $photo, email: $email, password: $password, alias: $alias, status: $status, isValid: $isValid, errorMessage: $errorMessage)';
   }
 
   @override
@@ -212,6 +246,8 @@ class _$SignupStateImpl implements _SignupState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignupStateImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.surname, surname) || other.surname == surname) &&
             (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
@@ -224,8 +260,8 @@ class _$SignupStateImpl implements _SignupState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, photo, email, password, alias,
-      status, isValid, errorMessage);
+  int get hashCode => Object.hash(runtimeType, name, surname, photo, email,
+      password, alias, status, isValid, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +272,9 @@ class _$SignupStateImpl implements _SignupState {
 
 abstract class _SignupState implements SignupState {
   const factory _SignupState(
-      {final String photo,
+      {final String name,
+      final String surname,
+      final String photo,
       final String email,
       final String password,
       final String alias,
@@ -244,6 +282,10 @@ abstract class _SignupState implements SignupState {
       final bool isValid,
       final String? errorMessage}) = _$SignupStateImpl;
 
+  @override
+  String get name;
+  @override
+  String get surname;
   @override
   String get photo;
   @override

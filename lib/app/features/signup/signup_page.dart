@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yandex_sirius/app/features/signup/signup_form.dart';
+import 'package:yandex_sirius/app/features/signup/signup_form1.dart';
+import 'package:yandex_sirius/app/features/signup/signup_form2.dart';
 
-import '../../../l10n/app_localizations_ru.dart';
+import '../../../generated/l10n.dart';
 import '../user/data/remote/firebase/service/firebase_user_service.dart';
 import 'cubit/signup_cubit.dart';
 
@@ -11,7 +12,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizationsRu();
+    final l10n = S.of(context);
     //di
     final signupCubit = SignupCubit(FirebaseUserService());
     return Scaffold(
@@ -20,7 +21,7 @@ class SignUpPage extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: BlocProvider<SignupCubit>.value(
           value: signupCubit,
-          child: const SignUpForm(),
+          child: const SignUpForm1(),
         ),
       ),
     );
