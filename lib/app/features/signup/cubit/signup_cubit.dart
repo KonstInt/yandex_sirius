@@ -16,7 +16,8 @@ part 'signup_cubit.freezed.dart';
 
 @injectable
 class SignupCubit extends Cubit<SignupState> {
-  SignupCubit(this._authenticationRepository) : super(const SignupState());
+  SignupCubit(this._authenticationRepository)
+      : super(const SignupState.firstPage());
 
   final FirebaseUserService _authenticationRepository;
 
@@ -72,11 +73,11 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-
-  Future<void> authenticationSubmitted() async{
+  Future<void> authenticationSubmitted() async {
     try {
-     String? id =  await _authenticationRepository.authentication(state.email, state.password);
-      emit(state.copyWith(id: id));
+      String? id = await _authenticationRepository.authentication(
+          state.email, state.password);
+      emit(_SignupStateSecondPage(id: id));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(
         state.copyWith(

@@ -1,22 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:firebase_core/firebase_core.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 
-import '../../../../../../../firebase_options.dart';
 import '../../../../domain/exceptions/eceptions.dart';
 
 class FirebaseUserService {
-  FirebaseUserService() {
-    _initializeFirebase();
-  }
-
-  Future<void> _initializeFirebase() async {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  }
-
   Future<FirebaseApiUserModel> getUser(String userId) async {
     var snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
