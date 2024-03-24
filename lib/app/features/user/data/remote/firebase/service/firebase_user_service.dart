@@ -50,24 +50,12 @@ class FirebaseUserService {
 
   Future<FirebaseApiUserModel?> signUp(
       FirebaseApiUserModel apiUserModel, String login, String password) async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: login,
-        password: password,
-      );
-      String? token = await credential.user?.getIdToken() ?? '';
-      var newUser = apiUserModel.copyWith(id: token ?? '');
+      var newUser = apiUserModel.copyWith(id: apiUserModel.id);
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(token)
+          .doc(apiUserModel.id)
           .set(newUser.toJson());
       return newUser;
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
-    } catch (_) {
-      throw const SignUpWithEmailAndPasswordFailure();
-    }
   }
 
   Future<FirebaseApiUserModel> signIn(String login, String password) async {

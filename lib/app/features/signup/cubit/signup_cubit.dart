@@ -91,26 +91,15 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   Future<void> signUpFormSubmitted() async {
-    try {
       var user = FirebaseApiUserModel(
-          id: '',
-          name: '',
-          secondName: '',
+          id: state.id!,
+          name: state.name,
+          secondName: state.surname,
           nickname: state.alias,
           photoUrl: state.photo,
           friendList: [],
           isOnline: true,
           isGeoTrackingOn: true);
       await _authenticationRepository.signUp(user, state.email, state.password);
-    } on SignUpWithEmailAndPasswordFailure catch (e) {
-      emit(
-        state.copyWith(
-          errorMessage: e.message,
-          status: FormzSubmissionStatus.failure,
-        ),
-      );
-    } catch (_) {
-      emit(state.copyWith(status: FormzSubmissionStatus.failure));
-    }
   }
 }
