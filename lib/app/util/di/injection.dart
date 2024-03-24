@@ -107,6 +107,7 @@ Future<void> _setUpDev(GetIt getIt) async {
         mapper: GetIt.I<IsarUserMapper>(),
         service: GetIt.I<IsarUserService>()))
     ..registerSingleton<LocalUserRepository>(IsarUserRepository(userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()));
+    
 }
 
 ///SETUP PROD
