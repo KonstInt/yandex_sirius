@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
@@ -32,6 +36,7 @@ import 'package:yandex_sirius/app/features/user/data/remote/firebase/util/fireba
 import 'package:yandex_sirius/app/features/user/domain/repository/local_user_repository.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 import 'package:yandex_sirius/app/util/logger/logger.dart';
+import 'package:yandex_sirius/firebase_options.dart';
 
 Future<void> setUpDI(DIOptions options) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +69,14 @@ enum DIOptions { test, prod, dev }
 Future<void> initFirebase() async {
   //TODO:
   logger.d('Firebase initialization started');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );*/

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yandex_sirius/app/features/login/login_page.dart';
 import 'package:yandex_sirius/app/util/themes/app_theme.dart';
-import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
+
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -13,19 +14,11 @@ class App extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           title: 'Flutter Sirius',
-          theme: AppTheme.lightTheme,
-          home: Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  Text(
-                    'Hello world!',
-                    style: context.textStyles.descriptionB,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          theme: AppTheme.lightTheme, localizationsDelegates: const [
+        S.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      home: const LoginPage(),
         );
       },
     );

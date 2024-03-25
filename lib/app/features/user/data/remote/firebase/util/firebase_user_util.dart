@@ -16,7 +16,8 @@ class FirebaseUserUtil {
       UserModel user, String login, String password) async {
     final apiUser = mapper.userModelToApi(user);
     final apiResult = await service.signUp(apiUser, login, password);
-    return mapper.userModelFromApi(apiResult);
+    //TODO: Nulllable res !!!!
+    return mapper.userModelFromApi(apiResult!);
   }
 
   Future<UserModel> signIn(String login, String password) async {
