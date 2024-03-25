@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:yandex_sirius/app/features/login/bloc/login_bloc.dart';
 import 'package:yandex_sirius/app/features/signup/signup_page.dart';
+import 'package:yandex_sirius/generated/l10n.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});

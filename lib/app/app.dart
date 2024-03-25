@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yandex_sirius/app/features/login/login_page.dart';
 import 'package:yandex_sirius/app/util/themes/app_theme.dart';
+import 'package:yandex_sirius/generated/l10n.dart';
 
 
 class App extends StatelessWidget {

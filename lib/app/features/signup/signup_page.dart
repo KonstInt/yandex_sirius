@@ -5,6 +5,7 @@ import 'package:yandex_sirius/app/features/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/app/features/signup/signup_form1.dart';
 import 'package:yandex_sirius/app/features/signup/signup_form2.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
+import 'package:yandex_sirius/generated/l10n.dart';
 
 
 
