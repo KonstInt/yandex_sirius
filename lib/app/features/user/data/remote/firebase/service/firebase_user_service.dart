@@ -72,9 +72,7 @@ class FirebaseUserService {
         email: login,
         password: password,
       );
-      print(1);
       String? token = credential.user!.uid;
-      print(token);
       var snapshot =
           await FirebaseFirestore.instance.collection('users').doc(token).get();
       var user = FirebaseApiUserModel.fromJson(snapshot.data()!);
