@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_sirius/app/features/signup/presentation.dart';
+
 
 import '../../../generated/l10n.dart';
+import 'bloc/signup_bloc.dart';
 
 class SignUpForm2 extends StatelessWidget {
   const SignUpForm2({super.key});
@@ -12,7 +13,7 @@ class SignUpForm2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocListener<SignupCubit, SignupState>(
+    return BlocListener<SignupBloc, SignupState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
           Navigator.pop(context);
@@ -51,13 +52,13 @@ class _NickName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
           key: const Key('nick_input'),
           onChanged: (nickName) =>
-              context.read<SignupCubit>().nicknameChanged(nickName),
+              context.read<SignupBloc>().add(NicknameChanged(nickName)),
           decoration: InputDecoration(
               labelText: l10n.alias,
               helperText: '',
@@ -74,12 +75,12 @@ class _Name extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
           key: const Key('name'),
-          onChanged: (name) => context.read<SignupCubit>().nameChanged(name),
+          onChanged: (name) => context.read<SignupBloc>().add(NameChanged(name)),
           decoration: InputDecoration(
             labelText: l10n.name,
             helperText: '',
@@ -95,13 +96,13 @@ class _Surname extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
           key: const Key('_Surname'),
           onChanged: (surname) =>
-              context.read<SignupCubit>().surnameChanged(surname),
+              context.read<SignupBloc>().add(SurnameChanged(surname)),
           decoration: InputDecoration(
             labelText: l10n.surname,
             helperText: '',
@@ -117,7 +118,7 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
@@ -130,7 +131,7 @@ class _SignUpButton extends StatelessWidget {
                   backgroundColor: Colors.orangeAccent,
                 ),
                 onPressed: state.isValid
-                    ? () => context.read<SignupCubit>().signUpFormSubmitted()
+                    ? () =>  context.read<SignupBloc>().add(SignUpFormSubmitted())
                     : null,
                 child: Text(l10n.signUp),
               );
@@ -142,7 +143,7 @@ class _SignUpButton extends StatelessWidget {
 class _ImagePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.photo != current.photo,
       builder: (context, state) {
         return Center(
@@ -172,7 +173,7 @@ class _ImagePicker extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 140, left: 70),
                 child: IconButton(
                   onPressed: () {
-                    context.read<SignupCubit>().photoChanged();
+                    context.read<SignupBloc>().add(PhotoChanged());
                     FocusScope.of(context).unfocus();
                   },
                   icon: const Icon(

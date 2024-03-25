@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_sirius/app/features/signup/presentation.dart';
+
 
 import '../../../generated/l10n.dart';
+import 'bloc/signup_bloc.dart';
 
 class SignUpForm1 extends StatelessWidget {
   const SignUpForm1({super.key});
@@ -11,7 +12,7 @@ class SignUpForm1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocListener<SignupCubit, SignupState>(
+    return BlocListener<SignupBloc, SignupState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
           ScaffoldMessenger.of(context)
@@ -52,11 +53,11 @@ class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_emailInput_textField'),
-          onChanged: (email) => context.read<SignupCubit>().emailChanged(email),
+          onChanged: (email) =>context.read<SignupBloc>().add(EmailChanged(email)),
           decoration: InputDecoration(
             labelText: l10n.email,
             helperText: '',
@@ -78,13 +79,12 @@ class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_passwordInput_textField'),
-          onChanged: (password) =>
-              context.read<SignupCubit>().passwordChanged(password),
+          onChanged: (newPassword) => context.read<SignupBloc>().add(PasswordChanged(newPassword)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.password,
@@ -107,14 +107,14 @@ class _ConfirmedPasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_confirmedPasswordInput_textField'),
-          onChanged: (confirmedPassword) => context
-              .read<SignupCubit>()
-              .confirmedPasswordChanged(confirmedPassword),
+          onChanged: (confirmedPassword) =>
+              context.read<SignupBloc>().add(ConfirmedPasswordChanged(confirmedPassword)),
+
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.confirmPassword,
@@ -137,7 +137,7 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<SignupCubit, SignupState>(
+    return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
@@ -152,7 +152,7 @@ class _SignUpButton extends StatelessWidget {
                 onPressed: () {
                   if (state.isValid) {
                     FocusScope.of(context).unfocus();
-                    context.read<SignupCubit>().authenticationSubmitted();
+                    context.read<SignupBloc>().add(AuthenticationSubmitted());
                   }
                 },
                 child: Text(l10n.next),

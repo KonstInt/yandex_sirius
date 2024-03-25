@@ -1,4 +1,5 @@
-part of 'signup_cubit.dart';
+part of 'signup_bloc.dart';
+
 
 @freezed
 class SignupState with _$SignupState {
@@ -28,3 +29,4 @@ class SignupState with _$SignupState {
     String? errorMessage,
   }) = _SignupStateSecondPage;
 }
+

@@ -1,28 +1,39 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:formz/formz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
+import 'package:meta/meta.dart';
 
+import '../../user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import '../../user/data/remote/firebase/service/firebase_user_service.dart';
 import '../../user/domain/exceptions/eceptions.dart';
 
+part 'signup_bloc.freezed.dart';
+part 'signup_event.dart';
 part 'signup_state.dart';
 
-part 'signup_cubit.freezed.dart';
-
 @injectable
-class SignupCubit extends Cubit<SignupState> {
-  SignupCubit(this._authenticationRepository)
-      : super(const SignupState.firstPage());
-
+class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final FirebaseUserService _authenticationRepository;
 
-  void emailChanged(String value) {
-    final email = value;
+  SignupBloc(this._authenticationRepository) : super(_SignupStateFirstPage()) {
+    on<EmailChanged>(_onEmailChanged);
+    on<PasswordChanged>(_onPasswordChanged);
+    on<SurnameChanged>(_onSurnameChanged);
+    on<NameChanged>(_onNameChanged);
+    on<NicknameChanged>(_onNicknameChanged);
+    on<PhotoChanged>(_onPhotoChanged);
+    on<ConfirmedPasswordChanged>(_onConfirmedPasswordChanged);
+    on<AuthenticationSubmitted>(_onAuthenticationSubmitted);
+    on<SignUpFormSubmitted> (_onSignUpFormSubmitted);
+
+  }
+  void _onEmailChanged(EmailChanged event, Emitter<SignupState> emit) {
+    final email = event.newEmail;
     emit(
       state.copyWith(
         email: email,
@@ -31,42 +42,42 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-  void surnameChanged(String value) {
+  void _onSurnameChanged(SurnameChanged event, Emitter<SignupState> emit) {
     bool checker =
-        (state.alias != '' && state.name != '' && state.surname != '');
+    (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
         isValid: checker,
-        surname: value,
+        surname: event.newSurname,
       ),
     );
   }
 
-  void nameChanged(String value) {
+  void _onNameChanged(NameChanged event, Emitter<SignupState> emit){
     bool checker =
-        (state.alias != '' && state.name != '' && state.surname != '');
+    (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
         isValid: checker,
-        name: value,
+        name: event.newName,
       ),
     );
   }
 
-  void nicknameChanged(String value) {
+  void _onNicknameChanged(NicknameChanged event, Emitter<SignupState> emit) {
     bool checker =
-        (state.alias != '' && state.name != '' && state.surname != '');
+    (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
         isValid: checker,
-        alias: value,
+        alias: event.nickname,
         errorMessage: null,
       ),
     );
   }
 
-  void passwordChanged(String value) {
-    final password = value;
+  void _onPasswordChanged(PasswordChanged event, Emitter<SignupState> emit) {
+    final password = event.newPassword;
     emit(
       state.copyWith(
         password: password,
@@ -75,7 +86,7 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-  void photoChanged() async {
+  void _onPhotoChanged(PhotoChanged event, Emitter<SignupState> emit) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -90,8 +101,8 @@ class SignupCubit extends Cubit<SignupState> {
     }
   }
 
-  void confirmedPasswordChanged(String value) {
-    final confirmedPassword = value;
+  void _onConfirmedPasswordChanged(ConfirmedPasswordChanged event, Emitter<SignupState> emit) {
+    final confirmedPassword = event.confirmedPassword;
     emit(
       state.copyWith(
         isValid: (confirmedPassword == state.password) ? true : false,
@@ -99,7 +110,7 @@ class SignupCubit extends Cubit<SignupState> {
     );
   }
 
-  Future<void> authenticationSubmitted() async {
+  Future<void> _onAuthenticationSubmitted(AuthenticationSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       String? id = await _authenticationRepository.authentication(
@@ -117,7 +128,7 @@ class SignupCubit extends Cubit<SignupState> {
     }
   }
 
-  Future<void> signUpFormSubmitted() async {
+  Future<void> _onSignUpFormSubmitted(SignUpFormSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       var user = FirebaseApiUserModel(

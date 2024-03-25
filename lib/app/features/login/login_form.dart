@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_sirius/app/features/signup/presentation.dart';
 import '../../../generated/l10n.dart';
+import '../signup/signup_page.dart';
 import 'bloc/login_bloc.dart';
 
 class LoginForm extends StatelessWidget {
