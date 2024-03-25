@@ -11,5 +11,9 @@ class UserManager {
     _userStreamController.add(user);
   }
 
-  StreamController<UserModel> get broadcast => _userStreamController;
+  void closeStream() {
+    _userStreamController.close();
+  }
+
+  Stream<UserModel> get broadcast => _userStreamController.stream;
 }

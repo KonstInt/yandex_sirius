@@ -6,5 +6,9 @@ part 'firebase_api_map_tag_model.freezed.dart';
 
 @freezed
 abstract class FirebaseApiMapTagModel with _$FirebaseApiMapTagModel {
-   factory FirebaseApiMapTagModel({required String photoUrl,  required String id, required CoordinateModel coordinate, @Default(Colors.pink) Color color}) = _FirebaseApiMapTagModel;
+  factory FirebaseApiMapTagModel(
+      {required String photoUrl,
+      required String id,
+      required CoordinateModel coordinate,
+      @Default(Colors.pink) Color color}) = _FirebaseApiMapTagModel;
 }

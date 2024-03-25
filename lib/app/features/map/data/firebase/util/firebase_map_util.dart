@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/mappers/firebase_coordinate_mapper.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/mappers/firebase_map_tag_mapper.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/service/firebase_map_service.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/mappers/firebase_coordinate_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/mappers/firebase_map_tag_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/service/firebase_map_service.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordinate_model.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_model.dart';
 
@@ -31,7 +31,7 @@ class FirebaseMapUtil {
     );
   }
 
-  void closeFriendsStream(){
+  void closeFriendsStream() {
     service.closeFriendsStream();
   }
 }

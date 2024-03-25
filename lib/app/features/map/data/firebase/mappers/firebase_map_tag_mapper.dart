@@ -1,4 +1,4 @@
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/models/map_tag/firebase_api_map_tag_model.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/models/map_tag/firebase_api_map_tag_model.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_model.dart';
 
 class FirebaseMapTagMapper {
