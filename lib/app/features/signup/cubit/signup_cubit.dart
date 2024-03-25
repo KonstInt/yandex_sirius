@@ -128,6 +128,7 @@ class SignupCubit extends Cubit<SignupState> {
           isOnline: true,
           isGeoTrackingOn: true);
       await _authenticationRepository.signUp(user, state.email, state.password);
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on NicknameAlreadyExistsException catch (e) {
       emit(
         state.copyWith(

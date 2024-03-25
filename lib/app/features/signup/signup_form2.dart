@@ -15,8 +15,7 @@ class SignUpForm2 extends StatelessWidget {
     return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.pop(
-            context,);
+          Navigator.pop(context);
         } else if (state.status.isFailure && state.errorMessage != null) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
