@@ -15,5 +15,6 @@
   "name": "Name",
   "surname": "Surname",
   "alias" : "Alias",
-  "next" : "Next"
+  "next" : "Next",
+  "friends" : "Friends"
 }

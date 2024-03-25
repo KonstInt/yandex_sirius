@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount":
             MessageLookupByLibrary.simpleMessage("Создать аккаунт"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "friends": MessageLookupByLibrary.simpleMessage("Друзья"),
         "home": MessageLookupByLibrary.simpleMessage("Главная"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Неверный email"),
         "invalidPassword":
