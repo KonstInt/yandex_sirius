@@ -122,7 +122,7 @@ class _SignUpButton extends StatelessWidget {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
-                key: const Key('signUpForm_continue_elevatedButton'),
+                key: const Key('sign_up_button'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -173,6 +173,7 @@ class _ImagePicker extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     context.read<SignupCubit>().photoChanged();
+                    FocusScope.of(context).unfocus();
                   },
                   icon: const Icon(
                     Icons.camera_alt,

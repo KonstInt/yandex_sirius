@@ -151,6 +151,7 @@ class _SignUpButton extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (state.isValid) {
+                    FocusScope.of(context).unfocus();
                     context.read<SignupCubit>().authenticationSubmitted();
                   }
                 },

@@ -100,6 +100,7 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   Future<void> authenticationSubmitted() async {
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       String? id = await _authenticationRepository.authentication(
           state.email, state.password);
@@ -117,6 +118,7 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   Future<void> signUpFormSubmitted() async {
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       var user = FirebaseApiUserModel(
           id: state.id!,
