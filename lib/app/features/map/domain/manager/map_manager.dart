@@ -25,7 +25,7 @@ class MapManager {
   }
   final RemoteMapRepository remoteMapRepository;
   final UserCoordinatesRepository userCoordinatesRepository;
-  final UserManager userUseCase;
+  final UserUseCase userUseCase;
   late final StreamController<CoordinateModel> _pollingController;
   List<MapTagModel> _friendsTag = [];
   bool isStartTrackFriendCallFlag = false;

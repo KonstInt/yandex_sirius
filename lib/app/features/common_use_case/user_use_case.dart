@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
 
-class UserManager {
-  UserManager()
+class UserUseCase {
+  UserUseCase()
       : _userStreamController = StreamController<UserModel>.broadcast();
   final StreamController<UserModel> _userStreamController;
 
