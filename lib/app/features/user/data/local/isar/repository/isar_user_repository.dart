@@ -6,7 +6,7 @@ import 'package:yandex_sirius/app/features/user/domain/repository/local_user_rep
 class IsarUserRepository extends LocalUserRepository {
   IsarUserRepository({required this.util, required this.userUseCase});
   final IsarUserUtil util;
-  final UserUseCase userUseCase;
+  final UserManager userUseCase;
   @override
   Future<UserModel> saveUser(UserModel user) async {
     final res = await util.saveUser(user);

@@ -6,7 +6,7 @@ import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_re
 class FirebaseUserRepository extends RemoteUserRepository {
   FirebaseUserRepository({required this.util, required this.userUseCase});
   final FirebaseUserUtil util;
-  final UserUseCase userUseCase;
+  final UserManager userUseCase;
   @override
   Future<UserModel> signUp(
       UserModel user, String login, String password) async {
