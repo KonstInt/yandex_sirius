@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:yandex_sirius/app/features/signup/presentation.dart';
 import '../../../generated/l10n.dart';
-import 'cubit/login_cubit.dart';
+import 'bloc/login_bloc.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -11,9 +11,9 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.status.isFailure) {
+        if (state.status.isFailure && state.errorMessage != null) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -49,12 +49,12 @@ class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextField(
           key: const Key('loginForm_emailInput_textField'),
-          onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
+          onChanged: (email) => context.read<LoginBloc>().add(EmailChanged(email)),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             labelText: l10n.email,
@@ -70,13 +70,13 @@ class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
           key: const Key('loginForm_passwordInput_textField'),
           onChanged: (password) =>
-              context.read<LoginCubit>().passwordChanged(password),
+              context.read<LoginBloc>().add(PasswordChanged(password)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.password,
@@ -92,7 +92,7 @@ class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
@@ -105,7 +105,7 @@ class _LoginButton extends StatelessWidget {
                   backgroundColor: const Color(0xFFFFD600),
                 ),
                 onPressed: state.isValid
-                    ? () => context.read<LoginCubit>().logInWithCredentials()
+                    ? () => context.read<LoginBloc>().add(LogInWithCredentials())
                     : null,
                 child: Text(l10n.login),
               );
