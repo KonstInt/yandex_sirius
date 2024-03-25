@@ -63,15 +63,10 @@ class _NickName extends StatelessWidget {
           onChanged: (nickName) =>
               context.read<SignupCubit>().nicknameChanged(nickName),
           decoration: InputDecoration(
-            labelText: l10n.alias,
-            helperText: '',
-            errorText:  (state.errorMessage != null)
-                ? (state.errorMessage!.contains('Nickname') ||
-                state.errorMessage!.contains('Nickname.'))
-                ? state.errorMessage
-                : null
-                : null,
-          ),
+              labelText: l10n.alias,
+              helperText: '',
+              errorText:
+                  (state.errorMessage != null) ? state.errorMessage : null),
           textInputAction: TextInputAction.next,
         );
       },

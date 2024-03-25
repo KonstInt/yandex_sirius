@@ -39,7 +39,7 @@ class FirebaseUserService {
         email: login,
         password: password,
       );
-      String? token = await credential.user?.getIdToken() ?? '';
+      String? token = credential.user!.uid;
       return token;
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
@@ -47,7 +47,6 @@ class FirebaseUserService {
       throw const SignUpWithEmailAndPasswordFailure();
     }
   }
-
 
   Future<FirebaseApiUserModel?> signUp(
       FirebaseApiUserModel apiUserModel, String login, String password) async {
@@ -63,20 +62,23 @@ class FirebaseUserService {
     await FirebaseFirestore.instance
         .collection('nicknames')
         .doc(apiUserModel.nickname)
-        .set(newUser.toJson());
+        .set({});
     return newUser;
   }
 
   Future<FirebaseApiUserModel> signIn(String login, String password) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: login, password: password);
-      String? token = await credential.user!.getIdToken();
+      print('1');
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: login,
+        password: password,
+      );
+      String? token = credential.user!.uid;
       var snapshot =
           await FirebaseFirestore.instance.collection('users').doc(token).get();
       var user = FirebaseApiUserModel.fromJson(snapshot.data()!);
       return user;
-    } on FirebaseAuthException catch (e) {
+    } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithEmailAndPasswordFailure();
@@ -101,9 +103,10 @@ class FirebaseUserService {
   }
 }
 
-
 Future<bool> checkIfNicknameExists(String nickname) async {
-  CollectionReference nicknamesRef = FirebaseFirestore.instance.collection('nicknames');
-  QuerySnapshot querySnapshot = await nicknamesRef.where('nickname', isEqualTo: nickname).get();
+  CollectionReference nicknamesRef =
+      FirebaseFirestore.instance.collection('nicknames');
+  QuerySnapshot querySnapshot =
+      await nicknamesRef.where('nickname', isEqualTo: nickname).get();
   return querySnapshot.docs.isNotEmpty;
 }
