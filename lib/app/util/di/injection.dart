@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/mappers/firebase_coordinate_mapper.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/mappers/firebase_map_tag_mapper.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/repository/firebase_remote_repository.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/service/firebase_map_service.dart';
-import 'package:yandex_sirius/app/features/map/data/remote/firebase/util/firebase_map_util.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/mappers/firebase_coordinate_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/mappers/firebase_map_tag_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/repository/firebase_remote_repository.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/service/firebase_map_service.dart';
+import 'package:yandex_sirius/app/features/map/data/firebase/util/firebase_map_util.dart';
+import 'package:yandex_sirius/app/features/map/data/isar_local_storage/mappers/isar_local_coordinate_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/isar_local_storage/mappers/isar_local_map_tag_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/isar_local_storage/repository/isar_local_map_storage_repository.dart';
+import 'package:yandex_sirius/app/features/map/data/isar_local_storage/service/isar_local_map_service.dart';
+import 'package:yandex_sirius/app/features/map/data/isar_local_storage/util/isar_local_map_util.dart';
+import 'package:yandex_sirius/app/features/map/data/local_coordinates/mappers/local_coordinates_api_coordinate_mapper.dart';
+import 'package:yandex_sirius/app/features/map/data/local_coordinates/repository/local_coordinates_repository.dart';
+import 'package:yandex_sirius/app/features/map/data/local_coordinates/service/local_coordinates_service.dart';
+import 'package:yandex_sirius/app/features/map/data/local_coordinates/util/local_coordinates_util.dart';
 import 'package:yandex_sirius/app/features/map/domain/manager/map_manager.dart';
+import 'package:yandex_sirius/app/features/map/domain/repository/coordinates/coordinates_repository.dart';
+import 'package:yandex_sirius/app/features/map/domain/repository/local_storage/local_storage_repository.dart';
 import 'package:yandex_sirius/app/features/map/domain/repository/remote/remote_map_repository.dart';
 import 'package:yandex_sirius/app/features/user/data/local/isar/mappers/isar_friend_mapper.dart';
 import 'package:yandex_sirius/app/features/user/data/local/isar/mappers/isar_user_mapper.dart';
@@ -26,7 +37,7 @@ Future<void> setUpDI(DIOptions options) async {
   WidgetsFlutterBinding.ensureInitialized();
   final getIt = GetIt.instance;
   //TODO:
- /* getIt.registerLazySingleton<MyRouterDelegate>(() => MyRouterDelegate());
+  /* getIt.registerLazySingleton<MyRouterDelegate>(() => MyRouterDelegate());
   getIt.registerLazySingleton<CustomRouteInformationParser>(
       () => CustomRouteInformationParser());
 */
@@ -87,32 +98,53 @@ Future<void> _setUpDev(GetIt getIt) async {
         coordinateMapper: GetIt.I<FirebaseCoordinateMapper>()))
     ..registerSingleton<RemoteMapRepository>(
         FirebaseRemoteMapRepository(util: GetIt.I<FirebaseMapUtil>()))
+    //Register the user coordinates repository
+    ..registerSingleton<LocalCoordinatesService>(LocalCoordinatesService())
+    ..registerSingleton<LocalCoordinatesApiCoordinateMapper>(
+        LocalCoordinatesApiCoordinateMapper())
+    ..registerSingleton<LocalCoordinatesUtil>(LocalCoordinatesUtil(
+        service: GetIt.I<LocalCoordinatesService>(),
+        mapper: GetIt.I<LocalCoordinatesApiCoordinateMapper>()))
+    ..registerSingleton<UserCoordinatesRepository>(
+        LocalCoordinatesRepository(util: GetIt.I<LocalCoordinatesUtil>()))
+    //Register isar local map package
+    ..registerSingleton<IsarLocalMapService>(IsarLocalMapService())
+    ..registerSingleton<IsarLocalCoordinateMapper>(IsarLocalCoordinateMapper())
+    ..registerSingleton<IsarLocalMapTagMapper>(IsarLocalMapTagMapper())
+    ..registerSingleton<IsarLocalMapUtil>(IsarLocalMapUtil(
+        service: GetIt.I<IsarLocalMapService>(),
+        mapperCoordinateMapper: GetIt.I<IsarLocalCoordinateMapper>(),
+        mapperTagMapper: GetIt.I<IsarLocalMapTagMapper>()))
+    ..registerSingleton<LocalStorageRepository>(
+        IsarLocalMapStorageRepository(util: GetIt.I<IsarLocalMapUtil>()))
     //Register map manager
     ..registerSingleton<MapManager>(MapManager(
-        remoteMapRepository: GetIt.I<RemoteMapRepository>(),
-        userUseCase: GetIt.I<UserUseCase>()))
-    //Register remote user repository 
+      remoteMapRepository: GetIt.I<RemoteMapRepository>(),
+      userUseCase: GetIt.I<UserUseCase>(),
+      userCoordinatesRepository: GetIt.I<UserCoordinatesRepository>(),
+    ))
+    //Register remote user repository
     ..registerSingleton<FirebaseUserService>(FirebaseUserService())
     ..registerSingleton<FirebaseFriendMapper>(FirebaseFriendMapper())
     ..registerSingleton<FirebaseUserMapper>(FirebaseUserMapper())
     ..registerSingleton<FirebaseUserUtil>(FirebaseUserUtil(
         mapper: GetIt.I<FirebaseUserMapper>(),
         service: GetIt.I<FirebaseUserService>()))
-    ..registerSingleton<RemoteUserRepository>(FirebaseUserRepository(userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<FirebaseUserUtil>()))
-    //Register local user repository
-   ..registerSingleton<IsarUserService>(IsarUserService())
+    ..registerSingleton<RemoteUserRepository>(FirebaseUserRepository(
+        userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<FirebaseUserUtil>()))
+    //Register local isar user repository
+    ..registerSingleton<IsarUserService>(IsarUserService())
     ..registerSingleton<IsarFriendMapper>(IsarFriendMapper())
     ..registerSingleton<IsarUserMapper>(IsarUserMapper())
     ..registerSingleton<IsarUserUtil>(IsarUserUtil(
-        mapper: GetIt.I<IsarUserMapper>(),
-        service: GetIt.I<IsarUserService>()))
-    ..registerSingleton<LocalUserRepository>(IsarUserRepository(userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()));
-    
+        mapper: GetIt.I<IsarUserMapper>(), service: GetIt.I<IsarUserService>()))
+    ..registerSingleton<LocalUserRepository>(IsarUserRepository(
+        userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()));
 }
 
 ///SETUP PROD
 Future<void> _setUpProd(GetIt getIt) async {
- /* await initFirebase();
+  /* await initFirebase();
   getIt.registerLazySingleton<FAnalytic>(() => FAnalyticProd());
   getIt.registerLazySingleton<FRemoteConfigs>(() => FRemoteConfigsProd());
   getIt.registerLazySingleton<FirebaseAppConfig>(
@@ -139,14 +171,6 @@ Future<void> _setUpProd(GetIt getIt) async {
     ),
     instanceName: "LocalRepository",
   );
-
-  getIt.registerLazySingleton<AbstractSharedPrefsRepository>(
-    () => SharedPrefsDataRepository(
-      SharedPrefsApiUtil(
-        SharedPrefsService(),
-      ),
-    ),
-    instanceName: "SharedPrefsRepository",
   );*/
 }
 
@@ -162,7 +186,6 @@ Future<void> _setUpTest(GetIt getIt) async {
   );
   getIt.registerSingleton<LocalToDoService>(MockLocalToDoService());
   getIt.registerSingleton<RemoteToDoService>(MockRemoteToDoService());
-  getIt.registerSingleton<SharedPrefsService>(MockSharedPrefsService());
   getIt.registerLazySingleton<AbstractTodoTasksRepository>(
     () => TodoDataRemoteRepository(
       RemoteApiUtil(
@@ -180,12 +203,5 @@ Future<void> _setUpTest(GetIt getIt) async {
     instanceName: "LocalRepository",
   );
 
-  getIt.registerLazySingleton<AbstractSharedPrefsRepository>(
-    () => SharedPrefsDataRepository(
-      SharedPrefsApiUtil(
-        GetIt.I<SharedPrefsService>(),
-      ),
-    ),
-    instanceName: "SharedPrefsRepository",
-  );*/
+  */
 }
