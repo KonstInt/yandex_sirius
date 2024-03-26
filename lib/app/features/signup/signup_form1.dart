@@ -4,8 +4,6 @@ import 'package:formz/formz.dart';
 import 'package:yandex_sirius/app/features/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
-
-
 class SignUpForm1 extends StatelessWidget {
   const SignUpForm1({super.key});
 
@@ -57,7 +55,8 @@ class _EmailInput extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_emailInput_textField'),
-          onChanged: (email) =>context.read<SignupBloc>().add(EmailChanged(email)),
+          onChanged: (email) =>
+              context.read<SignupBloc>().add(EmailChanged(email)),
           decoration: InputDecoration(
             labelText: l10n.email,
             helperText: '',
@@ -84,7 +83,8 @@ class _PasswordInput extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_passwordInput_textField'),
-          onChanged: (newPassword) => context.read<SignupBloc>().add(PasswordChanged(newPassword)),
+          onChanged: (newPassword) =>
+              context.read<SignupBloc>().add(PasswordChanged(newPassword)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.password,
@@ -112,9 +112,9 @@ class _ConfirmedPasswordInput extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_confirmedPasswordInput_textField'),
-          onChanged: (confirmedPassword) =>
-              context.read<SignupBloc>().add(ConfirmedPasswordChanged(confirmedPassword)),
-
+          onChanged: (confirmedPassword) => context
+              .read<SignupBloc>()
+              .add(ConfirmedPasswordChanged(confirmedPassword)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.confirmPassword,

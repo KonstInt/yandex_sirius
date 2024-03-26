@@ -1,39 +1,39 @@
 part of 'signup_bloc.dart';
 
-
 class SignupEvent {}
 
 class EmailChanged extends SignupEvent {
-  final String newEmail;
   EmailChanged(this.newEmail);
+  final String newEmail;
 }
 
 class PasswordChanged extends SignupEvent {
-  final String newPassword;
   PasswordChanged(this.newPassword);
+  final String newPassword;
 }
 
 class SurnameChanged extends SignupEvent {
-  final String newSurname;
   SurnameChanged(this.newSurname);
+  final String newSurname;
 }
 
 class NameChanged extends SignupEvent {
-  final String newName;
   NameChanged(this.newName);
+  final String newName;
 }
 
 class NicknameChanged extends SignupEvent {
-  final String nickname;
   NicknameChanged(this.nickname);
+  final String nickname;
 }
+
 class PhotoChanged extends SignupEvent {}
+
 class ConfirmedPasswordChanged extends SignupEvent {
-  final String confirmedPassword;
   ConfirmedPasswordChanged(this.confirmedPassword);
+  final String confirmedPassword;
 }
 
 class AuthenticationSubmitted extends SignupEvent {}
 
 class SignUpFormSubmitted extends SignupEvent {}
-

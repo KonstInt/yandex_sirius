@@ -2,7 +2,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class ModalScrollController extends InheritedWidget {
-
   ModalScrollController({
     required this.controller,
     required Widget child,

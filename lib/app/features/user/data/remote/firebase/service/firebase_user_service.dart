@@ -4,28 +4,27 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import 'package:yandex_sirius/app/features/user/domain/exceptions/eceptions.dart';
 
-
 class FirebaseUserService {
   Future<FirebaseApiUserModel> getUser(String userId) async {
-    var snapshot =
+    final snapshot =
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
-    var user = FirebaseApiUserModel.fromJson(snapshot.data()!);
+    final user = FirebaseApiUserModel.fromJson(snapshot.data()!);
     return user;
   }
 
   Future<List<FirebaseApiUserModel>> getFriends(String userId) async {
-    var querySnapshot = await FirebaseFirestore.instance
+    final querySnapshot = await FirebaseFirestore.instance
         .collection('friends')
         .where('userId', isEqualTo: userId)
         .get();
-    List<String> friendIds = [];
-    for (var element in querySnapshot.docs) {
-      var id = element['friendId'];
+    final List<String> friendIds = [];
+    for (final element in querySnapshot.docs) {
+      final id = element['friendId'];
       friendIds.add(id);
     }
-    List<FirebaseApiUserModel> friends = [];
-    for (String id in friendIds) {
-      var snapshot =
+    final List<FirebaseApiUserModel> friends = [];
+    for (final String id in friendIds) {
+      final snapshot =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
       friends.add(FirebaseApiUserModel.fromJson(snapshot.data()!));
     }
@@ -39,7 +38,7 @@ class FirebaseUserService {
         email: login,
         password: password,
       );
-      String? token = credential.user!.uid;
+      final String? token = credential.user!.uid;
       return token;
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
@@ -50,7 +49,7 @@ class FirebaseUserService {
 
   Future<FirebaseApiUserModel?> signUp(
       FirebaseApiUserModel apiUserModel, String login, String password) async {
-    bool nicknameExists = await checkIfNicknameExists(apiUserModel.nickname);
+    final bool nicknameExists = await checkIfNicknameExists(apiUserModel.nickname);
     if (nicknameExists) {
       throw const NicknameAlreadyExistsException();
     }

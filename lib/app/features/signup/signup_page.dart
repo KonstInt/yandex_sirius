@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/app/features/signup/signup_form1.dart';
 import 'package:yandex_sirius/app/features/signup/signup_form2.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
-
-
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});

@@ -5,8 +5,6 @@ import 'package:formz/formz.dart';
 import 'package:yandex_sirius/app/features/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
-
-
 class SignUpForm2 extends StatelessWidget {
   const SignUpForm2({super.key});
 
@@ -80,7 +78,8 @@ class _Name extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('name'),
-          onChanged: (name) => context.read<SignupBloc>().add(NameChanged(name)),
+          onChanged: (name) =>
+              context.read<SignupBloc>().add(NameChanged(name)),
           decoration: InputDecoration(
             labelText: l10n.name,
             helperText: '',
@@ -131,7 +130,8 @@ class _SignUpButton extends StatelessWidget {
                   backgroundColor: Colors.orangeAccent,
                 ),
                 onPressed: state.isValid
-                    ? () =>  context.read<SignupBloc>().add(SignUpFormSubmitted())
+                    ? () =>
+                        context.read<SignupBloc>().add(SignUpFormSubmitted())
                     : null,
                 child: Text(l10n.signUp),
               );
@@ -153,7 +153,7 @@ class _ImagePicker extends StatelessWidget {
                 height: 200,
                 width: 200,
                 alignment: Alignment.bottomCenter,
-                key: const Key("image_picker"),
+                key: const Key('image_picker'),
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   shape: BoxShape.circle,

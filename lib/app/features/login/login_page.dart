@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
     //di
     final signInBloc = LoginBloc(FirebaseUserService());
     return Scaffold(
-      appBar: AppBar(title:  Text(l10n.login)),
+      appBar: AppBar(title: Text(l10n.login)),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider.value(

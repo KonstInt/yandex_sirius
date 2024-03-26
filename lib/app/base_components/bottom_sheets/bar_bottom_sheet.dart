@@ -7,7 +7,6 @@ import 'package:yandex_sirius/app/base_components/bottom_sheets/bottom_sheet_rou
 const Radius kDefaultBarTopRadius = Radius.circular(15);
 
 class BarBottomSheet extends StatelessWidget {
-
   const BarBottomSheet({
     required this.child,
     Key? key,
@@ -18,7 +17,7 @@ class BarBottomSheet extends StatelessWidget {
     this.elevation,
     this.overlayStyle,
   }) : super(key: key);
-  
+
   final Widget child;
   final Widget? control;
   final Clip? clipBehavior;

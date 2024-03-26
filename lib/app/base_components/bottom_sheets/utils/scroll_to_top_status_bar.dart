@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 class ScrollToTopStatusBarHandler extends StatefulWidget {
-
   const ScrollToTopStatusBarHandler({
     required this.child,
     required this.scrollController,

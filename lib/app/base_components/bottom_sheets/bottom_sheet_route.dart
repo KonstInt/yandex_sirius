@@ -7,7 +7,6 @@ import 'package:yandex_sirius/app/base_components/bottom_sheets/utils/modal_scro
 const Duration _bottomSheetDuration = Duration(milliseconds: 400);
 
 class _ModalBottomSheet<T> extends StatefulWidget {
-
   const _ModalBottomSheet({
     required this.route,
     Key? key,
@@ -121,20 +120,6 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
 }
 
 class ModalSheetRoute<T> extends PageRoute<T> {
-  final double? closeProgressThreshold;
-  final WidgetWithChildBuilder? containerBuilder;
-  final WidgetBuilder builder;
-  final bool expanded;
-  final bool bounce;
-  final Color? modalBarrierColor;
-  final bool isDismissible;
-  final bool enableDrag;
-  final ScrollController? scrollController;
-
-  final Duration duration;
-
-  final AnimationController? secondAnimationController;
-  final Curve? animationCurve;
 
   ModalSheetRoute({
     required this.builder,
@@ -153,6 +138,20 @@ class ModalSheetRoute<T> extends PageRoute<T> {
     RouteSettings? settings,
   })  : duration = duration ?? _bottomSheetDuration,
         super(settings: settings);
+  final double? closeProgressThreshold;
+  final WidgetWithChildBuilder? containerBuilder;
+  final WidgetBuilder builder;
+  final bool expanded;
+  final bool bounce;
+  final Color? modalBarrierColor;
+  final bool isDismissible;
+  final bool enableDrag;
+  final ScrollController? scrollController;
+
+  final Duration duration;
+
+  final AnimationController? secondAnimationController;
+  final Curve? animationCurve;
 
   @override
   Duration get transitionDuration => duration;

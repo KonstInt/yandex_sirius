@@ -4,7 +4,6 @@ import 'package:yandex_sirius/app/features/login/login_page.dart';
 import 'package:yandex_sirius/app/util/themes/app_theme.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
-
 class App extends StatelessWidget {
   const App({super.key});
   @override
@@ -15,11 +14,12 @@ class App extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           title: 'Flutter Sirius',
-          theme: AppTheme.lightTheme, localizationsDelegates: const [
-        S.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      home: const LoginPage(),
+          theme: AppTheme.lightTheme,
+          localizationsDelegates: const [
+            S.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          home: const LoginPage(),
         );
       },
     );

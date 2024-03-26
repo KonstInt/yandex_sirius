@@ -4,10 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/app/features/user/domain/exceptions/eceptions.dart';
-
 
 part 'login_bloc.freezed.dart';
 
@@ -16,13 +14,13 @@ part 'login_state.dart';
 
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final FirebaseUserService _authenticationRepository;
 
   LoginBloc(this._authenticationRepository) : super(const LoginState()) {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<LogInWithCredentials>(_onLogInWithCredentials);
   }
+  final FirebaseUserService _authenticationRepository;
 
   void _onEmailChanged(EmailChanged event, Emitter<LoginState> emit) {
     final email = event.newEmail;

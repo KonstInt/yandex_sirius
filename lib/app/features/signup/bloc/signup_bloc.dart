@@ -6,11 +6,9 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/app/features/user/domain/exceptions/eceptions.dart';
-
 
 part 'signup_bloc.freezed.dart';
 part 'signup_event.dart';
@@ -18,9 +16,8 @@ part 'signup_state.dart';
 
 @injectable
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  final FirebaseUserService _authenticationRepository;
 
-  SignupBloc(this._authenticationRepository) : super(_SignupStateFirstPage()) {
+  SignupBloc(this._authenticationRepository) : super(const _SignupStateFirstPage()) {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<SurnameChanged>(_onSurnameChanged);
@@ -29,9 +26,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<PhotoChanged>(_onPhotoChanged);
     on<ConfirmedPasswordChanged>(_onConfirmedPasswordChanged);
     on<AuthenticationSubmitted>(_onAuthenticationSubmitted);
-    on<SignUpFormSubmitted> (_onSignUpFormSubmitted);
-
+    on<SignUpFormSubmitted>(_onSignUpFormSubmitted);
   }
+  final FirebaseUserService _authenticationRepository;
   void _onEmailChanged(EmailChanged event, Emitter<SignupState> emit) {
     final email = event.newEmail;
     emit(
@@ -43,8 +40,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _onSurnameChanged(SurnameChanged event, Emitter<SignupState> emit) {
-    bool checker =
-    (state.alias != '' && state.name != '' && state.surname != '');
+    final bool checker =
+        state.alias != '' && state.name != '' && state.surname != '';
     emit(
       state.copyWith(
         isValid: checker,
@@ -53,9 +50,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  void _onNameChanged(NameChanged event, Emitter<SignupState> emit){
-    bool checker =
-    (state.alias != '' && state.name != '' && state.surname != '');
+  void _onNameChanged(NameChanged event, Emitter<SignupState> emit) {
+    final bool checker =
+        state.alias != '' && state.name != '' && state.surname != '';
     emit(
       state.copyWith(
         isValid: checker,
@@ -65,8 +62,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _onNicknameChanged(NicknameChanged event, Emitter<SignupState> emit) {
-    bool checker =
-    (state.alias != '' && state.name != '' && state.surname != '');
+    final bool checker =
+        state.alias != '' && state.name != '' && state.surname != '';
     emit(
       state.copyWith(
         isValid: checker,
@@ -86,7 +83,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  void _onPhotoChanged(PhotoChanged event, Emitter<SignupState> emit) async {
+  Future<void> _onPhotoChanged(PhotoChanged event, Emitter<SignupState> emit) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -101,7 +98,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
   }
 
-  void _onConfirmedPasswordChanged(ConfirmedPasswordChanged event, Emitter<SignupState> emit) {
+  void _onConfirmedPasswordChanged(
+      ConfirmedPasswordChanged event, Emitter<SignupState> emit) {
     final confirmedPassword = event.confirmedPassword;
     emit(
       state.copyWith(
@@ -110,10 +108,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  Future<void> _onAuthenticationSubmitted(AuthenticationSubmitted event, Emitter<SignupState> emit) async {
+  Future<void> _onAuthenticationSubmitted(
+      AuthenticationSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      String? id = await _authenticationRepository.authentication(
+      final String? id = await _authenticationRepository.authentication(
           state.email, state.password);
       emit(_SignupStateSecondPage(id: id));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
@@ -128,10 +127,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
   }
 
-  Future<void> _onSignUpFormSubmitted(SignUpFormSubmitted event, Emitter<SignupState> emit) async {
+  Future<void> _onSignUpFormSubmitted(
+      SignUpFormSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      var user = FirebaseApiUserModel(
+      final user = FirebaseApiUserModel(
           id: state.id!,
           name: state.name,
           secondName: state.surname,
