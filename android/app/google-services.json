@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145020530854",
+    "project_id": "yandexzendly",
+    "storage_bucket": "yandexzendly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145020530854:android:600b9e4c94661df9414467",
+        "android_client_info": {
+          "package_name": "com.example.yandex_sirius"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8GGwYHDgnMdD7Loah72Ufj0AgClzsc9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

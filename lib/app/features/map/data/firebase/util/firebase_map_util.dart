@@ -14,12 +14,11 @@ class FirebaseMapUtil {
   final FirebaseMapTagMapper mapMapper;
   final FirebaseMapService service;
   final FirebaseCoordinateMapper coordinateMapper;
-  Future<Stream<MapTagModel>> getFriendCoordinateStream(
+  Future<Stream<List<MapTagModel>>> getFriendCoordinateStream(
       List<MapTagModel> friendsList) async {
     return (await service.getFriendCoordinateStream(
       friendsList.map(mapMapper.toApi).toList(),
-    ))
-        .map(mapMapper.fromApi);
+    )).map((s) => s.map(mapMapper.fromApi).toList());
   }
 
   Future<CoordinateModel> setUserCoordinateStream(

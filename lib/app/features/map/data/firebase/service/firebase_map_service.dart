@@ -7,7 +7,7 @@ class FirebaseMapService {
   late final StreamController<FirebaseApiMapTagModel> friendsStream;
   //TODO: firebase variable
   bool friendsStreamIsInitialized = false;
-  Future<Stream<FirebaseApiMapTagModel>> getFriendCoordinateStream(
+  Future<Stream<List<FirebaseApiMapTagModel>>> getFriendCoordinateStream(
       List<FirebaseApiMapTagModel> friendsList) async {
     //TODO: create stream and return it with
     if (!friendsStreamIsInitialized) {
