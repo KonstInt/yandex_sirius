@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_sirius/app/features/signup/bloc/signup_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
 class SignUpForm1 extends StatelessWidget {
@@ -9,8 +9,8 @@ class SignUpForm1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocListener<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
           ScaffoldMessenger.of(context)
@@ -50,13 +50,14 @@ class SignUpForm1 extends StatelessWidget {
 class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_emailInput_textField'),
-          onChanged: (email) =>
-              context.read<SignupBloc>().add(EmailChanged(email)),
+          onChanged: (email) => context
+              .read<SignUpBloc>()
+              .add(SignUpEvent.emailChanged(email: email)),
           decoration: InputDecoration(
             labelText: l10n.email,
             helperText: '',
@@ -77,14 +78,15 @@ class _EmailInput extends StatelessWidget {
 class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_passwordInput_textField'),
-          onChanged: (newPassword) =>
-              context.read<SignupBloc>().add(PasswordChanged(newPassword)),
+          onChanged: (newPassword) => context
+              .read<SignUpBloc>()
+              .add(SignUpEvent.passwordChanged(password: newPassword)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.password,
@@ -106,15 +108,15 @@ class _PasswordInput extends StatelessWidget {
 class _ConfirmedPasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
           key: const Key('signUpForm_confirmedPasswordInput_textField'),
-          onChanged: (confirmedPassword) => context
-              .read<SignupBloc>()
-              .add(ConfirmedPasswordChanged(confirmedPassword)),
+          onChanged: (confirmedPassword) => context.read<SignUpBloc>().add(
+              SignUpEvent.confirmedPasswordChanged(
+                  confirmedPassword: confirmedPassword)),
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.confirmPassword,
@@ -136,8 +138,8 @@ class _ConfirmedPasswordInput extends StatelessWidget {
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
@@ -152,7 +154,9 @@ class _SignUpButton extends StatelessWidget {
                 onPressed: () {
                   if (state.isValid) {
                     FocusScope.of(context).unfocus();
-                    context.read<SignupBloc>().add(AuthenticationSubmitted());
+                    context
+                        .read<SignUpBloc>()
+                        .add(SignUpEvent.authenticationSubmitted());
                   }
                 },
                 child: Text(l10n.next),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yandex_sirius/app/features/login/login_page.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/login/login_page.dart';
 import 'package:yandex_sirius/app/util/themes/app_theme.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
@@ -16,9 +16,9 @@ class App extends StatelessWidget {
           title: 'Flutter Sirius',
           theme: AppTheme.lightTheme,
           localizationsDelegates: const [
-            S.delegate,
+            Localization.delegate,
           ],
-          supportedLocales: S.delegate.supportedLocales,
+          supportedLocales: Localization.delegate.supportedLocales,
           home: const LoginPage(),
         );
       },

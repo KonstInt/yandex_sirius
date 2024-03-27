@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:yandex_sirius/app/features/signup/bloc/signup_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
 class SignUpForm2 extends StatelessWidget {
@@ -10,8 +10,8 @@ class SignUpForm2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocListener<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
           Navigator.pop(context);
@@ -49,14 +49,15 @@ class SignUpForm2 extends StatelessWidget {
 class _NickName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
           key: const Key('nick_input'),
-          onChanged: (nickName) =>
-              context.read<SignupBloc>().add(NicknameChanged(nickName)),
+          onChanged: (nickName) => context
+              .read<SignUpBloc>()
+              .add(SignUpEvent.nicknameChanged(nickname: nickName)),
           decoration: InputDecoration(
               labelText: l10n.alias,
               helperText: '',
@@ -72,14 +73,15 @@ class _NickName extends StatelessWidget {
 class _Name extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
           key: const Key('name'),
-          onChanged: (name) =>
-              context.read<SignupBloc>().add(NameChanged(name)),
+          onChanged: (name) => context
+              .read<SignUpBloc>()
+              .add(SignUpEvent.nameChanged(name: name)),
           decoration: InputDecoration(
             labelText: l10n.name,
             helperText: '',
@@ -94,14 +96,15 @@ class _Name extends StatelessWidget {
 class _Surname extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.alias != current.alias,
       builder: (context, state) {
         return TextField(
           key: const Key('_Surname'),
-          onChanged: (surname) =>
-              context.read<SignupBloc>().add(SurnameChanged(surname)),
+          onChanged: (surname) => context
+              .read<SignUpBloc>()
+              .add(SignUpEvent.surnameChanged(surname: surname)),
           decoration: InputDecoration(
             labelText: l10n.surname,
             helperText: '',
@@ -116,8 +119,8 @@ class _Surname extends StatelessWidget {
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final l10n = S.of(context);
-    return BlocBuilder<SignupBloc, SignupState>(
+    final l10n = Localization.of(context);
+    return BlocBuilder<SignUpBloc, SignUpState>(
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
@@ -130,8 +133,9 @@ class _SignUpButton extends StatelessWidget {
                   backgroundColor: Colors.orangeAccent,
                 ),
                 onPressed: state.isValid
-                    ? () =>
-                        context.read<SignupBloc>().add(SignUpFormSubmitted())
+                    ? () => context
+                        .read<SignUpBloc>()
+                        .add(SignUpEvent.signUpFormSubmitted())
                     : null,
                 child: Text(l10n.signUp),
               );
@@ -143,7 +147,7 @@ class _SignUpButton extends StatelessWidget {
 class _ImagePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignupBloc, SignupState>(
+    return BlocBuilder<SignUpBloc, SignUpState>(
       buildWhen: (previous, current) => previous.photo != current.photo,
       builder: (context, state) {
         return Center(
@@ -173,7 +177,7 @@ class _ImagePicker extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 140, left: 70),
                 child: IconButton(
                   onPressed: () {
-                    context.read<SignupBloc>().add(PhotoChanged());
+                    context.read<SignUpBloc>().add(SignUpEvent.photoChanged());
                     FocusScope.of(context).unfocus();
                   },
                   icon: const Icon(

@@ -42,4 +42,9 @@ class FirebaseUserRepository extends RemoteUserRepository {
     userUseCase.writeUser(res);
     return res;
   }
+
+  @override
+  Future<bool> hasUser(String email) {
+    return util.hasUser(email);
+  }
 }

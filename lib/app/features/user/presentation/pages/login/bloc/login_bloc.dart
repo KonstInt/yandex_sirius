@@ -3,26 +3,30 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
-import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/app/features/user/domain/exceptions/eceptions.dart';
+import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 
 part 'login_bloc.freezed.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
-@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-
   LoginBloc(this._authenticationRepository) : super(const LoginState()) {
-    on<EmailChanged>(_onEmailChanged);
-    on<PasswordChanged>(_onPasswordChanged);
-    on<LogInWithCredentials>(_onLogInWithCredentials);
+    on<LoginEvent>((event, emit) async {
+      await event.map(
+          emailChanged: (event) async => await _onEmailChanged(event, emit),
+          passwordChanged: (event) async =>
+              await _onPasswordChanged(event, emit),
+          logInWithCredentials: (event) async =>
+              await _onLogInWithCredentials(event, emit));
+    });
   }
-  final FirebaseUserService _authenticationRepository;
 
-  void _onEmailChanged(EmailChanged event, Emitter<LoginState> emit) {
+  final RemoteUserRepository _authenticationRepository;
+
+  FutureOr<void> _onEmailChanged(
+      _EmailChanged event, Emitter<LoginState> emit) {
     final email = event.newEmail;
     emit(
       state.copyWith(
@@ -32,19 +36,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
-  void _onPasswordChanged(PasswordChanged event, Emitter<LoginState> emit) {
+  FutureOr<void> _onPasswordChanged(
+      _PasswordChanged event, Emitter<LoginState> emit) {
     final password = event.newPassword;
     emit(
       state.copyWith(
-        isValid: (state.email != '') ? true : false,
+        isValid: state.email != '',
         password: password,
         errorMessage: null,
       ),
     );
   }
 
-  Future<void> _onLogInWithCredentials(
-      LogInWithCredentials event, Emitter<LoginState> emit) async {
+  FutureOr<void> _onLogInWithCredentials(
+      _LogInWithCredentials event, Emitter<LoginState> emit) async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
@@ -57,7 +62,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           status: FormzSubmissionStatus.failure,
         ),
       );
-    } catch (_) {
+    } on Exception {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }

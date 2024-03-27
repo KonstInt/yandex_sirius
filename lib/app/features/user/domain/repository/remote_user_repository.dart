@@ -3,6 +3,7 @@ import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.da
 abstract class RemoteUserRepository {
   Future<UserModel> getUser(String userId);
   Future<UserModel> signUp(UserModel user, String login, String password);
+  Future<bool> hasUser(String email);
   Future<UserModel> updateUser(UserModel user);
   Future<UserModel> updateAvatar(String userId, String photoAvatar);
   Future<UserModel> signIn(String login, String password);

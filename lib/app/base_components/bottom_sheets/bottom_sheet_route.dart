@@ -120,7 +120,6 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
 }
 
 class ModalSheetRoute<T> extends PageRoute<T> {
-
   ModalSheetRoute({
     required this.builder,
     required this.expanded,

@@ -31,15 +31,10 @@ class FirebaseUserService {
     return friends;
   }
 
-  Future<String?> authentication(String login, String password) async {
+  Future<bool> hasUser(String email) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: login,
-        password: password,
-      );
-      final String? token = credential.user!.uid;
-      return token;
+     final q = await FirebaseFirestore.instance.collection('users').where("e-mail", isEqualTo: email).get();
+     return q.docs.isNotEmpty;
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } on Exception {
@@ -49,10 +44,17 @@ class FirebaseUserService {
 
   Future<FirebaseApiUserModel?> signUp(
       FirebaseApiUserModel apiUserModel, String login, String password) async {
-    final bool nicknameExists = await checkIfNicknameExists(apiUserModel.nickname);
+    final bool nicknameExists =
+        await _checkIfNicknameExists(apiUserModel.nickname);
     if (nicknameExists) {
       throw const NicknameAlreadyExistsException();
     }
+    final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: login,
+        password: password,
+      );
+      final String? token = credential.user!.uid;
     final newUser = apiUserModel.copyWith(id: apiUserModel.id);
     await FirebaseFirestore.instance
         .collection('users')
@@ -101,7 +103,7 @@ class FirebaseUserService {
   }
 }
 
-Future<bool> checkIfNicknameExists(String nickname) async {
+Future<bool> _checkIfNicknameExists(String nickname) async {
   final CollectionReference nicknamesRef =
       FirebaseFirestore.instance.collection('nicknames');
   final QuerySnapshot querySnapshot =

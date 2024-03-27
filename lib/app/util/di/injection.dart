@@ -35,6 +35,8 @@ import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/fir
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/util/firebase_user_util.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/local_user_repository.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/app/util/logger/logger.dart';
 import 'package:yandex_sirius/firebase_options.dart';
 
@@ -139,7 +141,8 @@ Future<void> _setUpDev(GetIt getIt) async {
     //Register remote user repository
     ..registerSingleton<FirebaseUserService>(FirebaseUserService())
     ..registerSingleton<FirebaseFriendMapper>(FirebaseFriendMapper())
-    ..registerSingleton<FirebaseUserMapper>(FirebaseUserMapper())
+    ..registerSingleton<FirebaseUserMapper>(
+        FirebaseUserMapper(friendMapper: GetIt.I<FirebaseFriendMapper>()))
     ..registerSingleton<FirebaseUserUtil>(FirebaseUserUtil(
         mapper: GetIt.I<FirebaseUserMapper>(),
         service: GetIt.I<FirebaseUserService>()))
@@ -152,7 +155,11 @@ Future<void> _setUpDev(GetIt getIt) async {
     ..registerSingleton<IsarUserUtil>(IsarUserUtil(
         mapper: GetIt.I<IsarUserMapper>(), service: GetIt.I<IsarUserService>()))
     ..registerSingleton<LocalUserRepository>(IsarUserRepository(
-        userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()));
+        userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()))
+    //Register SignIn bloc
+    ..registerSingleton<LoginBloc>(LoginBloc(GetIt.I<RemoteUserRepository>()))
+    //Register SignUp bloc 
+    ..registerSingleton<SignUpBloc>(SignUpBloc(GetIt.I<RemoteUserRepository>()));
 }
 
 ///SETUP PROD

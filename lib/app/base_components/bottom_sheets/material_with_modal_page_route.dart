@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:yandex_sirius/app/base_components/bottom_sheets/bottom_sheet_route.dart';
 
 class MaterialWithModalsPageRoute<T> extends MaterialPageRoute<T> {
-
   MaterialWithModalsPageRoute({
     required WidgetBuilder builder,
     RouteSettings? settings,

@@ -1,8 +1,8 @@
 part of 'signup_bloc.dart';
 
 @freezed
-class SignupState with _$SignupState {
-  const factory SignupState.firstPage({
+class SignUpState with _$SignUpState {
+  const factory SignUpState.firstPage({
     String? id,
     @Default('') String email,
     @Default('') String password,
@@ -13,9 +13,9 @@ class SignupState with _$SignupState {
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus status,
     @Default(false) bool isValid,
     String? errorMessage,
-  }) = _SignupStateFirstPage;
+  }) = _SignUpStateFirstPage;
 
-  const factory SignupState.secondPage({
+  const factory SignUpState.secondPage({
     String? id,
     @Default('') String email,
     @Default('') String password,
@@ -26,5 +26,5 @@ class SignupState with _$SignupState {
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus status,
     @Default(false) bool isValid,
     String? errorMessage,
-  }) = _SignupStateSecondPage;
+  }) = _SignUpStateSecondPage;
 }

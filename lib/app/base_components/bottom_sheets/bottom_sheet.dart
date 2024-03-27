@@ -15,7 +15,6 @@ typedef WidgetWithChildBuilder = Widget Function(
     BuildContext context, Animation<double> animation, Widget child);
 
 class ModalBottomSheet extends StatefulWidget {
-
   const ModalBottomSheet({
     required this.animationController,
     required this.scrollController,

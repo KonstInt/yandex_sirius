@@ -22,6 +22,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get secondName => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String? get photoUrl => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $UserModelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      String email,
       String secondName,
       String nickname,
       String? photoUrl,
@@ -66,6 +68,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? email = null,
     Object? secondName = null,
     Object? nickname = null,
     Object? photoUrl = freezed,
@@ -81,6 +84,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       secondName: null == secondName
           ? _value.secondName
@@ -121,6 +128,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
+      String email,
       String secondName,
       String nickname,
       String? photoUrl,
@@ -142,6 +150,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? email = null,
     Object? secondName = null,
     Object? nickname = null,
     Object? photoUrl = freezed,
@@ -157,6 +166,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       secondName: null == secondName
           ? _value.secondName
@@ -192,6 +205,7 @@ class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
       {required this.id,
       required this.name,
+      required this.email,
       required this.secondName,
       required this.nickname,
       required this.photoUrl,
@@ -207,6 +221,8 @@ class _$UserModelImpl implements _UserModel {
   final String id;
   @override
   final String name;
+  @override
+  final String email;
   @override
   final String secondName;
   @override
@@ -228,7 +244,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, secondName: $secondName, nickname: $nickname, photoUrl: $photoUrl, friendList: $friendList, isOnline: $isOnline, isGeoTrackingOn: $isGeoTrackingOn)';
+    return 'UserModel(id: $id, name: $name, email: $email, secondName: $secondName, nickname: $nickname, photoUrl: $photoUrl, friendList: $friendList, isOnline: $isOnline, isGeoTrackingOn: $isGeoTrackingOn)';
   }
 
   @override
@@ -238,6 +254,7 @@ class _$UserModelImpl implements _UserModel {
             other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.secondName, secondName) ||
                 other.secondName == secondName) &&
             (identical(other.nickname, nickname) ||
@@ -258,6 +275,7 @@ class _$UserModelImpl implements _UserModel {
       runtimeType,
       id,
       name,
+      email,
       secondName,
       nickname,
       photoUrl,
@@ -283,6 +301,7 @@ abstract class _UserModel implements UserModel {
   factory _UserModel(
       {required final String id,
       required final String name,
+      required final String email,
       required final String secondName,
       required final String nickname,
       required final String? photoUrl,
@@ -297,6 +316,8 @@ abstract class _UserModel implements UserModel {
   String get id;
   @override
   String get name;
+  @override
+  String get email;
   @override
   String get secondName;
   @override
