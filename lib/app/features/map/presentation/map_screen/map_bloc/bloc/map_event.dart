@@ -8,4 +8,5 @@ class FriendsMapEvent with _$FriendsMapEvent {
   const factory FriendsMapEvent.goHome() = _GoHome;
   const factory FriendsMapEvent.nextFriend() = _NextFriend;
   const factory FriendsMapEvent.showAllFriends() = _ShowAllFriends;
+  const factory FriendsMapEvent.changeZoom(double value) = _changeZoom;
 }

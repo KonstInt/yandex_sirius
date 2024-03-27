@@ -24,6 +24,7 @@ mixin _$FriendsMapEvent {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$FriendsMapEvent {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$FriendsMapEvent {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +58,7 @@ mixin _$FriendsMapEvent {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +69,7 @@ mixin _$FriendsMapEvent {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +80,7 @@ mixin _$FriendsMapEvent {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -131,15 +137,23 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
+class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   const _$StartedImpl(this.mapController);
 
   @override
   final MapController mapController;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FriendsMapEvent.started(mapController: $mapController)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'FriendsMapEvent.started'))
+      ..add(DiagnosticsProperty('mapController', mapController));
   }
 
   @override
@@ -169,6 +183,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) {
     return started(mapController);
   }
@@ -182,6 +197,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) {
     return started?.call(mapController);
   }
@@ -195,6 +211,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -212,6 +229,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) {
     return started(this);
   }
@@ -225,6 +243,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) {
     return started?.call(this);
   }
@@ -238,6 +257,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -274,12 +294,21 @@ class __$$StartFriendsPolingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartFriendsPolingImpl implements _StartFriendsPoling {
+class _$StartFriendsPolingImpl
+    with DiagnosticableTreeMixin
+    implements _StartFriendsPoling {
   const _$StartFriendsPolingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FriendsMapEvent.startFriendsPoling()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'FriendsMapEvent.startFriendsPoling'));
   }
 
   @override
@@ -300,6 +329,7 @@ class _$StartFriendsPolingImpl implements _StartFriendsPoling {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) {
     return startFriendsPoling();
   }
@@ -313,6 +343,7 @@ class _$StartFriendsPolingImpl implements _StartFriendsPoling {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) {
     return startFriendsPoling?.call();
   }
@@ -326,6 +357,7 @@ class _$StartFriendsPolingImpl implements _StartFriendsPoling {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) {
     if (startFriendsPoling != null) {
@@ -343,6 +375,7 @@ class _$StartFriendsPolingImpl implements _StartFriendsPoling {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) {
     return startFriendsPoling(this);
   }
@@ -356,6 +389,7 @@ class _$StartFriendsPolingImpl implements _StartFriendsPoling {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) {
     return startFriendsPoling?.call(this);
   }
@@ -369,6 +403,7 @@ class _$StartFriendsPolingImpl implements _StartFriendsPoling {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) {
     if (startFriendsPoling != null) {
@@ -400,12 +435,21 @@ class __$$StartSelfPolingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartSelfPolingImpl implements _StartSelfPoling {
+class _$StartSelfPolingImpl
+    with DiagnosticableTreeMixin
+    implements _StartSelfPoling {
   const _$StartSelfPolingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FriendsMapEvent.startSelfPoling()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'FriendsMapEvent.startSelfPoling'));
   }
 
   @override
@@ -426,6 +470,7 @@ class _$StartSelfPolingImpl implements _StartSelfPoling {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) {
     return startSelfPoling();
   }
@@ -439,6 +484,7 @@ class _$StartSelfPolingImpl implements _StartSelfPoling {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) {
     return startSelfPoling?.call();
   }
@@ -452,6 +498,7 @@ class _$StartSelfPolingImpl implements _StartSelfPoling {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) {
     if (startSelfPoling != null) {
@@ -469,6 +516,7 @@ class _$StartSelfPolingImpl implements _StartSelfPoling {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) {
     return startSelfPoling(this);
   }
@@ -482,6 +530,7 @@ class _$StartSelfPolingImpl implements _StartSelfPoling {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) {
     return startSelfPoling?.call(this);
   }
@@ -495,6 +544,7 @@ class _$StartSelfPolingImpl implements _StartSelfPoling {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) {
     if (startSelfPoling != null) {
@@ -526,12 +576,18 @@ class __$$GoHomeImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GoHomeImpl implements _GoHome {
+class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   const _$GoHomeImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FriendsMapEvent.goHome()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'FriendsMapEvent.goHome'));
   }
 
   @override
@@ -552,6 +608,7 @@ class _$GoHomeImpl implements _GoHome {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) {
     return goHome();
   }
@@ -565,6 +622,7 @@ class _$GoHomeImpl implements _GoHome {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) {
     return goHome?.call();
   }
@@ -578,6 +636,7 @@ class _$GoHomeImpl implements _GoHome {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) {
     if (goHome != null) {
@@ -595,6 +654,7 @@ class _$GoHomeImpl implements _GoHome {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) {
     return goHome(this);
   }
@@ -608,6 +668,7 @@ class _$GoHomeImpl implements _GoHome {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) {
     return goHome?.call(this);
   }
@@ -621,6 +682,7 @@ class _$GoHomeImpl implements _GoHome {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) {
     if (goHome != null) {
@@ -652,12 +714,18 @@ class __$$NextFriendImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$NextFriendImpl implements _NextFriend {
+class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   const _$NextFriendImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FriendsMapEvent.nextFriend()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'FriendsMapEvent.nextFriend'));
   }
 
   @override
@@ -678,6 +746,7 @@ class _$NextFriendImpl implements _NextFriend {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) {
     return nextFriend();
   }
@@ -691,6 +760,7 @@ class _$NextFriendImpl implements _NextFriend {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) {
     return nextFriend?.call();
   }
@@ -704,6 +774,7 @@ class _$NextFriendImpl implements _NextFriend {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) {
     if (nextFriend != null) {
@@ -721,6 +792,7 @@ class _$NextFriendImpl implements _NextFriend {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) {
     return nextFriend(this);
   }
@@ -734,6 +806,7 @@ class _$NextFriendImpl implements _NextFriend {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) {
     return nextFriend?.call(this);
   }
@@ -747,6 +820,7 @@ class _$NextFriendImpl implements _NextFriend {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) {
     if (nextFriend != null) {
@@ -778,12 +852,21 @@ class __$$ShowAllFriendsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ShowAllFriendsImpl implements _ShowAllFriends {
+class _$ShowAllFriendsImpl
+    with DiagnosticableTreeMixin
+    implements _ShowAllFriends {
   const _$ShowAllFriendsImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FriendsMapEvent.showAllFriends()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'FriendsMapEvent.showAllFriends'));
   }
 
   @override
@@ -804,6 +887,7 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
   }) {
     return showAllFriends();
   }
@@ -817,6 +901,7 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
   }) {
     return showAllFriends?.call();
   }
@@ -830,6 +915,7 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
     required TResult orElse(),
   }) {
     if (showAllFriends != null) {
@@ -847,6 +933,7 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
   }) {
     return showAllFriends(this);
   }
@@ -860,6 +947,7 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
   }) {
     return showAllFriends?.call(this);
   }
@@ -873,6 +961,7 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
     required TResult orElse(),
   }) {
     if (showAllFriends != null) {
@@ -884,6 +973,177 @@ class _$ShowAllFriendsImpl implements _ShowAllFriends {
 
 abstract class _ShowAllFriends implements FriendsMapEvent {
   const factory _ShowAllFriends() = _$ShowAllFriendsImpl;
+}
+
+/// @nodoc
+abstract class _$$changeZoomImplCopyWith<$Res> {
+  factory _$$changeZoomImplCopyWith(
+          _$changeZoomImpl value, $Res Function(_$changeZoomImpl) then) =
+      __$$changeZoomImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({double value});
+}
+
+/// @nodoc
+class __$$changeZoomImplCopyWithImpl<$Res>
+    extends _$FriendsMapEventCopyWithImpl<$Res, _$changeZoomImpl>
+    implements _$$changeZoomImplCopyWith<$Res> {
+  __$$changeZoomImplCopyWithImpl(
+      _$changeZoomImpl _value, $Res Function(_$changeZoomImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$changeZoomImpl(
+      null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
+  const _$changeZoomImpl(this.value);
+
+  @override
+  final double value;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'FriendsMapEvent.changeZoom(value: $value)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'FriendsMapEvent.changeZoom'))
+      ..add(DiagnosticsProperty('value', value));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$changeZoomImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$changeZoomImplCopyWith<_$changeZoomImpl> get copyWith =>
+      __$$changeZoomImplCopyWithImpl<_$changeZoomImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(MapController mapController) started,
+    required TResult Function() startFriendsPoling,
+    required TResult Function() startSelfPoling,
+    required TResult Function() goHome,
+    required TResult Function() nextFriend,
+    required TResult Function() showAllFriends,
+    required TResult Function(double value) changeZoom,
+  }) {
+    return changeZoom(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(MapController mapController)? started,
+    TResult? Function()? startFriendsPoling,
+    TResult? Function()? startSelfPoling,
+    TResult? Function()? goHome,
+    TResult? Function()? nextFriend,
+    TResult? Function()? showAllFriends,
+    TResult? Function(double value)? changeZoom,
+  }) {
+    return changeZoom?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(MapController mapController)? started,
+    TResult Function()? startFriendsPoling,
+    TResult Function()? startSelfPoling,
+    TResult Function()? goHome,
+    TResult Function()? nextFriend,
+    TResult Function()? showAllFriends,
+    TResult Function(double value)? changeZoom,
+    required TResult orElse(),
+  }) {
+    if (changeZoom != null) {
+      return changeZoom(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
+    required TResult Function(_StartSelfPoling value) startSelfPoling,
+    required TResult Function(_GoHome value) goHome,
+    required TResult Function(_NextFriend value) nextFriend,
+    required TResult Function(_ShowAllFriends value) showAllFriends,
+    required TResult Function(_changeZoom value) changeZoom,
+  }) {
+    return changeZoom(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
+    TResult? Function(_StartSelfPoling value)? startSelfPoling,
+    TResult? Function(_GoHome value)? goHome,
+    TResult? Function(_NextFriend value)? nextFriend,
+    TResult? Function(_ShowAllFriends value)? showAllFriends,
+    TResult? Function(_changeZoom value)? changeZoom,
+  }) {
+    return changeZoom?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
+    TResult Function(_StartSelfPoling value)? startSelfPoling,
+    TResult Function(_GoHome value)? goHome,
+    TResult Function(_NextFriend value)? nextFriend,
+    TResult Function(_ShowAllFriends value)? showAllFriends,
+    TResult Function(_changeZoom value)? changeZoom,
+    required TResult orElse(),
+  }) {
+    if (changeZoom != null) {
+      return changeZoom(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _changeZoom implements FriendsMapEvent {
+  const factory _changeZoom(final double value) = _$changeZoomImpl;
+
+  double get value;
+  @JsonKey(ignore: true)
+  _$$changeZoomImplCopyWith<_$changeZoomImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -969,12 +1229,18 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MapState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MapState.initial'));
   }
 
   @override
@@ -1098,7 +1364,9 @@ class __$$UpdCoordinatesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UpdCoordinatesImpl implements _UpdCoordinates {
+class _$UpdCoordinatesImpl
+    with DiagnosticableTreeMixin
+    implements _UpdCoordinates {
   const _$UpdCoordinatesImpl(
       {required final List<MapTagModel> nowCoordinate,
       required final List<MapTagModel> prevCoordinate})
@@ -1122,8 +1390,17 @@ class _$UpdCoordinatesImpl implements _UpdCoordinates {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MapState.updCoordinates(nowCoordinate: $nowCoordinate, prevCoordinate: $prevCoordinate)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MapState.updCoordinates'))
+      ..add(DiagnosticsProperty('nowCoordinate', nowCoordinate))
+      ..add(DiagnosticsProperty('prevCoordinate', prevCoordinate));
   }
 
   @override

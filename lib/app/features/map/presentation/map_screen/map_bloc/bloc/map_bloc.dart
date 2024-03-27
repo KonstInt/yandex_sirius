@@ -19,10 +19,15 @@ part 'map_state.dart';
 part 'map_bloc.freezed.dart';
 
 class MapData {
-
   static int friendId = 0;
   static List<MapTagModel> markers = [];
   static MapController mapController = MapController();
+  static double zoom = 10;
+
+  static void updateZoom() {
+    // mapController.move(mapController.camera.center, zoom);
+    zoom = mapController.camera.zoom;
+  }
 }
 
 class MapBloc extends Bloc<FriendsMapEvent, MapState> {
@@ -40,7 +45,7 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           MapData.mapController.move(
               LatLng(MapData.markers.last.coordinate.latitude,
                   MapData.markers.last.coordinate.longitude),
-              MapData.mapController.zoom);
+              MapData.zoom);
         },
         nextFriend: (_NextFriend value) {
           if (MapData.markers.length <= 1) {
@@ -54,9 +59,15 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           MapData.mapController.move(
               LatLng(MapData.markers[MapData.friendId].coordinate.latitude,
                   MapData.markers[MapData.friendId].coordinate.longitude),
-              MapData.mapController.zoom);
+              MapData.zoom);
         },
         showAllFriends: (_ShowAllFriends value) {},
+        changeZoom: (_changeZoom value) {
+          MapData.zoom = MapData.mapController.camera.zoom;
+          MapData.zoom += value.value;
+          MapData.mapController
+              .move(MapData.mapController.camera.center, MapData.zoom);
+        },
       );
     });
   }
@@ -90,6 +101,12 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           nowCoordinate: event, prevCoordinate: MapData.markers));
       MapData.markers = List.of(event);
     });
+    // MapData.mapController.mapEventStream.listen((event) {
+    //   MapData.zoom = event.camera.zoom;
+    //   if (kDebugMode) {
+    //     print(event.camera.zoom);
+    //   }
+    // });
   }
 
   void dispose() {

@@ -89,12 +89,18 @@ class MapScreen extends StatelessWidget {
                 height: 50,
                 child: Row(children: [
                   ButtonWithBlock(
-                      event: FriendsMapEvent.goHome(), text: 'go home'),
+                      event: FriendsMapEvent.goHome(), text: 'home'),
                   ButtonWithBlock(
-                      event: FriendsMapEvent.nextFriend(), text: 'next friend'),
+                      event: FriendsMapEvent.nextFriend(), text: 'next'),
                   ButtonWithBlock(
                       event: FriendsMapEvent.showAllFriends(),
-                      text: 'show all friends')
+                      text: 'friends'),
+                  ButtonWithBlock(
+                      event: FriendsMapEvent.changeZoom(1),
+                      text: '+'),
+                  ButtonWithBlock(
+                      event: FriendsMapEvent.changeZoom(-1),
+                      text: '-')
                 ])),
           )
         ],
