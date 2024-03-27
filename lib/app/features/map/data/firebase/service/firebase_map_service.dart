@@ -6,8 +6,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:yandex_sirius/app/features/map/data/firebase/models/coordinate/firebase_api_coordinate_model.dart';
 import 'package:yandex_sirius/app/features/map/data/firebase/models/map_tag/firebase_api_map_tag_model.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordinate_model.dart';
-import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordinate_model.dart';
-import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordinate_model.dart';
+
 
 class FirebaseMapService {
   late final StreamController<FirebaseApiMapTagModel> friendsStream;

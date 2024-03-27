@@ -4,8 +4,6 @@ import 'package:geolocator/geolocator.dart';
 
 class LocalCoordinatesService {
   Future<LocalCoordinatesApiCoordinateModel> getLocalCoordinates() async {
-    //TODO:
-
     /// Determine the current position of the device.
     ///
     /// When the location services are not enabled or permissions
@@ -43,7 +41,7 @@ class LocalCoordinatesService {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    Position position = await Geolocator.getCurrentPosition();
+    final Position position = await Geolocator.getCurrentPosition();
     return LocalCoordinatesApiCoordinateModel(
         longitude: position.longitude, latitude: position.latitude);
 
