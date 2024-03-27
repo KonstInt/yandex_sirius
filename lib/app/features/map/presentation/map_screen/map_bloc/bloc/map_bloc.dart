@@ -19,15 +19,6 @@ part 'map_state.dart';
 part 'map_bloc.freezed.dart';
 
 class MapData {
-  // factory MapData.self() {
-  //   if (_instance == null) {
-  //     _instance = MapData._();
-  //   }
-  //   return _instance!;
-  // }
-  //
-  // MapData._();
-  // static MapData? _instance;
 
   static int friendId = 0;
   static List<MapTagModel> markers = [];

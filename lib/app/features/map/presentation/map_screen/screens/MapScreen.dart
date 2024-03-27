@@ -18,7 +18,7 @@ class MapScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MapBloc>.value(
       value: GetIt.I<MapBloc>(),
-      child: Column(
+      child: Stack(
         children: [
           Expanded(
             child: FlutterMap(
@@ -83,13 +83,20 @@ class MapScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-              height: 50,
-              child: Row(children: [
-                ButtonWithBlock(event: FriendsMapEvent.goHome(), text: 'go home'),
-                ButtonWithBlock(event: FriendsMapEvent.nextFriend(), text: 'next friend'),
-                ButtonWithBlock(event: FriendsMapEvent.showAllFriends(), text: 'show all friends')
-              ]))
+          const Positioned(
+            bottom: 0,
+            child: SizedBox(
+                height: 50,
+                child: Row(children: [
+                  ButtonWithBlock(
+                      event: FriendsMapEvent.goHome(), text: 'go home'),
+                  ButtonWithBlock(
+                      event: FriendsMapEvent.nextFriend(), text: 'next friend'),
+                  ButtonWithBlock(
+                      event: FriendsMapEvent.showAllFriends(),
+                      text: 'show all friends')
+                ])),
+          )
         ],
       ),
     );
@@ -97,14 +104,14 @@ class MapScreen extends StatelessWidget {
 }
 
 class ButtonWithBlock extends StatelessWidget {
-
   const ButtonWithBlock({required this.event, required this.text, super.key});
+
   final FriendsMapEvent event;
   final String text;
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
         onPressed: () {
           final bloc = BlocProvider.of<MapBloc>(context);
           bloc.add(event);
