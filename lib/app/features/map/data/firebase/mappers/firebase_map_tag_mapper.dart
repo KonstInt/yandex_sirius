@@ -3,12 +3,10 @@ import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_mod
 
 class FirebaseMapTagMapper {
   MapTagModel fromApi(FirebaseApiMapTagModel model) {
-    //TODO:
-    throw UnimplementedError();
+    return MapTagModel(photoUrl: model.photoUrl, id: model.id , coordinate: model.coordinate);
   }
 
   FirebaseApiMapTagModel toApi(MapTagModel model) {
-    //TODO:
-    throw UnimplementedError();
+    return FirebaseApiMapTagModel(photoUrl: model.photoUrl, id: model.id, coordinate: model.coordinate);
   }
 }

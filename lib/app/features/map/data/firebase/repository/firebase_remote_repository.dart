@@ -11,7 +11,7 @@ class FirebaseRemoteMapRepository extends RemoteMapRepository {
   });
 
   @override
-  Future<Stream<MapTagModel>> getFriendCoordinateStream(
+  Future<Stream<List<MapTagModel>>> getFriendCoordinateStream(
       List<MapTagModel> friendsList) {
     return util.getFriendCoordinateStream(friendsList);
   }
