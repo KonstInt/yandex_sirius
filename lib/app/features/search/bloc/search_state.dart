@@ -4,7 +4,6 @@ part of 'search_bloc.dart';
 class SearchState with _$SearchState {
   const factory SearchState({
     @Default(<FirebaseApiUserModel>[]) List peoples,
-    @Default({}) Set<String> friends,
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus status,
   }) = _SearchState;
 }

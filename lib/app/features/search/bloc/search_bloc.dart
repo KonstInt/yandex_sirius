@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 
+import '../../common_use_case/user_use_case.dart';
 import '../../user/data/remote/firebase/service/firebase_user_service.dart';
 
 part 'search_event.dart';
@@ -14,10 +15,13 @@ part 'search_bloc.freezed.dart';
 @injectable
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final FirebaseUserService _authenticationRepository;
+  final UserUseCase _userUseCase;
 
-  SearchBloc(this._authenticationRepository) : super(const SearchState()) {
+  SearchBloc(this._authenticationRepository, this._userUseCase) : super(const SearchState()) {
     on<CreateUserList>(_onCreateUserList);
   }
+
+
 
   Future<void> _onCreateUserList(
       CreateUserList event, Emitter<SearchState> emit) async {

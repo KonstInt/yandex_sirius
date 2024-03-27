@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
 import 'package:yandex_sirius/app/features/login/bloc/login_bloc.dart';
 import 'package:yandex_sirius/app/features/search/search_from.dart';
 
@@ -14,7 +15,7 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     //di
-    final search = SearchBloc(FirebaseUserService());
+    final search = SearchBloc(FirebaseUserService(), UserUseCase());
     return Scaffold(
       appBar: AppBar(title: Text(l10n.friends)),
       body: Padding(
