@@ -219,6 +219,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User does not exist`
+  String get userDoesNotExist {
+    return Intl.message(
+      'User does not exist',
+      name: 'userDoesNotExist',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

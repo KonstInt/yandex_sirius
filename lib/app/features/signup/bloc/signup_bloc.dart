@@ -29,8 +29,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<PhotoChanged>(_onPhotoChanged);
     on<ConfirmedPasswordChanged>(_onConfirmedPasswordChanged);
     on<AuthenticationSubmitted>(_onAuthenticationSubmitted);
-    on<SignUpFormSubmitted> (_onSignUpFormSubmitted);
-
+    on<SignUpFormSubmitted>(_onSignUpFormSubmitted);
   }
   void _onEmailChanged(EmailChanged event, Emitter<SignupState> emit) {
     final email = event.newEmail;
@@ -44,7 +43,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
   void _onSurnameChanged(SurnameChanged event, Emitter<SignupState> emit) {
     bool checker =
-    (state.alias != '' && state.name != '' && state.surname != '');
+        (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
         isValid: checker,
@@ -53,9 +52,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  void _onNameChanged(NameChanged event, Emitter<SignupState> emit){
+  void _onNameChanged(NameChanged event, Emitter<SignupState> emit) {
     bool checker =
-    (state.alias != '' && state.name != '' && state.surname != '');
+        (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
         isValid: checker,
@@ -66,7 +65,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
   void _onNicknameChanged(NicknameChanged event, Emitter<SignupState> emit) {
     bool checker =
-    (state.alias != '' && state.name != '' && state.surname != '');
+        (state.alias != '' && state.name != '' && state.surname != '');
     emit(
       state.copyWith(
         isValid: checker,
@@ -101,7 +100,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
   }
 
-  void _onConfirmedPasswordChanged(ConfirmedPasswordChanged event, Emitter<SignupState> emit) {
+  void _onConfirmedPasswordChanged(
+      ConfirmedPasswordChanged event, Emitter<SignupState> emit) {
     final confirmedPassword = event.confirmedPassword;
     emit(
       state.copyWith(
@@ -110,7 +110,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  Future<void> _onAuthenticationSubmitted(AuthenticationSubmitted event, Emitter<SignupState> emit) async {
+  Future<void> _onAuthenticationSubmitted(
+      AuthenticationSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       String? id = await _authenticationRepository.authentication(
@@ -128,7 +129,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
   }
 
-  Future<void> _onSignUpFormSubmitted(SignUpFormSubmitted event, Emitter<SignupState> emit) async {
+  Future<void> _onSignUpFormSubmitted(
+      SignUpFormSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       var user = FirebaseApiUserModel(

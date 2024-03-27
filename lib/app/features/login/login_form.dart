@@ -54,12 +54,14 @@ class _EmailInput extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('loginForm_emailInput_textField'),
-          onChanged: (email) => context.read<LoginBloc>().add(EmailChanged(email)),
+          onChanged: (email) =>
+              context.read<LoginBloc>().add(EmailChanged(email)),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             labelText: l10n.email,
             helperText: '',
           ),
+          textInputAction: TextInputAction.next,
         );
       },
     );
@@ -105,7 +107,8 @@ class _LoginButton extends StatelessWidget {
                   backgroundColor: const Color(0xFFFFD600),
                 ),
                 onPressed: state.isValid
-                    ? () => context.read<LoginBloc>().add(LogInWithCredentials())
+                    ? () =>
+                        context.read<LoginBloc>().add(LogInWithCredentials())
                     : null,
                 child: Text(l10n.login),
               );

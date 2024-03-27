@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';
 import 'features/login/login_page.dart';
+import 'features/search/search_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
         S.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: const LoginPage(),
+      home: const SearchPage(),
     );
   }
 }

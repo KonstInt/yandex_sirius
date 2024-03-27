@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-
 import '../../../generated/l10n.dart';
 import 'bloc/signup_bloc.dart';
 
@@ -80,7 +79,8 @@ class _Name extends StatelessWidget {
       builder: (context, state) {
         return TextField(
           key: const Key('name'),
-          onChanged: (name) => context.read<SignupBloc>().add(NameChanged(name)),
+          onChanged: (name) =>
+              context.read<SignupBloc>().add(NameChanged(name)),
           decoration: InputDecoration(
             labelText: l10n.name,
             helperText: '',
@@ -107,7 +107,6 @@ class _Surname extends StatelessWidget {
             labelText: l10n.surname,
             helperText: '',
           ),
-          textInputAction: TextInputAction.next,
         );
       },
     );
@@ -131,7 +130,8 @@ class _SignUpButton extends StatelessWidget {
                   backgroundColor: Colors.orangeAccent,
                 ),
                 onPressed: state.isValid
-                    ? () =>  context.read<SignupBloc>().add(SignUpFormSubmitted())
+                    ? () =>
+                        context.read<SignupBloc>().add(SignUpFormSubmitted())
                     : null,
                 child: Text(l10n.signUp),
               );

@@ -1,4 +1,8 @@
 part of 'search_bloc.dart';
 
-@immutable
-abstract class SearchEvent {}
+class SearchEvent {}
+
+class CreateUserList extends SearchEvent {
+  final String prefix;
+  CreateUserList(this.prefix);
+}

@@ -16,5 +16,7 @@
   "surname": "Фамилия",
   "alias" : "Никнейм",
   "next" : "Далее",
-  "friends": "Друзья"
+  "friends": "Друзья",
+  "search" : "Поиск",
+  "userDoesNotExist" : "Пользователь не существует"
 }

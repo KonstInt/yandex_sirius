@@ -14,6 +14,7 @@ class FirebaseUserService {
   }
 
   Future<List<FirebaseApiUserModel>> getFriends(String userId) async {
+    //
     var querySnapshot = await FirebaseFirestore.instance
         .collection('friends')
         .where('userId', isEqualTo: userId)
@@ -62,7 +63,7 @@ class FirebaseUserService {
     await FirebaseFirestore.instance
         .collection('nicknames')
         .doc(apiUserModel.nickname)
-        .set({});
+        .set({"id": apiUserModel.id});
     return newUser;
   }
 
@@ -100,12 +101,32 @@ class FirebaseUserService {
     });
     return getUser(userId);
   }
-}
 
-Future<bool> checkIfNicknameExists(String nickname) async {
-  CollectionReference nicknamesRef =
-      FirebaseFirestore.instance.collection('nicknames');
-  QuerySnapshot querySnapshot =
-      await nicknamesRef.where('nickname', isEqualTo: nickname).get();
-  return querySnapshot.docs.isNotEmpty;
+  Future<List<String>> getUsersList(String prefix) async {
+    List<String> usersList = [];
+
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('nicknames')
+          .where(FieldPath.documentId, isGreaterThanOrEqualTo: prefix)
+          .get();
+
+      for (var doc in querySnapshot.docs) {
+        String id = doc.get('id');
+        usersList.add(id);
+      }
+      return usersList;
+    } catch (e) {
+      print('Error fetching users list: $e');
+      return usersList;
+    }
+  }
+
+  Future<bool> checkIfNicknameExists(String nickname) async {
+    CollectionReference nicknamesRef =
+        FirebaseFirestore.instance.collection('nicknames');
+    QuerySnapshot querySnapshot =
+        await nicknamesRef.where('nickname', isEqualTo: nickname).get();
+    return querySnapshot.docs.isNotEmpty;
+  }
 }

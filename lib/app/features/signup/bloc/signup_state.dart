@@ -1,6 +1,5 @@
 part of 'signup_bloc.dart';
 
-
 @freezed
 class SignupState with _$SignupState {
   const factory SignupState.firstPage({
@@ -29,4 +28,3 @@ class SignupState with _$SignupState {
     String? errorMessage,
   }) = _SignupStateSecondPage;
 }
-

@@ -41,9 +41,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "passwordNotMatch":
             MessageLookupByLibrary.simpleMessage("Пароли не совпадают"),
+        "search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "signUp": MessageLookupByLibrary.simpleMessage("Регистрация"),
         "signUpFailure":
             MessageLookupByLibrary.simpleMessage("Ошибка регистрации"),
-        "surname": MessageLookupByLibrary.simpleMessage("Фамилия")
+        "surname": MessageLookupByLibrary.simpleMessage("Фамилия"),
+        "userDoesNotExist":
+            MessageLookupByLibrary.simpleMessage("Пользователь не существует")
       };
 }

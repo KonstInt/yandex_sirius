@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordNotMatch":
             MessageLookupByLibrary.simpleMessage("Password do not match"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signUpFailure":
             MessageLookupByLibrary.simpleMessage("Sign up failure"),
-        "surname": MessageLookupByLibrary.simpleMessage("Surname")
+        "surname": MessageLookupByLibrary.simpleMessage("Surname"),
+        "userDoesNotExist":
+            MessageLookupByLibrary.simpleMessage("User does not exist")
       };
 }

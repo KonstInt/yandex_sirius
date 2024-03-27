@@ -8,7 +8,6 @@ import '../../../generated/l10n.dart';
 import '../user/data/remote/firebase/service/firebase_user_service.dart';
 import 'bloc/signup_bloc.dart';
 
-
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 

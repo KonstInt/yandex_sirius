@@ -16,5 +16,7 @@
   "surname": "Surname",
   "alias" : "Alias",
   "next" : "Next",
-  "friends" : "Friends"
+  "friends" : "Friends",
+  "search" : "Search",
+  "userDoesNotExist" : "User does not exist"
 }
