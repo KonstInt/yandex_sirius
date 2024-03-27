@@ -18,8 +18,7 @@ class FirebaseMapUtil {
       List<MapTagModel> friendsList) async {
     return (await service.getFriendCoordinateStream(
       friendsList.map(mapMapper.toApi).toList(),
-    ))
-        .map((s) => s.map(mapMapper.fromApi).toList());
+    )).map((s) => s.map(mapMapper.fromApi).toList());
   }
 
   Future<CoordinateModel> setUserCoordinateStream(

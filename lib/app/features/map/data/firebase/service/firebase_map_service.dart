@@ -14,7 +14,7 @@ class FirebaseMapService {
 
   //TODO: firebase variable
   bool friendsStreamIsInitialized = false;
-
+ 
   Future<Stream<List<FirebaseApiMapTagModel>>> getFriendCoordinateStream(
       List<FirebaseApiMapTagModel> friendsList) async {
     //TODO: create stream and return it with
