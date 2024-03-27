@@ -22,16 +22,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Future<void> _onCreateUserList(
       CreateUserList event, Emitter<SearchState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-    List<String> list =
-        await _authenticationRepository.getUsersList(event.prefix);
     List<FirebaseApiUserModel> newList = [];
-    int end = (list.length >= 10) ? 10 : list.length;
-    if (list.isNotEmpty) {
-      for (int i = 0; i < end; i++) {
-        newList.add(await _authenticationRepository.getUser(list[i]));
+    if (event.prefix != '') {
+      List<String> list =
+          await _authenticationRepository.getUsersList(event.prefix);
+      int end = (list.length >= 10) ? 10 : list.length;
+      if (list.isNotEmpty) {
+        for (int i = 0; i < end; i++) {
+          newList.add(await _authenticationRepository.getUser(list[i]));
+        }
       }
     }
     emit(state.copyWith(
-        status: FormzSubmissionStatus.success, peoples:(event.prefix != '') ? newList : []));
+        status: FormzSubmissionStatus.success, peoples: newList));
   }
 }
