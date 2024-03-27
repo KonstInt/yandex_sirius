@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yandex_sirius/app/features/map/presentation/map_screen/screens/MapScreen.dart';
 import 'package:yandex_sirius/app/util/themes/app_theme.dart';
 import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 
@@ -16,14 +17,7 @@ class App extends StatelessWidget {
           theme: AppTheme.lightTheme,
           home: Scaffold(
             body: SafeArea(
-              child: Column(
-                children: [
-                  Text(
-                    'Hello world!',
-                    style: context.textStyles.descriptionB,
-                  ),
-                ],
-              ),
+              child: MapScreen()
             ),
           ),
         );
