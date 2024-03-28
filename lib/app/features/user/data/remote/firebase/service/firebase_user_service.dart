@@ -58,7 +58,7 @@ class FirebaseUserService {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(apiUserModel.id)
-        .set(newUser.toJson());
+        .set({});
     await FirebaseFirestore.instance
         .collection('nicknames')
         .doc(apiUserModel.nickname)
