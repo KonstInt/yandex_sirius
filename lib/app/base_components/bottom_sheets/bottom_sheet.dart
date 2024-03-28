@@ -15,22 +15,6 @@ typedef WidgetWithChildBuilder = Widget Function(
     BuildContext context, Animation<double> animation, Widget child);
 
 class ModalBottomSheet extends StatefulWidget {
-  final double closeProgressThreshold;
-  final AnimationController animationController;
-  final Curve? animationCurve;
-  final bool bounce;
-  final bool expanded;
-
-  final WidgetWithChildBuilder? containerBuilder;
-  final Function() onClosing;
-  final Future<bool> Function()? shouldClose;
-  final Widget child;
-  final bool enableDrag;
-
-  final ScrollController scrollController;
-  final double minFlingVelocity;
-  final double willPopThreshold;
-
   const ModalBottomSheet({
     required this.animationController,
     required this.scrollController,
@@ -49,6 +33,21 @@ class ModalBottomSheet extends StatefulWidget {
   })  : closeProgressThreshold =
             closeProgressThreshold ?? _closeProgressThreshold,
         super(key: key);
+  final double closeProgressThreshold;
+  final AnimationController animationController;
+  final Curve? animationCurve;
+  final bool bounce;
+  final bool expanded;
+
+  final WidgetWithChildBuilder? containerBuilder;
+  final Function() onClosing;
+  final Future<bool> Function()? shouldClose;
+  final Widget child;
+  final bool enableDrag;
+
+  final ScrollController scrollController;
+  final double minFlingVelocity;
+  final double willPopThreshold;
 
   @override
   ModalBottomSheetState createState() => ModalBottomSheetState();

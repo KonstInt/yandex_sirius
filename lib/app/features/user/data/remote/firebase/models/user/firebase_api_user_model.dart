@@ -8,6 +8,7 @@ part 'firebase_api_user_model.g.dart';
 class FirebaseApiUserModel with _$FirebaseApiUserModel {
   factory FirebaseApiUserModel(
       {required String id,
+      required String email,
       required String name,
       required String secondName,
       required String nickname,

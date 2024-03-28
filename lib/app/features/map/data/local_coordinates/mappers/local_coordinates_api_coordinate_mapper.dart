@@ -3,10 +3,12 @@ import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordina
 
 class LocalCoordinatesApiCoordinateMapper {
   LocalCoordinatesApiCoordinateModel toApi(CoordinateModel model) {
-    return LocalCoordinatesApiCoordinateModel(longitude: model.longitude, latitude: model.latitude);
+    return LocalCoordinatesApiCoordinateModel(
+        longitude: model.longitude, latitude: model.latitude);
   }
 
   CoordinateModel fromApi(LocalCoordinatesApiCoordinateModel model) {
-    return CoordinateModel(longitude: model.longitude, latitude: model.latitude);
+    return CoordinateModel(
+        longitude: model.longitude, latitude: model.latitude);
   }
 }

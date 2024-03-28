@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/mappers/firebase_user_mapper.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
@@ -12,16 +14,29 @@ class FirebaseUserUtil {
     return mapper.userModelFromApi(apiResult);
   }
 
+  Future<bool> hasUser(String email) async {
+    return service.hasUser(email);
+  }
+
   Future<UserModel> signUp(
       UserModel user, String login, String password) async {
     final apiUser = mapper.userModelToApi(user);
     final apiResult = await service.signUp(apiUser, login, password);
-    return mapper.userModelFromApi(apiResult);
+    //TODO: Nulllable res !!!!
+    return mapper.userModelFromApi(apiResult!);
   }
 
   Future<UserModel> signIn(String login, String password) async {
     final apiResult = await service.signIn(login, password);
     return mapper.userModelFromApi(apiResult);
+  }
+
+  Future<UserModel?> getCurrentUser() async {
+    final apiResult = await service.getCurrentUser();
+    if (apiResult != null) {
+      return mapper.userModelFromApi(apiResult);
+    }
+    return null;
   }
 
   Future<UserModel> updateUser(UserModel user) async {
@@ -30,7 +45,7 @@ class FirebaseUserUtil {
     return mapper.userModelFromApi(apiResult);
   }
 
-  Future<UserModel> updateAvatar(String userId, String photoAvatar) async {
+  Future<UserModel> updateAvatar(String userId, File photoAvatar) async {
     final apiResult = await service.updateAvatar(userId, photoAvatar);
     return mapper.userModelFromApi(apiResult);
   }

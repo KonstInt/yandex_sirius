@@ -21,6 +21,7 @@ FirebaseApiUserModel _$FirebaseApiUserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FirebaseApiUserModel {
   String get id => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get secondName => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $FirebaseApiUserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String email,
       String name,
       String secondName,
       String nickname,
@@ -68,6 +70,7 @@ class _$FirebaseApiUserModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = null,
+    Object? email = null,
     Object? name = null,
     Object? secondName = null,
     Object? nickname = null,
@@ -80,6 +83,10 @@ class _$FirebaseApiUserModelCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -123,6 +130,7 @@ abstract class _$$FirebaseApiUserModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String email,
       String name,
       String secondName,
       String nickname,
@@ -144,6 +152,7 @@ class __$$FirebaseApiUserModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? email = null,
     Object? name = null,
     Object? secondName = null,
     Object? nickname = null,
@@ -156,6 +165,10 @@ class __$$FirebaseApiUserModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -194,6 +207,7 @@ class __$$FirebaseApiUserModelImplCopyWithImpl<$Res>
 class _$FirebaseApiUserModelImpl implements _FirebaseApiUserModel {
   _$FirebaseApiUserModelImpl(
       {required this.id,
+      required this.email,
       required this.name,
       required this.secondName,
       required this.nickname,
@@ -208,6 +222,8 @@ class _$FirebaseApiUserModelImpl implements _FirebaseApiUserModel {
 
   @override
   final String id;
+  @override
+  final String email;
   @override
   final String name;
   @override
@@ -231,7 +247,7 @@ class _$FirebaseApiUserModelImpl implements _FirebaseApiUserModel {
 
   @override
   String toString() {
-    return 'FirebaseApiUserModel(id: $id, name: $name, secondName: $secondName, nickname: $nickname, photoUrl: $photoUrl, friendList: $friendList, isOnline: $isOnline, isGeoTrackingOn: $isGeoTrackingOn)';
+    return 'FirebaseApiUserModel(id: $id, email: $email, name: $name, secondName: $secondName, nickname: $nickname, photoUrl: $photoUrl, friendList: $friendList, isOnline: $isOnline, isGeoTrackingOn: $isGeoTrackingOn)';
   }
 
   @override
@@ -240,6 +256,7 @@ class _$FirebaseApiUserModelImpl implements _FirebaseApiUserModel {
         (other.runtimeType == runtimeType &&
             other is _$FirebaseApiUserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.secondName, secondName) ||
                 other.secondName == secondName) &&
@@ -260,6 +277,7 @@ class _$FirebaseApiUserModelImpl implements _FirebaseApiUserModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      email,
       name,
       secondName,
       nickname,
@@ -287,6 +305,7 @@ class _$FirebaseApiUserModelImpl implements _FirebaseApiUserModel {
 abstract class _FirebaseApiUserModel implements FirebaseApiUserModel {
   factory _FirebaseApiUserModel(
       {required final String id,
+      required final String email,
       required final String name,
       required final String secondName,
       required final String nickname,
@@ -300,6 +319,8 @@ abstract class _FirebaseApiUserModel implements FirebaseApiUserModel {
 
   @override
   String get id;
+  @override
+  String get email;
   @override
   String get name;
   @override

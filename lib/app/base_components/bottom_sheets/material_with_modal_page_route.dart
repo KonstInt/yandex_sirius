@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:yandex_sirius/app/base_components/bottom_sheets/bottom_sheet_route.dart';
 
 class MaterialWithModalsPageRoute<T> extends MaterialPageRoute<T> {
-  ModalSheetRoute? _nextModalRoute;
-
   MaterialWithModalsPageRoute({
     required WidgetBuilder builder,
     RouteSettings? settings,
@@ -15,6 +13,7 @@ class MaterialWithModalsPageRoute<T> extends MaterialPageRoute<T> {
             fullscreenDialog: fullscreenDialog,
             builder: builder,
             maintainState: maintainState);
+  ModalSheetRoute? _nextModalRoute;
 
   @override
   bool canTransitionTo(TransitionRoute<dynamic> nextRoute) {

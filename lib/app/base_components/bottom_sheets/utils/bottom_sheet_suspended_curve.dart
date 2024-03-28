@@ -4,7 +4,6 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 
 class BottomSheetSuspendedCurve extends Curve {
-
   const BottomSheetSuspendedCurve(
     this.startingPoint, {
     this.curve = Curves.easeOutCubic,

@@ -58,6 +58,7 @@ class ColorsPalette {
     required this.pantherUnderAcid,
     required this.brick,
     required this.orange,
+    required this.borderColor,
 
     // Plus
     required this.logoPillAndButton,
@@ -126,7 +127,7 @@ class ColorsPalette {
   final Color pantherUnderAcid;
   final Color brick;
   final Color orange;
-
+  final Color borderColor;
   // Plus
   final LinearGradient logoPillAndButton;
   final LinearGradient gliphSeparateGradient;

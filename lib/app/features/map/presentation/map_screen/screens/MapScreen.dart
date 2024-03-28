@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rive/rive.dart';
-
-// import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_event.dart';
-import 'package:flutter_map/src/gestures/map_events.dart';
+import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 
 class MapScreen extends StatelessWidget {
   MapScreen({super.key});
@@ -37,8 +33,8 @@ class MapScreen extends StatelessWidget {
                   bloc.add(FriendsMapEvent.started(_mapController));
                   return state.map(
                       updCoordinates: (state) {
-                        List<Marker> now = [];
-                        List<Marker> prev = [];
+                        final List<Marker> now = [];
+                        final List<Marker> prev = [];
                         const backgroundAnimation = Center(
                             child: RiveAnimation.asset(
                           'assets/blobbino_felicino.riv',
@@ -64,7 +60,7 @@ class MapScreen extends StatelessWidget {
                                     )),
                                   ]))));
                         }
-                        for (var i in state.prevCoordinate) {
+                        for (final i in state.prevCoordinate) {
                           prev.add(Marker(
                             point: LatLng(
                                 i.coordinate.latitude, i.coordinate.longitude),
@@ -130,10 +126,7 @@ class ButtonWithBlock extends StatelessWidget {
 
 class AnimatedMarkerLayer extends AnimatedWidget {
   const AnimatedMarkerLayer(
-      {super.key,
-      required this.markerLayer,
-      required this.previousLayer,
-      required super.listenable});
+      {required this.markerLayer, required this.previousLayer, required super.listenable, super.key});
 
   Animation<double> get _progress => listenable as Animation<double>;
   final List<Marker> markerLayer;
@@ -141,15 +134,15 @@ class AnimatedMarkerLayer extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Marker> markers = [];
+    final List<Marker> markers = [];
     if (previousLayer == null || previousLayer!.length != markerLayer.length) {
       return MarkerLayer(markers: markerLayer);
     }
     for (int i = 0; i < previousLayer!.length; ++i) {
-      double tarLon =
+      final double tarLon =
           previousLayer![i].point.longitude * (1 - _progress.value) +
               markerLayer[i].point.longitude * _progress.value;
-      double tarLat = previousLayer![i].point.latitude * (1 - _progress.value) +
+      final double tarLat = previousLayer![i].point.latitude * (1 - _progress.value) +
           markerLayer[i].point.latitude * _progress.value;
       markers.add(
           Marker(point: LatLng(tarLat, tarLon), child: markerLayer[i].child));

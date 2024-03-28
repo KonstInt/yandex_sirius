@@ -3,12 +3,10 @@ import 'package:yandex_sirius/app/features/user/domain/models/friend/friend_mode
 
 class FirebaseFriendMapper {
   FriendModel userModelFromApi(FirebaseApiFriendModel model) {
-    //TODO:
-    throw UnimplementedError();
+    return FriendModel(id: model.id, photoUrl: model.photoUrl);
   }
 
   FirebaseApiFriendModel userModelToApi(FriendModel model) {
-    //TODO:
-    throw UnimplementedError();
+    return FirebaseApiFriendModel(id: model.id, photoUrl: model.photoUrl);
   }
 }

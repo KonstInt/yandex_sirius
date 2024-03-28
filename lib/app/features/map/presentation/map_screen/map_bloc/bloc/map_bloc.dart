@@ -4,19 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:yandex_sirius/app/features/map/domain/manager/map_manager.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordinate_model.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_model.dart';
 
-import 'package:latlong2/latlong.dart';
-
+part 'map_bloc.freezed.dart';
 // import '../../../../data/firebase/models/map_tag/firebase_api_map_tag_model.dart';
 
 part 'map_event.dart';
-
 part 'map_state.dart';
-
-part 'map_bloc.freezed.dart';
 
 class MapData {
   static int friendId = 0;
@@ -31,7 +28,6 @@ class MapData {
 }
 
 class MapBloc extends Bloc<FriendsMapEvent, MapState> {
-  final MapManager manager;
 
   MapBloc({required this.manager}) : super(const _Initial()) {
     track();
@@ -41,13 +37,13 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
         startFriendsPoling: (event) async =>
             await startFriendsPoling(event, emit),
         startSelfPoling: (event) async => await startSelfPoling(event, emit),
-        goHome: (_GoHome value) {
+        goHome: (value) {
           MapData.mapController.move(
               LatLng(MapData.markers.last.coordinate.latitude,
                   MapData.markers.last.coordinate.longitude),
               MapData.zoom);
         },
-        nextFriend: (_NextFriend value) {
+        nextFriend: (value) {
           if (MapData.markers.length <= 1) {
             return;
           }
@@ -61,8 +57,8 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
                   MapData.markers[MapData.friendId].coordinate.longitude),
               MapData.zoom);
         },
-        showAllFriends: (_ShowAllFriends value) {},
-        changeZoom: (_changeZoom value) {
+        showAllFriends: (value) {},
+        changeZoom: (value) {
           MapData.zoom = MapData.mapController.camera.zoom;
           MapData.zoom += value.value;
           MapData.mapController
@@ -71,11 +67,12 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
       );
     });
   }
+  final MapManager manager;
 
   final allMarkers = StreamController<List<MapTagModel>>();
   List<MapTagModel> tags = [];
 
-  void track() async {
+  Future<void> track() async {
     final stream = await manager.startTrackFriends();
     stream.listen((event) {
       // emit(MapState.updCoordinates(
@@ -87,7 +84,7 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           id: '-1',
           coordinate: CoordinateModel(latitude: 0, longitude: 0)));
     });
-    final streamMe = await manager.startSelfCoordinatePoling();
+    final streamMe = manager.startSelfCoordinatePoling();
     streamMe.listen((event) {
       tags.last = MapTagModel(
           photoUrl:

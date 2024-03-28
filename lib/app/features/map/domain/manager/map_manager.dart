@@ -36,6 +36,7 @@ class MapManager {
 
   Stream<CoordinateModel> startSelfCoordinatePoling() {
     _pollingController = StreamController();
+    //TODO:
     Timer.periodic(const Duration(seconds: 1), (timer) async {
       _pollingController.add(await userCoordinatesRepository.getCoordinates());
     });
