@@ -19,8 +19,6 @@ mixin _$FriendsMapEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
@@ -30,8 +28,6 @@ mixin _$FriendsMapEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
@@ -41,8 +37,6 @@ mixin _$FriendsMapEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
@@ -53,8 +47,6 @@ mixin _$FriendsMapEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
@@ -64,8 +56,6 @@ mixin _$FriendsMapEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
@@ -75,8 +65,6 @@ mixin _$FriendsMapEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
@@ -178,8 +166,6 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
@@ -192,8 +178,6 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
@@ -206,8 +190,6 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
@@ -224,8 +206,6 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
@@ -238,8 +218,6 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
@@ -252,8 +230,6 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
@@ -274,288 +250,6 @@ abstract class _Started implements FriendsMapEvent {
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$StartFriendsPolingImplCopyWith<$Res> {
-  factory _$$StartFriendsPolingImplCopyWith(_$StartFriendsPolingImpl value,
-          $Res Function(_$StartFriendsPolingImpl) then) =
-      __$$StartFriendsPolingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$StartFriendsPolingImplCopyWithImpl<$Res>
-    extends _$FriendsMapEventCopyWithImpl<$Res, _$StartFriendsPolingImpl>
-    implements _$$StartFriendsPolingImplCopyWith<$Res> {
-  __$$StartFriendsPolingImplCopyWithImpl(_$StartFriendsPolingImpl _value,
-      $Res Function(_$StartFriendsPolingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$StartFriendsPolingImpl
-    with DiagnosticableTreeMixin
-    implements _StartFriendsPoling {
-  const _$StartFriendsPolingImpl();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FriendsMapEvent.startFriendsPoling()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty('type', 'FriendsMapEvent.startFriendsPoling'));
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartFriendsPolingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
-    required TResult Function() goHome,
-    required TResult Function() nextFriend,
-    required TResult Function() showAllFriends,
-    required TResult Function(double value) changeZoom,
-  }) {
-    return startFriendsPoling();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
-    TResult? Function()? goHome,
-    TResult? Function()? nextFriend,
-    TResult? Function()? showAllFriends,
-    TResult? Function(double value)? changeZoom,
-  }) {
-    return startFriendsPoling?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
-    TResult Function()? goHome,
-    TResult Function()? nextFriend,
-    TResult Function()? showAllFriends,
-    TResult Function(double value)? changeZoom,
-    required TResult orElse(),
-  }) {
-    if (startFriendsPoling != null) {
-      return startFriendsPoling();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
-    required TResult Function(_GoHome value) goHome,
-    required TResult Function(_NextFriend value) nextFriend,
-    required TResult Function(_ShowAllFriends value) showAllFriends,
-    required TResult Function(_changeZoom value) changeZoom,
-  }) {
-    return startFriendsPoling(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
-    TResult? Function(_GoHome value)? goHome,
-    TResult? Function(_NextFriend value)? nextFriend,
-    TResult? Function(_ShowAllFriends value)? showAllFriends,
-    TResult? Function(_changeZoom value)? changeZoom,
-  }) {
-    return startFriendsPoling?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
-    TResult Function(_GoHome value)? goHome,
-    TResult Function(_NextFriend value)? nextFriend,
-    TResult Function(_ShowAllFriends value)? showAllFriends,
-    TResult Function(_changeZoom value)? changeZoom,
-    required TResult orElse(),
-  }) {
-    if (startFriendsPoling != null) {
-      return startFriendsPoling(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _StartFriendsPoling implements FriendsMapEvent {
-  const factory _StartFriendsPoling() = _$StartFriendsPolingImpl;
-}
-
-/// @nodoc
-abstract class _$$StartSelfPolingImplCopyWith<$Res> {
-  factory _$$StartSelfPolingImplCopyWith(_$StartSelfPolingImpl value,
-          $Res Function(_$StartSelfPolingImpl) then) =
-      __$$StartSelfPolingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$StartSelfPolingImplCopyWithImpl<$Res>
-    extends _$FriendsMapEventCopyWithImpl<$Res, _$StartSelfPolingImpl>
-    implements _$$StartSelfPolingImplCopyWith<$Res> {
-  __$$StartSelfPolingImplCopyWithImpl(
-      _$StartSelfPolingImpl _value, $Res Function(_$StartSelfPolingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$StartSelfPolingImpl
-    with DiagnosticableTreeMixin
-    implements _StartSelfPoling {
-  const _$StartSelfPolingImpl();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FriendsMapEvent.startSelfPoling()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty('type', 'FriendsMapEvent.startSelfPoling'));
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartSelfPolingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
-    required TResult Function() goHome,
-    required TResult Function() nextFriend,
-    required TResult Function() showAllFriends,
-    required TResult Function(double value) changeZoom,
-  }) {
-    return startSelfPoling();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
-    TResult? Function()? goHome,
-    TResult? Function()? nextFriend,
-    TResult? Function()? showAllFriends,
-    TResult? Function(double value)? changeZoom,
-  }) {
-    return startSelfPoling?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
-    TResult Function()? goHome,
-    TResult Function()? nextFriend,
-    TResult Function()? showAllFriends,
-    TResult Function(double value)? changeZoom,
-    required TResult orElse(),
-  }) {
-    if (startSelfPoling != null) {
-      return startSelfPoling();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
-    required TResult Function(_GoHome value) goHome,
-    required TResult Function(_NextFriend value) nextFriend,
-    required TResult Function(_ShowAllFriends value) showAllFriends,
-    required TResult Function(_changeZoom value) changeZoom,
-  }) {
-    return startSelfPoling(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
-    TResult? Function(_GoHome value)? goHome,
-    TResult? Function(_NextFriend value)? nextFriend,
-    TResult? Function(_ShowAllFriends value)? showAllFriends,
-    TResult? Function(_changeZoom value)? changeZoom,
-  }) {
-    return startSelfPoling?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
-    TResult Function(_GoHome value)? goHome,
-    TResult Function(_NextFriend value)? nextFriend,
-    TResult Function(_ShowAllFriends value)? showAllFriends,
-    TResult Function(_changeZoom value)? changeZoom,
-    required TResult orElse(),
-  }) {
-    if (startSelfPoling != null) {
-      return startSelfPoling(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _StartSelfPoling implements FriendsMapEvent {
-  const factory _StartSelfPoling() = _$StartSelfPolingImpl;
 }
 
 /// @nodoc
@@ -603,8 +297,6 @@ class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
@@ -617,8 +309,6 @@ class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
@@ -631,8 +321,6 @@ class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
@@ -649,8 +337,6 @@ class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
@@ -663,8 +349,6 @@ class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
@@ -677,8 +361,6 @@ class _$GoHomeImpl with DiagnosticableTreeMixin implements _GoHome {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
@@ -741,8 +423,6 @@ class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
@@ -755,8 +435,6 @@ class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
@@ -769,8 +447,6 @@ class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
@@ -787,8 +463,6 @@ class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
@@ -801,8 +475,6 @@ class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
@@ -815,8 +487,6 @@ class _$NextFriendImpl with DiagnosticableTreeMixin implements _NextFriend {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
@@ -882,8 +552,6 @@ class _$ShowAllFriendsImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
@@ -896,8 +564,6 @@ class _$ShowAllFriendsImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
@@ -910,8 +576,6 @@ class _$ShowAllFriendsImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
@@ -928,8 +592,6 @@ class _$ShowAllFriendsImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
@@ -942,8 +604,6 @@ class _$ShowAllFriendsImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
@@ -956,8 +616,6 @@ class _$ShowAllFriendsImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
@@ -1048,8 +706,6 @@ class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MapController mapController) started,
-    required TResult Function() startFriendsPoling,
-    required TResult Function() startSelfPoling,
     required TResult Function() goHome,
     required TResult Function() nextFriend,
     required TResult Function() showAllFriends,
@@ -1062,8 +718,6 @@ class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(MapController mapController)? started,
-    TResult? Function()? startFriendsPoling,
-    TResult? Function()? startSelfPoling,
     TResult? Function()? goHome,
     TResult? Function()? nextFriend,
     TResult? Function()? showAllFriends,
@@ -1076,8 +730,6 @@ class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(MapController mapController)? started,
-    TResult Function()? startFriendsPoling,
-    TResult Function()? startSelfPoling,
     TResult Function()? goHome,
     TResult Function()? nextFriend,
     TResult Function()? showAllFriends,
@@ -1094,8 +746,6 @@ class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StartFriendsPoling value) startFriendsPoling,
-    required TResult Function(_StartSelfPoling value) startSelfPoling,
     required TResult Function(_GoHome value) goHome,
     required TResult Function(_NextFriend value) nextFriend,
     required TResult Function(_ShowAllFriends value) showAllFriends,
@@ -1108,8 +758,6 @@ class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult? Function(_StartSelfPoling value)? startSelfPoling,
     TResult? Function(_GoHome value)? goHome,
     TResult? Function(_NextFriend value)? nextFriend,
     TResult? Function(_ShowAllFriends value)? showAllFriends,
@@ -1122,8 +770,6 @@ class _$changeZoomImpl with DiagnosticableTreeMixin implements _changeZoom {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StartFriendsPoling value)? startFriendsPoling,
-    TResult Function(_StartSelfPoling value)? startSelfPoling,
     TResult Function(_GoHome value)? goHome,
     TResult Function(_NextFriend value)? nextFriend,
     TResult Function(_ShowAllFriends value)? showAllFriends,
@@ -1151,6 +797,7 @@ mixin _$MapState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
     required TResult Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)
         updCoordinates,
@@ -1159,6 +806,7 @@ mixin _$MapState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? loading,
     TResult? Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
         updCoordinates,
@@ -1167,6 +815,7 @@ mixin _$MapState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
     TResult Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
         updCoordinates,
@@ -1176,18 +825,21 @@ mixin _$MapState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_UpdCoordinates value) updCoordinates,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_UpdCoordinates value)? updCoordinates,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_UpdCoordinates value)? updCoordinates,
     required TResult orElse(),
   }) =>
@@ -1256,6 +908,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
     required TResult Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)
         updCoordinates,
@@ -1267,6 +920,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? loading,
     TResult? Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
         updCoordinates,
@@ -1278,6 +932,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
     TResult Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
         updCoordinates,
@@ -1293,6 +948,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_UpdCoordinates value) updCoordinates,
   }) {
     return initial(this);
@@ -1302,6 +958,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_UpdCoordinates value)? updCoordinates,
   }) {
     return initial?.call(this);
@@ -1311,6 +968,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_UpdCoordinates value)? updCoordinates,
     required TResult orElse(),
   }) {
@@ -1323,6 +981,126 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
 
 abstract class _Initial implements MapState {
   const factory _Initial() = _$InitialImpl;
+}
+
+/// @nodoc
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$MapStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
+  const _$LoadingImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MapState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MapState.loading'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(
+            List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)
+        updCoordinates,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(
+            List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
+        updCoordinates,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(
+            List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
+        updCoordinates,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_UpdCoordinates value) updCoordinates,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_UpdCoordinates value)? updCoordinates,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_UpdCoordinates value)? updCoordinates,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loading implements MapState {
+  const factory _Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -1431,6 +1209,7 @@ class _$UpdCoordinatesImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
     required TResult Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)
         updCoordinates,
@@ -1442,6 +1221,7 @@ class _$UpdCoordinatesImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? loading,
     TResult? Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
         updCoordinates,
@@ -1453,6 +1233,7 @@ class _$UpdCoordinatesImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
     TResult Function(
             List<MapTagModel> nowCoordinate, List<MapTagModel> prevCoordinate)?
         updCoordinates,
@@ -1468,6 +1249,7 @@ class _$UpdCoordinatesImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_UpdCoordinates value) updCoordinates,
   }) {
     return updCoordinates(this);
@@ -1477,6 +1259,7 @@ class _$UpdCoordinatesImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_UpdCoordinates value)? updCoordinates,
   }) {
     return updCoordinates?.call(this);
@@ -1486,6 +1269,7 @@ class _$UpdCoordinatesImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_UpdCoordinates value)? updCoordinates,
     required TResult orElse(),
   }) {

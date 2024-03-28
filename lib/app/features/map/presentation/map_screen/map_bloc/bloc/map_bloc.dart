@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
@@ -16,67 +17,79 @@ part 'map_event.dart';
 part 'map_state.dart';
 
 class MapData {
-  static int friendId = 0;
-  static List<MapTagModel> markers = [];
-  static MapController mapController = MapController();
-  static double zoom = 10;
+  int friendId = 0;
+  List<MapTagModel> markers = [];
+  MapController mapController = MapController();
+  double zoom = 10;
 
-  static void updateZoom() {
-    // mapController.move(mapController.camera.center, zoom);
+  void updateZoom() {
     zoom = mapController.camera.zoom;
   }
 }
 
 class MapBloc extends Bloc<FriendsMapEvent, MapState> {
-
   MapBloc({required this.manager}) : super(const _Initial()) {
     track();
     on<FriendsMapEvent>((event, emit) async {
       await event.map(
         started: (event) async => await start(event, emit),
-        startFriendsPoling: (event) async =>
-            await startFriendsPoling(event, emit),
-        startSelfPoling: (event) async => await startSelfPoling(event, emit),
         goHome: (value) {
-          MapData.mapController.move(
-              LatLng(MapData.markers.last.coordinate.latitude,
-                  MapData.markers.last.coordinate.longitude),
-              MapData.zoom);
+          _mapData.mapController.move(
+              LatLng(_mapData.markers.last.coordinate.latitude,
+                  _mapData.markers.last.coordinate.longitude),
+              _mapData.zoom);
         },
         nextFriend: (value) {
-          if (MapData.markers.length <= 1) {
+          if (_mapData.markers.length <= 1) {
             return;
           }
-          MapData.friendId =
-              (MapData.friendId + 1) % (MapData.markers.length - 1);
+          _mapData.friendId =
+              (_mapData.friendId + 1) % (_mapData.markers.length - 1);
           if (kDebugMode) {
-            print(MapData.friendId % MapData.markers.length);
+            print(_mapData.friendId % _mapData.markers.length);
           }
-          MapData.mapController.move(
-              LatLng(MapData.markers[MapData.friendId].coordinate.latitude,
-                  MapData.markers[MapData.friendId].coordinate.longitude),
-              MapData.zoom);
+          _mapData.mapController.move(
+              LatLng(_mapData.markers[_mapData.friendId].coordinate.latitude,
+                  _mapData.markers[_mapData.friendId].coordinate.longitude),
+              _mapData.zoom);
         },
         showAllFriends: (value) {},
         changeZoom: (value) {
-          MapData.zoom = MapData.mapController.camera.zoom;
-          MapData.zoom += value.value;
-          MapData.mapController
-              .move(MapData.mapController.camera.center, MapData.zoom);
+          _mapData.zoom = _mapData.mapController.camera.zoom;
+          _mapData.zoom += value.value;
+          _mapData.mapController
+              .move(_mapData.mapController.camera.center, _mapData.zoom);
+          emit(MapState.updCoordinates(
+              nowCoordinate: _mapData.markers,
+              prevCoordinate: _mapData.markers));
         },
       );
     });
   }
   final MapManager manager;
-
+  final MapData _mapData = MapData();
   final allMarkers = StreamController<List<MapTagModel>>();
+  bool _firstEnter = false;
   List<MapTagModel> tags = [];
 
+  void dispose() {
+    allMarkers.close();
+  }
+
+  FutureOr<void> start(event, Emitter<MapState> emit) async {
+    _mapData.mapController = event.mapController;
+    emit(const MapState.loading());
+    _firstEnter = true;
+   // while (_mapData.markers.isEmpty) {}
+
+    // _mapData.mapController.move(
+    //     LatLng(_mapData.markers.last.coordinate.latitude,
+    //         _mapData.markers.last.coordinate.longitude),
+    //     _mapData.zoom);
+  }
+
   Future<void> track() async {
-    final stream = await manager.startTrackFriends();
-    stream.listen((event) {
-      // emit(MapState.updCoordinates(
-      //     nowCoordinate: event, prevCoordinate: MapData.markers));
+    (await manager.startTrackFriends()).listen((event) {
       tags = event;
       tags.add(MapTagModel(
           photoUrl:
@@ -84,8 +97,7 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           id: '-1',
           coordinate: CoordinateModel(latitude: 0, longitude: 0)));
     });
-    final streamMe = manager.startSelfCoordinatePoling();
-    streamMe.listen((event) {
+    manager.startSelfCoordinatePoling().listen((event) {
       tags.last = MapTagModel(
           photoUrl:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnNrA8mNiQH4kfhSyjd38JJEf6P0R4MRFJvRTyAF5eBUca-v0ou16Ihre-NUIAdQIABQg&usqp=CAU',
@@ -95,26 +107,16 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
     });
     allMarkers.stream.listen((event) {
       emit(MapState.updCoordinates(
-          nowCoordinate: event, prevCoordinate: MapData.markers));
-      MapData.markers = List.of(event);
+          nowCoordinate: event, prevCoordinate: _mapData.markers));
+      _mapData.markers = List.of(event);
+      if(_firstEnter){
+
+        _mapData.mapController.move(
+              LatLng(_mapData.markers.last.coordinate.latitude,
+                  _mapData.markers.last.coordinate.longitude),
+              _mapData.zoom);
+        _firstEnter = false;
+      }
     });
-    // MapData.mapController.mapEventStream.listen((event) {
-    //   MapData.zoom = event.camera.zoom;
-    //   if (kDebugMode) {
-    //     print(event.camera.zoom);
-    //   }
-    // });
   }
-
-  void dispose() {
-    allMarkers.close();
-  }
-
-  start(event, Emitter<MapState> emit) {
-    MapData.mapController = event.mapController;
-  }
-
-  startFriendsPoling(event, Emitter<MapState> emit) {}
-
-  startSelfPoling(event, Emitter<MapState> emit) {}
 }

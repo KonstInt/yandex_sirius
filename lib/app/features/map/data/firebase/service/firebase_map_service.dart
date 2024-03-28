@@ -33,19 +33,19 @@ class FirebaseMapService {
           photoUrl:
               'https://img.buzzfeed.com/buzzfeed-static/static/2023-11/14/17/campaign_images/3a682d348ec5/dd-osama-on-drill-being-washed-and-pop-smoke-bein-3-515-1699983197-6_dblbig.jpg',
           id: 'sds',
-          coordinate: CoordinateModel(latitude: 50.00003, longitude: 0.00002))
+          coordinate: CoordinateModel(latitude: 47.203672, longitude: 39.635135))
     ];
     final streamFriends = Stream<List<FirebaseApiMapTagModel>>.periodic(
-        const Duration(seconds: 3), (ff) {
+        const Duration(seconds: 1), (ff) {
       for (int i = 0; i < friendCoordinates.length; i++) {
         friendCoordinates[i] = FirebaseApiMapTagModel(
             photoUrl: friendCoordinates[i].photoUrl,
             id: friendCoordinates[i].id,
             coordinate: CoordinateModel(
                 longitude: friendCoordinates[i].coordinate.longitude +
-                    (Random().nextDouble() - 0.5) / 30,
+                    (Random().nextDouble() - 0.5) / 500,
                 latitude: friendCoordinates[i].coordinate.latitude +
-                    (Random().nextDouble() - 0.5) / 30));
+                    (Random().nextDouble() - 0.5) / 540));
       }
       return friendCoordinates;
     });

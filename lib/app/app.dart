@@ -22,7 +22,7 @@ class App extends StatelessWidget {
               localizationsDelegates: const [
                 Localization.delegate,
               ],
-              supportedLocales: Localization.delegate.supportedLocales,
+              supportedLocales: [const Locale('en', ''),],
               routerConfig: GetIt.I<RoutingService>().router,
             ),
             context: context,

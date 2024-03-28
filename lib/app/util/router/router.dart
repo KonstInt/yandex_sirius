@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:yandex_sirius/app/features/map/presentation/map_screen/screens/MapScreen.dart';
+import 'package:yandex_sirius/app/features/map/presentation/map_screen/screens/map_screen.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/login_page.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/signup_page.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/user_enter_controll/presentation/sign_in_control_bloc.dart';
