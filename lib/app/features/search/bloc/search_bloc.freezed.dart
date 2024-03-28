@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SearchState {
   List<dynamic> get peoples => throw _privateConstructorUsedError;
-  Set<String> get friends => throw _privateConstructorUsedError;
+  Map<String, bool> get isFriend => throw _privateConstructorUsedError;
   FormzSubmissionStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -33,7 +33,7 @@ abstract class $SearchStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<dynamic> peoples,
-      Set<String> friends,
+      Map<String, bool> isFriend,
       FormzSubmissionStatus status});
 }
 
@@ -51,7 +51,7 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
   @override
   $Res call({
     Object? peoples = null,
-    Object? friends = null,
+    Object? isFriend = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -59,10 +59,10 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
           ? _value.peoples
           : peoples // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
-      friends: null == friends
-          ? _value.friends
-          : friends // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+      isFriend: null == isFriend
+          ? _value.isFriend
+          : isFriend // ignore: cast_nullable_to_non_nullable
+              as Map<String, bool>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$SearchStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<dynamic> peoples,
-      Set<String> friends,
+      Map<String, bool> isFriend,
       FormzSubmissionStatus status});
 }
 
@@ -97,7 +97,7 @@ class __$$SearchStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? peoples = null,
-    Object? friends = null,
+    Object? isFriend = null,
     Object? status = null,
   }) {
     return _then(_$SearchStateImpl(
@@ -105,10 +105,10 @@ class __$$SearchStateImplCopyWithImpl<$Res>
           ? _value._peoples
           : peoples // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
-      friends: null == friends
-          ? _value._friends
-          : friends // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+      isFriend: null == isFriend
+          ? _value._isFriend
+          : isFriend // ignore: cast_nullable_to_non_nullable
+              as Map<String, bool>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -122,10 +122,10 @@ class __$$SearchStateImplCopyWithImpl<$Res>
 class _$SearchStateImpl implements _SearchState {
   const _$SearchStateImpl(
       {final List<dynamic> peoples = const <FirebaseApiUserModel>[],
-      final Set<String> friends = const {},
+      final Map<String, bool> isFriend = const {},
       this.status = FormzSubmissionStatus.initial})
       : _peoples = peoples,
-        _friends = friends;
+        _isFriend = isFriend;
 
   final List<dynamic> _peoples;
   @override
@@ -136,13 +136,13 @@ class _$SearchStateImpl implements _SearchState {
     return EqualUnmodifiableListView(_peoples);
   }
 
-  final Set<String> _friends;
+  final Map<String, bool> _isFriend;
   @override
   @JsonKey()
-  Set<String> get friends {
-    if (_friends is EqualUnmodifiableSetView) return _friends;
+  Map<String, bool> get isFriend {
+    if (_isFriend is EqualUnmodifiableMapView) return _isFriend;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_friends);
+    return EqualUnmodifiableMapView(_isFriend);
   }
 
   @override
@@ -151,7 +151,7 @@ class _$SearchStateImpl implements _SearchState {
 
   @override
   String toString() {
-    return 'SearchState(peoples: $peoples, friends: $friends, status: $status)';
+    return 'SearchState(peoples: $peoples, isFriend: $isFriend, status: $status)';
   }
 
   @override
@@ -160,7 +160,7 @@ class _$SearchStateImpl implements _SearchState {
         (other.runtimeType == runtimeType &&
             other is _$SearchStateImpl &&
             const DeepCollectionEquality().equals(other._peoples, _peoples) &&
-            const DeepCollectionEquality().equals(other._friends, _friends) &&
+            const DeepCollectionEquality().equals(other._isFriend, _isFriend) &&
             (identical(other.status, status) || other.status == status));
   }
 
@@ -168,7 +168,7 @@ class _$SearchStateImpl implements _SearchState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_peoples),
-      const DeepCollectionEquality().hash(_friends),
+      const DeepCollectionEquality().hash(_isFriend),
       status);
 
   @JsonKey(ignore: true)
@@ -181,13 +181,13 @@ class _$SearchStateImpl implements _SearchState {
 abstract class _SearchState implements SearchState {
   const factory _SearchState(
       {final List<dynamic> peoples,
-      final Set<String> friends,
+      final Map<String, bool> isFriend,
       final FormzSubmissionStatus status}) = _$SearchStateImpl;
 
   @override
   List<dynamic> get peoples;
   @override
-  Set<String> get friends;
+  Map<String, bool> get isFriend;
   @override
   FormzSubmissionStatus get status;
   @override

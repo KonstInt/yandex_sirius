@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yandex_sirius/app/features/search/bloc/search_bloc.dart';
 
 import '../../../generated/l10n.dart';
@@ -104,7 +105,7 @@ class _UserList extends StatelessWidget {
                             height: 100,
                             width: 100,
                             alignment: Alignment.bottomCenter,
-                            key: const Key("image_picker"),
+                            key: const Key("image_picker_search"),
                             decoration: BoxDecoration(
                               color: Colors.grey,
                               shape: BoxShape.circle,
@@ -122,7 +123,14 @@ class _UserList extends StatelessWidget {
                             ),
                           ),
                           Text(person.name),
-                          FloatingActionButton(onPressed: () {}),
+                          FloatingActionButton(
+                            backgroundColor: state.isFriend[person.id]! ? Colors.grey : Colors.green,
+                            child: state.isFriend[person.id]! ? const Icon(Icons.check) : const Icon(Icons.add),
+                            onPressed: () {
+                              state.isFriend[person.id]! ? context.read<SearchBloc>().add(AddFriend(person.id, person.photoUrl)) :
+                              context.read<SearchBloc>().add(DeleteFriend(person.id));
+                            },
+                          ),
                         ],
                       ),
                     );

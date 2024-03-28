@@ -14,7 +14,6 @@ class FirebaseUserService {
   }
 
   Future<List<FirebaseApiUserModel>> getFriends(String userId) async {
-    //
     var querySnapshot = await FirebaseFirestore.instance
         .collection('friends')
         .where('userId', isEqualTo: userId)
