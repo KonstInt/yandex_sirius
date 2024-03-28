@@ -30,7 +30,7 @@ class MapManager {
   List<MapTagModel> _friendsTag = [];
   bool isStartTrackFriendCallFlag = false;
 
-  Future<Stream<MapTagModel>> startTrackFriends() {
+  Future<Stream<List<MapTagModel>>> startTrackFriends() {
     return remoteMapRepository.getFriendCoordinateStream(_friendsTag);
   }
 
