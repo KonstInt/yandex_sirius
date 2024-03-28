@@ -16,7 +16,7 @@ class BaseRoundedButton extends StatelessWidget {
   final Color? backgroundColor;
   final String? secondaryText;
   final Color? textColor;
-  final void Function() action;
+  final void Function()? action;
   final bool isExpand;
 
   @override

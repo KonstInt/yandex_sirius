@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
@@ -31,7 +35,12 @@ import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/fir
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/util/firebase_user_util.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/local_user_repository.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/user_enter_controll/bloc/sign_in_control_bloc.dart';
 import 'package:yandex_sirius/app/util/logger/logger.dart';
+import 'package:yandex_sirius/app/util/router/router.dart';
+import 'package:yandex_sirius/firebase_options.dart';
 
 Future<void> setUpDI(DIOptions options) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +73,14 @@ enum DIOptions { test, prod, dev }
 Future<void> initFirebase() async {
   //TODO:
   logger.d('Firebase initialization started');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );*/
@@ -126,7 +143,8 @@ Future<void> _setUpDev(GetIt getIt) async {
     //Register remote user repository
     ..registerSingleton<FirebaseUserService>(FirebaseUserService())
     ..registerSingleton<FirebaseFriendMapper>(FirebaseFriendMapper())
-    ..registerSingleton<FirebaseUserMapper>(FirebaseUserMapper())
+    ..registerSingleton<FirebaseUserMapper>(
+        FirebaseUserMapper(friendMapper: GetIt.I<FirebaseFriendMapper>()))
     ..registerSingleton<FirebaseUserUtil>(FirebaseUserUtil(
         mapper: GetIt.I<FirebaseUserMapper>(),
         service: GetIt.I<FirebaseUserService>()))
@@ -139,7 +157,16 @@ Future<void> _setUpDev(GetIt getIt) async {
     ..registerSingleton<IsarUserUtil>(IsarUserUtil(
         mapper: GetIt.I<IsarUserMapper>(), service: GetIt.I<IsarUserService>()))
     ..registerSingleton<LocalUserRepository>(IsarUserRepository(
-        userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()));
+        userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()))
+    //Register SignIn bloc
+    ..registerSingleton<LoginBloc>(LoginBloc(GetIt.I<RemoteUserRepository>()))
+    //Register SignUp bloc
+    ..registerSingleton<SignUpBloc>(SignUpBloc(GetIt.I<RemoteUserRepository>()))
+    //Register Router
+    ..registerSingleton<RoutingService>(RoutingService())
+    //Register SignInBloc
+    ..registerSingleton<SignInControlBloc>(SignInControlBloc(
+        GetIt.I<RemoteUserRepository>(), GetIt.I<UserUseCase>()));
 }
 
 ///SETUP PROD
