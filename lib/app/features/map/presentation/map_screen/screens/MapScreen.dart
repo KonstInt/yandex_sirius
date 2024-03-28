@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:rive/rive.dart';
 
 // import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_event.dart';
 import 'package:flutter_map/src/gestures/map_events.dart';
@@ -38,37 +39,38 @@ class MapScreen extends StatelessWidget {
                       updCoordinates: (state) {
                         List<Marker> now = [];
                         List<Marker> prev = [];
-                        for (var i in state.nowCoordinate) {
+                        const backgroundAnimation = Center(
+                            child: RiveAnimation.asset(
+                          'assets/blobbino_felicino.riv',
+                          fit: BoxFit.scaleDown,
+                        ));
+                        int cnt = 0;
+                        for (final i in state.nowCoordinate) {
                           now.add(Marker(
                               point: LatLng(i.coordinate.latitude,
                                   i.coordinate.longitude),
-                              child: Container(
-                                height: 20.0,
-                                width: 20.0,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: Image.network(i.photoUrl).image,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                              )));
+                              child: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Stack(children: [
+                                    ((++cnt) < state.nowCoordinate.length)
+                                        ? backgroundAnimation
+                                        : const SizedBox(),
+                                    Center(
+                                        child: CircleAvatar(
+                                      backgroundImage:
+                                          Image.network(i.photoUrl).image,
+                                      radius: 12,
+                                    )),
+                                  ]))));
                         }
                         for (var i in state.prevCoordinate) {
                           prev.add(Marker(
-                              point: LatLng(i.coordinate.latitude,
-                                  i.coordinate.longitude),
-                              child: Container(
-                                height: 20.0,
-                                width: 20.0,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: Image.network(i.photoUrl).image,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                              )));
+                            point: LatLng(
+                                i.coordinate.latitude, i.coordinate.longitude),
+                            child: const SizedBox(
+                                height: 20.0, width: 20.0, child: Stack()),
+                          ));
                         }
                         return AnimatedMarkerLayerGlobal(
                           previous: prev,
@@ -93,14 +95,11 @@ class MapScreen extends StatelessWidget {
                   ButtonWithBlock(
                       event: FriendsMapEvent.nextFriend(), text: 'next'),
                   ButtonWithBlock(
-                      event: FriendsMapEvent.showAllFriends(),
-                      text: 'friends'),
+                      event: FriendsMapEvent.showAllFriends(), text: 'friends'),
                   ButtonWithBlock(
-                      event: FriendsMapEvent.changeZoom(1),
-                      text: '+'),
+                      event: FriendsMapEvent.changeZoom(1), text: '+'),
                   ButtonWithBlock(
-                      event: FriendsMapEvent.changeZoom(-1),
-                      text: '-')
+                      event: FriendsMapEvent.changeZoom(-1), text: '-')
                 ])),
           )
         ],
