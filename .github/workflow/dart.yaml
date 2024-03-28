@@ -1,4 +1,4 @@
-name: Dart
+name: Dart CI
 
 on:
   workflow_dispatch:
@@ -29,10 +29,11 @@ jobs:
         uses: dart-lang/setup-dart@v1
 
       - name: Install dependencies
-        run: Flutter pub get
+        run: flutter pub get
 
       - name: Analyze project source
         run: dart analyze --fatal-infos
+
   build:
     runs-on: ubuntu-latest
 
@@ -66,11 +67,26 @@ jobs:
       - run: dart pub global activate flutterfire_cli
 
       - run: export PATH="$PATH":"$HOME/.pub-cache/bin"
-      - run: flutterfire configure --token ${{secrets.FIREBASE_TOKEN}}
-          --project="yandex_sirius"
-          --platforms="android"
-          --android-package-name="com.example.yandex_sirius"
-          --yes
+
+      - name: Fetch available Firebase projects
+        run: firebase projects:list --token ${{ secrets.FIREBASE_TOKEN }} --json > projects.json
+
+      - name: Select project
+        run: |
+          PROJECT_NAME="yandex_sirius"
+          PROJECT_ID=$(jq -r ".[] | select(.projectId == \"$PROJECT_NAME\") | .projectId" projects.json)
+          if [ -z "$PROJECT_ID" ]; then
+            echo "Project $PROJECT_NAME not found."
+            exit 1
+          fi
+          echo "Selected project: $PROJECT_ID"
+
+      - name: Configure Firebase
+        run: |
+          firebase --project="$PROJECT_NAME" configure --token ${{ secrets.FIREBASE_TOKEN }} \
+            --platforms="android" \
+            --android-package-name="com.example.yandex_sirius" \
+            --yes
 
       - name: Build Apk
         run: flutter build apk --debug --flavor development --target lib/main_development.dart

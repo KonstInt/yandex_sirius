@@ -26,25 +26,26 @@ class SearchForm extends StatelessWidget {
             );
         }
       },
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ScreenUtilInit(
             child: SearchField(
               hintText: 'Search',
-              onChanged: (value) {
+              onChanged:(value) {
                 context
                     .read<SearchBloc>()
                     .add(CreateUserList(value));
-
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
-          _UserList(),
+          Expanded(
+            child: _UserList(),
+          ),
         ],
       ),
     );
@@ -52,7 +53,7 @@ class SearchForm extends StatelessWidget {
 }
 
 class _UserList extends StatelessWidget {
-  const _UserList({super.key});
+  const _UserList({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,60 +61,87 @@ class _UserList extends StatelessWidget {
       builder: (context, state) {
         return state.status.isInProgress
             ? const Center(child: CircularProgressIndicator())
-            : Expanded(
-                child: ListView.builder(
-                  itemCount: state.peoples.length,
-                  itemBuilder: (context, index) {
-                    final person = state.peoples[index];
-                    return Card(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 100,
-                            width: 100,
-                            alignment: Alignment.bottomCenter,
-                            key: const Key('image_picker_search'),
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 2,
-                                color: Colors.black45,
-                              ),
-                              image: (person.photoUrl == null ||
-                                      person.photoUrl.isEmpty)
-                                  ? null
-                                  : DecorationImage(
-                                      image: NetworkImage(person.photoUrl),
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                          ),
-                          Text(person.name),
-                          FloatingActionButton(
-                            onPressed: () {},
-                            /**backgroundColor: state.isFriend[person.id]!
-                          ? Colors.grey
-                          : Colors.green,
-                          child: state.isFriend[person.id]!
-                          ? const Icon(Icons.check)
-                          : const Icon(Icons.add),
-                          onPressed: () {
-                          state.isFriend[person.id]!
-                          ? context.read<SearchBloc>().add(
-                          AddFriend(person.id, person.photoUrl))
-                          : context
-                          .read<SearchBloc>()
-                          .add(DeleteFriend(person.id));
-                          },*/
-                          ),
-                        ],
+            : ListView.builder(
+          itemCount: state.peoples.length,
+          itemBuilder: (context, index) {
+            final person = state.peoples[index];
+            return Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    alignment: Alignment.bottomCenter,
+                    key: const Key('image_picker_search'),
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 2,
+                        color: Colors.black45,
                       ),
-                    );
+                      image: (person.photoUrl == null ||
+                          person.photoUrl.isEmpty)
+                          ? null
+                          : DecorationImage(
+                        image: NetworkImage(person.photoUrl),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Text(person.name),
+                  FloatingActionButton(
+                    onPressed: () {
+                      context.read<SearchBloc>().add(AddFriend(person.id, person.photoUrl));
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+class _SearchLine extends StatelessWidget {
+  const _SearchLine({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = Localization.of(context);
+
+    return BlocBuilder<SearchBloc, SearchState>(
+      buildWhen: (previous, next) =>
+      previous.peoples.length != next.peoples.length,
+      builder: (context, state) {
+        return Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(color: Colors.black45, width: 2),
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.search, color: Colors.grey),
+              const SizedBox(width: 8),
+              Expanded(
+                child: TextField(
+                  key: const Key('searchField'),
+                  onChanged: (value) {
+                    context.read<SearchBloc>().add(CreateUserList(value));
                   },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Search',
+                  ),
                 ),
-              );
+              ),
+            ],
+          ),
+        );
       },
     );
   }
