@@ -1,4 +1,4 @@
-name: dart
+name: Dart
 
 on:
   workflow_dispatch:
