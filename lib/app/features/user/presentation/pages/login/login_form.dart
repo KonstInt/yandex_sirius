@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yandex_sirius/app/base_components/buttons/base_rounded_button.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
-import 'package:yandex_sirius/app/features/user/presentation/pages/signup/signup_page.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/login/log_in_app_bar.dart';
+import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
 class LoginForm extends StatelessWidget {
@@ -27,8 +32,10 @@ class LoginForm extends StatelessWidget {
         alignment: const Alignment(0, -1 / 3),
         child: SingleChildScrollView(
           child: Column(
+            
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              const LoginAppBar(),
               const SizedBox(height: 16),
               _EmailInput(),
               const SizedBox(height: 8),
@@ -59,9 +66,19 @@ class _EmailInput extends StatelessWidget {
               .add(LoginEvent.emailChanged(newEmail: email)),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: l10n.email,
-            helperText: '',
-          ),
+              labelText: l10n.email,
+              helperText: '',
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.colors.borderColor),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.colors.blueTooth),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.colors.mario),
+              ),
+              labelStyle: context.textStyles.smallM
+                  .copyWith(color: context.colors.borderColor)),
         );
       },
     );
@@ -82,9 +99,19 @@ class _PasswordInput extends StatelessWidget {
               .add(LoginEvent.passwordChanged(newPassword: password)),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: l10n.password,
-            helperText: '',
-          ),
+              labelText: l10n.password,
+              helperText: '',
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.colors.borderColor),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.colors.blueTooth),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: context.colors.mario),
+              ),
+              labelStyle: context.textStyles.smallM
+                  .copyWith(color: context.colors.borderColor)),
         );
       },
     );
@@ -99,21 +126,26 @@ class _LoginButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('loginForm_continue_raisedButton'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  backgroundColor: const Color(0xFFFFD600),
-                ),
-                onPressed: state.isValid
-                    ? () => context
-                        .read<LoginBloc>()
-                        .add(LoginEvent.logInWithCredentials())
-                    : null,
-                child: Text(l10n.login),
-              );
+            : 
+            BaseRoundedButton(primaryText: l10n.login, action:  () => state.isValid
+                    ? () =>
+                        context.read<LoginBloc>().add(LoginEvent.logInWithCredentials())
+                    : null);
+            // ElevatedButton(
+            //     key: const Key('loginForm_continue_raisedButton'),
+            //     style: ElevatedButton.styleFrom(
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //       ),
+            //       backgroundColor: const Color(0xFFFFD600),
+            //     ),
+            //     onPressed: state.isValid
+            //         ? () => context
+            //             .read<LoginBloc>()
+            //             .add(LoginEvent.logInWithCredentials())
+            //         : null,
+            //     child: Text(l10n.login),
+            //   );
       },
     );
   }
@@ -127,14 +159,11 @@ class _SignUpButton extends StatelessWidget {
     return TextButton(
       key: const Key('loginForm_createAccount_button'),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SignUpPage()),
-        );
+        context.go('/login/sign_up');
       },
       child: Text(
         l10n.createAccount,
-        style: TextStyle(color: theme.primaryColor),
+        style: context.textStyles.bodyM.copyWith(color: context.colors.black),
       ),
     );
   }

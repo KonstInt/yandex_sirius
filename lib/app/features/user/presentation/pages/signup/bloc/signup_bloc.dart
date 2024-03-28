@@ -27,24 +27,32 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             nameChanged: (event) async => await _onNameChanged(event, emit),
             nicknameChanged: (event) async =>
                 await _onNicknameChanged(event, emit),
-            photoChanged: (event) async => await _onPhotoChanged(event, emit),
+            photoChanged: (event) async => _onPhotoChanged(event, emit),
             confirmedPasswordChanged: (event) async =>
                 await _onConfirmedPasswordChanged(event, emit),
             authenticationSubmitted: (event) async =>
-                await _onAuthenticationSubmitted(event, emit),
+                _onAuthenticationSubmitted(event, emit),
             signUpFormSubmitted: (event) async =>
-                await _onSignUpFormSubmitted(event, emit));
+                _onSignUpFormSubmitted(event, emit));
       },
     );
-  
   }
+
+  String _email = '';
+  String _password = '';
+  String _confirmedPassword = '';
+  String _nickName = '';
+  String _photoUrl = '';
+  String _name = '';
+  String _surname = '';
+
   final RemoteUserRepository _authenticationRepository;
   FutureOr<void> _onEmailChanged(
       _EmailChanged event, Emitter<SignUpState> emit) {
-    final email = event.email;
+    _email = event.email;
     emit(
       state.copyWith(
-        email: email,
+        email: _email,
         errorMessage: null,
       ),
     );
@@ -54,10 +62,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       _SurnameChanged event, Emitter<SignUpState> emit) {
     final bool checker =
         state.alias != '' && state.name != '' && state.surname != '';
+    _surname = event.surname;
     emit(
       state.copyWith(
         isValid: checker,
-        surname: event.surname,
+        surname: _surname,
       ),
     );
   }
@@ -65,6 +74,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   FutureOr<void> _onNameChanged(_NameChanged event, Emitter<SignUpState> emit) {
     final bool checker =
         state.alias != '' && state.name != '' && state.surname != '';
+    _name = event.name;
     emit(
       state.copyWith(
         isValid: checker,
@@ -77,10 +87,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       _NicknameChanged event, Emitter<SignUpState> emit) {
     final bool checker =
         state.alias != '' && state.name != '' && state.surname != '';
+    _nickName = event.nickname;
     emit(
       state.copyWith(
         isValid: checker,
-        alias: event.nickname,
+        alias: _nickName,
         errorMessage: null,
       ),
     );
@@ -88,10 +99,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   FutureOr<void> _onPasswordChanged(
       _PasswordChanged event, Emitter<SignUpState> emit) {
-    final password = event.password;
+    _password = event.password;
     emit(
       state.copyWith(
-        password: password,
+        password: _password,
         errorMessage: null,
       ),
     );
@@ -102,12 +113,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
+    //TODO:!!!
     if (pickedFile != null) {
       final bytes = await pickedFile.readAsBytes();
-      final encodedImage = base64Encode(bytes);
+      _photoUrl = base64Encode(bytes);
       emit(
         state.copyWith(
-          photo: encodedImage,
+          photo: _photoUrl,
         ),
       );
     }
@@ -115,10 +127,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   FutureOr<void> _onConfirmedPasswordChanged(
       _ConfirmedPasswordChanged event, Emitter<SignUpState> emit) {
-    final confirmedPassword = event.confirmedPassword;
+    _confirmedPassword = event.confirmedPassword;
     emit(
       state.copyWith(
-        isValid: (confirmedPassword == state.password) ? true : false,
+        isValid: _confirmedPassword == state.password,
       ),
     );
   }
@@ -127,9 +139,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       _AuthenticationSubmitted event, Emitter<SignUpState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      final String? id = await _authenticationRepository.signIn(
-          state.email, state.password);
-      emit(_SignUpStateSecondPage(id: id));
+      final bool hasUser = await _authenticationRepository.hasUser(_email);
+      if (!hasUser) {
+        emit(const _SignUpStateSecondPage());
+      } else {
+        throw SignUpWithEmailAndPasswordFailure.fromCode(
+            'email-already-in-use');
+      }
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(
         state.copyWith(
@@ -137,7 +153,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           status: FormzSubmissionStatus.failure,
         ),
       );
-    } catch (_) {
+    } on Exception {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
@@ -147,15 +163,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       final user = UserModel(
-          id: state.id!,
-          name: state.name,
-          secondName: state.surname,
-          nickname: state.alias,
-          photoUrl: state.photo,
+          id: '0',
+          name: _name,
+          secondName: _surname,
+          email: _email,
+          nickname: _nickName,
+          photoUrl: _photoUrl,
           friendList: [],
           isOnline: true,
           isGeoTrackingOn: true);
-      await _authenticationRepository.addUserToDB(user, state.email, state.password);
+      await _authenticationRepository.signUp(user, _email, _password);
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on NicknameAlreadyExistsException catch (e) {
       emit(

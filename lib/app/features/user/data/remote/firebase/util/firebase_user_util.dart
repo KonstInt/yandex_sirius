@@ -12,9 +12,10 @@ class FirebaseUserUtil {
     return mapper.userModelFromApi(apiResult);
   }
 
-  Future<bool> hasUser(String email)async{
+  Future<bool> hasUser(String email) async {
     return service.hasUser(email);
   }
+
   Future<UserModel> signUp(
       UserModel user, String login, String password) async {
     final apiUser = mapper.userModelToApi(user);

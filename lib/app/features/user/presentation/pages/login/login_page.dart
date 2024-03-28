@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
     //di
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.login)),
+      //resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider.value(

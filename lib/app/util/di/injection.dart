@@ -38,6 +38,7 @@ import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_re
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/app/util/logger/logger.dart';
+import 'package:yandex_sirius/app/util/router/router.dart';
 import 'package:yandex_sirius/firebase_options.dart';
 
 Future<void> setUpDI(DIOptions options) async {
@@ -158,8 +159,10 @@ Future<void> _setUpDev(GetIt getIt) async {
         userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()))
     //Register SignIn bloc
     ..registerSingleton<LoginBloc>(LoginBloc(GetIt.I<RemoteUserRepository>()))
-    //Register SignUp bloc 
-    ..registerSingleton<SignUpBloc>(SignUpBloc(GetIt.I<RemoteUserRepository>()));
+    //Register SignUp bloc
+    ..registerSingleton<SignUpBloc>(SignUpBloc(GetIt.I<RemoteUserRepository>()))
+    //Register Router
+    ..registerSingleton<RoutingService>(RoutingService());
 }
 
 ///SETUP PROD

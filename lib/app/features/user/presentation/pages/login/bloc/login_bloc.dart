@@ -23,14 +23,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
   }
 
+  String _email = '';
+  String _password = '';
+
   final RemoteUserRepository _authenticationRepository;
 
   FutureOr<void> _onEmailChanged(
       _EmailChanged event, Emitter<LoginState> emit) {
-    final email = event.newEmail;
+    _email = event.newEmail;
     emit(
       state.copyWith(
-        email: email,
+        email: _email,
         errorMessage: null,
       ),
     );
@@ -38,11 +41,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _onPasswordChanged(
       _PasswordChanged event, Emitter<LoginState> emit) {
-    final password = event.newPassword;
+    _password = event.newPassword;
     emit(
       state.copyWith(
         isValid: state.email != '',
-        password: password,
+        password: _password,
         errorMessage: null,
       ),
     );

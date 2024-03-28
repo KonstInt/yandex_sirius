@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
+import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
 class SignUpForm1 extends StatelessWidget {
@@ -67,6 +68,17 @@ class _EmailInput extends StatelessWidget {
                     ? state.errorMessage
                     : null
                 : null,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.borderColor),
           ),
           textInputAction: TextInputAction.next,
         );
@@ -90,7 +102,17 @@ class _PasswordInput extends StatelessWidget {
           obscureText: true,
           decoration: InputDecoration(
             labelText: l10n.password,
-            helperText: '',
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.borderColor),
             errorText: (state.errorMessage != null)
                 ? (state.errorMessage!.contains('password') ||
                         state.errorMessage!.contains('password.'))
@@ -127,6 +149,17 @@ class _ConfirmedPasswordInput extends StatelessWidget {
                     ? state.errorMessage
                     : null
                 : null,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.borderColor),
           ),
           textInputAction: TextInputAction.next,
         );
