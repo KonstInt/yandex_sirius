@@ -7,16 +7,16 @@ class LoginAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height/3,
-      width: double.infinity,
-      child: 
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-            Text('Sign In', style: context.textStyles.headlineB,),
-            
-      ],)
-    );
+        height: MediaQuery.of(context).size.height / 3,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Sign In',
+              style: context.textStyles.headlineB,
+            ),
+          ],
+        ));
   }
 }

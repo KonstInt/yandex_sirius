@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/util/firebase_user_util.dart';
 import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
@@ -30,7 +32,7 @@ class FirebaseUserRepository extends RemoteUserRepository {
   }
 
   @override
-  Future<UserModel> updateAvatar(String userId, String photoAvatar) async {
+  Future<UserModel> updateAvatar(String userId, File photoAvatar) async {
     final res = await util.updateAvatar(userId, photoAvatar);
     userUseCase.writeUser(res);
     return res;
@@ -46,5 +48,10 @@ class FirebaseUserRepository extends RemoteUserRepository {
   @override
   Future<bool> hasUser(String email) {
     return util.hasUser(email);
+  }
+
+  @override
+  Future<UserModel?> getCurrentUser() {
+    return util.getCurrentUser();
   }
 }

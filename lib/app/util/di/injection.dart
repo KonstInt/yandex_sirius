@@ -37,6 +37,7 @@ import 'package:yandex_sirius/app/features/user/domain/repository/local_user_rep
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/user_enter_controll/bloc/sign_in_control_bloc.dart';
 import 'package:yandex_sirius/app/util/logger/logger.dart';
 import 'package:yandex_sirius/app/util/router/router.dart';
 import 'package:yandex_sirius/firebase_options.dart';
@@ -162,7 +163,10 @@ Future<void> _setUpDev(GetIt getIt) async {
     //Register SignUp bloc
     ..registerSingleton<SignUpBloc>(SignUpBloc(GetIt.I<RemoteUserRepository>()))
     //Register Router
-    ..registerSingleton<RoutingService>(RoutingService());
+    ..registerSingleton<RoutingService>(RoutingService())
+    //Register SignInBloc
+    ..registerSingleton<SignInControlBloc>(SignInControlBloc(
+        GetIt.I<RemoteUserRepository>(), GetIt.I<UserUseCase>()));
 }
 
 ///SETUP PROD

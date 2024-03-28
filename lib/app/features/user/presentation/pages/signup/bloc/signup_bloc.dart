@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
@@ -42,7 +43,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   String _password = '';
   String _confirmedPassword = '';
   String _nickName = '';
-  String _photoUrl = '';
+  File? _photoUrl;
   String _name = '';
   String _surname = '';
 
@@ -116,10 +117,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     //TODO:!!!
     if (pickedFile != null) {
       final bytes = await pickedFile.readAsBytes();
-      _photoUrl = base64Encode(bytes);
+      _photoUrl = File(pickedFile.path);
       emit(
         state.copyWith(
-          photo: _photoUrl,
+          photo: base64Encode(bytes),
         ),
       );
     }
@@ -162,17 +163,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       _SignUpFormSubmitted event, Emitter<SignUpState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      final user = UserModel(
+      var user = UserModel(
           id: '0',
           name: _name,
           secondName: _surname,
           email: _email,
           nickname: _nickName,
-          photoUrl: _photoUrl,
+          photoUrl: null,
           friendList: [],
           isOnline: true,
           isGeoTrackingOn: true);
-      await _authenticationRepository.signUp(user, _email, _password);
+      user = await _authenticationRepository.signUp(user, _email, _password);
+      if (_photoUrl != null) {
+        _authenticationRepository.updateAvatar(user.id, _photoUrl!);
+      }
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on NicknameAlreadyExistsException catch (e) {
       emit(

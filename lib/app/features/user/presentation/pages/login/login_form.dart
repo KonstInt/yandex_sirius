@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +31,6 @@ class LoginForm extends StatelessWidget {
         alignment: const Alignment(0, -1 / 3),
         child: SingleChildScrollView(
           child: Column(
-            
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const LoginAppBar(),
@@ -122,30 +120,37 @@ class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = Localization.of(context);
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.status == FormzSubmissionStatus.success) {
+          context.go('/map');
+        }
+      },
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
-            : 
-            BaseRoundedButton(primaryText: l10n.login, action:  () => state.isValid
-                    ? () =>
-                        context.read<LoginBloc>().add(LoginEvent.logInWithCredentials())
+            : BaseRoundedButton(
+                primaryText: l10n.login,
+                action: () => state.isValid
+                    ? context
+                        .read<LoginBloc>()
+                        .add(LoginEvent.logInWithCredentials())
                     : null);
-            // ElevatedButton(
-            //     key: const Key('loginForm_continue_raisedButton'),
-            //     style: ElevatedButton.styleFrom(
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(30),
-            //       ),
-            //       backgroundColor: const Color(0xFFFFD600),
-            //     ),
-            //     onPressed: state.isValid
-            //         ? () => context
-            //             .read<LoginBloc>()
-            //             .add(LoginEvent.logInWithCredentials())
-            //         : null,
-            //     child: Text(l10n.login),
-            //   );
+        // ElevatedButton(
+        //     key: const Key('loginForm_continue_raisedButton'),
+        //     style: ElevatedButton.styleFrom(
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(30),
+        //       ),
+        //       backgroundColor: const Color(0xFFFFD600),
+        //     ),
+        //     onPressed: state.isValid
+        //         ? () => context
+        //             .read<LoginBloc>()
+        //             .add(LoginEvent.logInWithCredentials())
+        //         : null,
+        //     child: Text(l10n.login),
+        //   );
       },
     );
   }

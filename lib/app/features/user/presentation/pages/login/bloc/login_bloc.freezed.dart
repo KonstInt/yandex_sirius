@@ -473,8 +473,8 @@ abstract class _LogInWithCredentials implements LoginEvent {
 
 /// @nodoc
 mixin _$LoginState {
-  dynamic get email => throw _privateConstructorUsedError;
-  dynamic get password => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
   FormzSubmissionStatus get status => throw _privateConstructorUsedError;
   bool get isValid => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -491,8 +491,8 @@ abstract class $LoginStateCopyWith<$Res> {
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
   $Res call(
-      {dynamic email,
-      dynamic password,
+      {String email,
+      String password,
       FormzSubmissionStatus status,
       bool isValid,
       String? errorMessage});
@@ -511,21 +511,21 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = freezed,
-    Object? password = freezed,
+    Object? email = null,
+    Object? password = null,
     Object? status = null,
     Object? isValid = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      email: freezed == email
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      password: freezed == password
+              as String,
+      password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -551,8 +551,8 @@ abstract class _$$LoginStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic email,
-      dynamic password,
+      {String email,
+      String password,
       FormzSubmissionStatus status,
       bool isValid,
       String? errorMessage});
@@ -569,15 +569,21 @@ class __$$LoginStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = freezed,
-    Object? password = freezed,
+    Object? email = null,
+    Object? password = null,
     Object? status = null,
     Object? isValid = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$LoginStateImpl(
-      email: freezed == email ? _value.email! : email,
-      password: freezed == password ? _value.password! : password,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -606,10 +612,10 @@ class _$LoginStateImpl implements _LoginState {
 
   @override
   @JsonKey()
-  final dynamic email;
+  final String email;
   @override
   @JsonKey()
-  final dynamic password;
+  final String password;
   @override
   @JsonKey()
   final FormzSubmissionStatus status;
@@ -629,8 +635,9 @@ class _$LoginStateImpl implements _LoginState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoginStateImpl &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.password, password) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.isValid, isValid) || other.isValid == isValid) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -638,13 +645,8 @@ class _$LoginStateImpl implements _LoginState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(password),
-      status,
-      isValid,
-      errorMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, email, password, status, isValid, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -655,16 +657,16 @@ class _$LoginStateImpl implements _LoginState {
 
 abstract class _LoginState implements LoginState {
   const factory _LoginState(
-      {final dynamic email,
-      final dynamic password,
+      {final String email,
+      final String password,
       final FormzSubmissionStatus status,
       final bool isValid,
       final String? errorMessage}) = _$LoginStateImpl;
 
   @override
-  dynamic get email;
+  String get email;
   @override
-  dynamic get password;
+  String get password;
   @override
   FormzSubmissionStatus get status;
   @override

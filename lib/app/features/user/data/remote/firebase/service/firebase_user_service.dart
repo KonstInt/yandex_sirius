@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import 'package:yandex_sirius/app/features/user/domain/exceptions/eceptions.dart';
 
@@ -97,12 +100,38 @@ class FirebaseUserService {
     return user;
   }
 
+  Future<FirebaseApiUserModel?> getCurrentUser() async {
+    final String? token = FirebaseAuth.instance.currentUser?.uid;
+    if (token == null) {
+      return null;
+    }
+    final snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(token).get();
+    final user = FirebaseApiUserModel.fromJson(snapshot.data()!);
+    return user;
+  }
+
   Future<FirebaseApiUserModel> updateAvatar(
-      String userId, String photoAvatar) async {
-    await FirebaseFirestore.instance.collection('users').doc(userId).update({
-      'photoUrl': photoAvatar,
-    });
-    return getUser(userId);
+      String userId, File photoAvatar) async {
+    try {
+      // final Reference reference =
+      //FirebaseStorage.instance.ref().child("profileImages/${userId}");
+      await FirebaseStorage.instance
+          .ref()
+          .child('profileImages/$userId')
+          .putFile(photoAvatar);
+      //Upload the file to firebase
+      final String url = await FirebaseStorage.instance
+          .ref()
+          .child('profileImages/$userId')
+          .getDownloadURL();
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'photoUrl': url,
+      });
+      return getUser(userId);
+    } on Exception {
+      return getUser(userId);
+    }
   }
 }
 

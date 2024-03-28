@@ -203,7 +203,7 @@ class AppTheme {
     pantherUnderAcid: Color(0xFFF932D3),
     brick: Color(0xFFFC4300),
     orange: Color(0xFFFFA424),
-    
+
     borderColor: Color.fromARGB(255, 187, 187, 187),
     // Plus
     logoPillAndButton: LinearGradient(

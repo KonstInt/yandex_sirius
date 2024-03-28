@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
+import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
 
 class SignUpForm2 extends StatelessWidget {
@@ -59,10 +61,21 @@ class _NickName extends StatelessWidget {
               .read<SignUpBloc>()
               .add(SignUpEvent.nicknameChanged(nickname: nickName)),
           decoration: InputDecoration(
-              labelText: l10n.alias,
-              helperText: '',
-              errorText:
-                  (state.errorMessage != null) ? state.errorMessage : null),
+            labelText: l10n.alias,
+            helperText: '',
+            errorText: (state.errorMessage != null) ? state.errorMessage : null,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.borderColor),
+          ),
           textInputAction: TextInputAction.next,
         );
       },
@@ -85,6 +98,17 @@ class _Name extends StatelessWidget {
           decoration: InputDecoration(
             labelText: l10n.name,
             helperText: '',
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.borderColor),
           ),
           textInputAction: TextInputAction.next,
         );
@@ -108,6 +132,17 @@ class _Surname extends StatelessWidget {
           decoration: InputDecoration(
             labelText: l10n.surname,
             helperText: '',
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.blueTooth),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: context.colors.mario),
+            ),
+            labelStyle: context.textStyles.smallM
+                .copyWith(color: context.colors.borderColor),
           ),
           textInputAction: TextInputAction.next,
         );
@@ -120,7 +155,16 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = Localization.of(context);
-    return BlocBuilder<SignUpBloc, SignUpState>(
+    return BlocConsumer<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        state.mapOrNull(
+          secondPage: (value) {
+            if (value.status == FormzSubmissionStatus.success) {
+              context.go('/map');
+            }
+          },
+        );
+      },
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
