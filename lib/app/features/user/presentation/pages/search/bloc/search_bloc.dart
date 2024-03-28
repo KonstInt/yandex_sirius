@@ -11,15 +11,20 @@ part 'search_bloc.freezed.dart';
 part 'search_event.dart';
 part 'search_state.dart';
 
+UserModel? currentUser;
+Set<String>? friends;
+
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this._authenticationRepository, this._userUseCase)
       : super(const SearchState()) {
-     _listenUser();
-    _friends = _currentUser.friendList.map((e) => e.id).toSet();
+    _listenUser();
+    if (currentUser != null) _currentUser = currentUser!;
+    if (friends != null) _friends = friends!;
     on<CreateUserList>(_onCreateUserList);
     on<AddFriend>(_onAddFriend);
     on<DeleteFriend>(_onDeleteFriend);
   }
+
   final FirebaseUserService _authenticationRepository;
   final UserUseCase _userUseCase;
   late UserModel _currentUser;
@@ -28,6 +33,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _listenUser() {
     _userUseCase.broadcast.listen((event) {
       _currentUser = event;
+      _friends = _currentUser.friendList.map((e) => e.id).toSet();
+      currentUser = event;
+      friends = _friends;
     });
   }
 
@@ -39,7 +47,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
     _currentUser = _currentUser.copyWith(friendList: list);
     final Map<String, bool> friendsMap = state.isFriend;
-
+    friendsMap[event.id] = true;
     emit(state.copyWith(isFriend: friendsMap));
   }
 
@@ -48,14 +56,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final list = _currentUser.friendList;
     final mapFriends = state.isFriend;
     if (_friends.contains(event.id)) {
-      for (var i = 0; i < list.length; i++) {
-          list.removeAt(i);
-          _friends.remove(event.id);
-          break;
-        }
-      }
+      list.removeWhere((friend) => friend.id == event.id);
       _friends.remove(event.id);
+    }
     _currentUser = _currentUser.copyWith(friendList: list);
+    mapFriends[event.id] = false;
     emit(state.copyWith(isFriend: mapFriends));
   }
 
@@ -69,9 +74,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final int end = (list.length >= 10) ? 10 : list.length;
       final Map<String, bool> friendsMap = {};
       if (list.isNotEmpty) {
+        if (friends == null) friends = {};
         for (int i = 0; i < end; i++) {
           newList.add(await _authenticationRepository.getUser(list[i]));
-          friendsMap[newList[i].id] = _friends.contains(newList[i].id);
+          friendsMap[newList[i].id] = friends!.contains(newList[i].id);
         }
       }
     }

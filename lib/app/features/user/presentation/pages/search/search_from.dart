@@ -21,7 +21,7 @@ class SearchForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text('User does not exist'),
+                content: Text('Friends'),
               ),
             );
         }
@@ -33,6 +33,12 @@ class SearchForm extends StatelessWidget {
           ScreenUtilInit(
             child: SearchField(
               hintText: 'Search',
+              onChanged: (value) {
+                context
+                    .read<SearchBloc>()
+                    .add(CreateUserList(value));
+
+              },
             ),
           ),
           SizedBox(
@@ -75,16 +81,16 @@ class _UserList extends StatelessWidget {
                                 width: 2,
                                 color: Colors.black45,
                               ),
-                              image: (person.photoUrl == '')
+                              image: (person.photoUrl == null ||
+                                      person.photoUrl.isEmpty)
                                   ? null
                                   : DecorationImage(
-                                      image: MemoryImage(
-                                          base64Decode(person.photoUrl)),
+                                      image: NetworkImage(person.photoUrl),
                                       fit: BoxFit.cover,
                                     ),
                             ),
                           ),
-                          Text(person.name ),
+                          Text(person.name),
                           FloatingActionButton(
                             onPressed: () {},
                             /**backgroundColor: state.isFriend[person.id]!

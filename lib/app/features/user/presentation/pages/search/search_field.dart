@@ -169,9 +169,7 @@ class _SearchFieldState extends State<SearchField>
                                     label = widget.hintText;
                                   } else {
                                     label = value;
-                                    context
-                                        .read<SearchBloc>()
-                                        .add(CreateUserList(value));
+
                                   }
                                 },
                                 onTapOutside: (event) {

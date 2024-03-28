@@ -9,10 +9,13 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Column(
-
         children: [
-          SizedBox(height: 150,),
-          Center(child: Expanded(child: SearchButton()),),
+          SizedBox(
+            height: 150,
+          ),
+          Center(
+            child: Expanded(child: SearchButton()),
+          ),
         ],
       ),
     );
