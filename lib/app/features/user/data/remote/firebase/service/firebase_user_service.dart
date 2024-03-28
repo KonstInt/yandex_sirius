@@ -4,13 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import 'package:yandex_sirius/app/features/user/domain/exceptions/eceptions.dart';
 
 class FirebaseUserService {
   Future<FirebaseApiUserModel> getUser(String userId) async {
     final snapshot =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    await FirebaseFirestore.instance.collection('users').doc(userId).get();
     final user = FirebaseApiUserModel.fromJson(snapshot.data()!);
     return user;
   }
@@ -28,7 +29,7 @@ class FirebaseUserService {
     final List<FirebaseApiUserModel> friends = [];
     for (final String id in friendIds) {
       final snapshot =
-          await FirebaseFirestore.instance.collection('users').doc(id).get();
+      await FirebaseFirestore.instance.collection('users').doc(id).get();
       friends.add(FirebaseApiUserModel.fromJson(snapshot.data()!));
     }
     return friends;
@@ -48,15 +49,15 @@ class FirebaseUserService {
     }
   }
 
-  Future<FirebaseApiUserModel?> signUp(
-      FirebaseApiUserModel apiUserModel, String login, String password) async {
+  Future<FirebaseApiUserModel?> signUp(FirebaseApiUserModel apiUserModel,
+      String login, String password) async {
     final bool nicknameExists =
-        await _checkIfNicknameExists(apiUserModel.nickname);
+    await _checkIfNicknameExists(apiUserModel.nickname);
     if (nicknameExists) {
       throw const NicknameAlreadyExistsException();
     }
     final credential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: login,
       password: password,
     );
@@ -81,7 +82,7 @@ class FirebaseUserService {
       );
       final String? token = credential.user!.uid;
       final snapshot =
-          await FirebaseFirestore.instance.collection('users').doc(token).get();
+      await FirebaseFirestore.instance.collection('users').doc(token).get();
       final user = FirebaseApiUserModel.fromJson(snapshot.data()!);
       return user;
     } on firebase_auth.FirebaseAuthException catch (e) {
@@ -106,13 +107,13 @@ class FirebaseUserService {
       return null;
     }
     final snapshot =
-        await FirebaseFirestore.instance.collection('users').doc(token).get();
+    await FirebaseFirestore.instance.collection('users').doc(token).get();
     final user = FirebaseApiUserModel.fromJson(snapshot.data()!);
     return user;
   }
 
-  Future<FirebaseApiUserModel> updateAvatar(
-      String userId, File photoAvatar) async {
+  Future<FirebaseApiUserModel> updateAvatar(String userId,
+      File photoAvatar) async {
     try {
       // final Reference reference =
       //FirebaseStorage.instance.ref().child("profileImages/${userId}");
@@ -133,12 +134,33 @@ class FirebaseUserService {
       return getUser(userId);
     }
   }
-}
+  Future<List<String>> getUsersList(String prefix) async {
+    final List<String> usersList = [];
 
-Future<bool> _checkIfNicknameExists(String nickname) async {
-  final CollectionReference nicknamesRef =
-      FirebaseFirestore.instance.collection('nicknames');
-  final QuerySnapshot querySnapshot =
-      await nicknamesRef.where('nickname', isEqualTo: nickname).get();
-  return querySnapshot.docs.isNotEmpty;
+    try {
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('nicknames')
+          .where(FieldPath.documentId, isGreaterThanOrEqualTo: prefix)
+          .get();
+
+      for (final doc in querySnapshot.docs) {
+        final String id = doc.get('id');
+        usersList.add(id);
+      }
+      return usersList;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching users list: $e');
+      }
+      return usersList;
+    }
+  }
+
+  Future<bool> _checkIfNicknameExists(String nickname) async {
+    final CollectionReference nicknamesRef =
+    FirebaseFirestore.instance.collection('nicknames');
+    final QuerySnapshot querySnapshot =
+    await nicknamesRef.where('nickname', isEqualTo: nickname).get();
+    return querySnapshot.docs.isNotEmpty;
+  }
 }
