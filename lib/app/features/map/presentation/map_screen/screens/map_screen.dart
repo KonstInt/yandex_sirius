@@ -194,9 +194,10 @@ class DataWidgetState extends State<DataWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.isshow) {
-      return Center(
+      return Align(
+        alignment: Alignment.center,
           child: SizedBox(
-              width: 270,
+              width: 300,
               height: 150,
               child: GestureDetector(
                 onTap: () {
