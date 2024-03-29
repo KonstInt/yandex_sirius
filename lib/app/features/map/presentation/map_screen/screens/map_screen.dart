@@ -122,22 +122,21 @@ class _MapScreenState extends State<MapScreen> {
         Align(
           alignment: Alignment.bottomCenter,
           child: SizedBox(
-            height: 50,
-            child:Center(
-              child: BlocProvider<MapBloc>.value(
+              height: 50,
+              child: Center(
+                  child: BlocProvider<MapBloc>.value(
                 value: GetIt.I<MapBloc>(),
                 child: const Row(children: [
                   ButtonWithBlock(
                       event: FriendsMapEvent.goHome(), text: 'home'),
                   SearchButton(),
                   ButtonWithBlock(
-                      event: FriendsMapEvent.nextFriend(), text: 'next')]),
+                      event: FriendsMapEvent.nextFriend(), text: 'next')
+                ]),
               ))),
-
         ),
         Align(
           alignment: Alignment.centerRight,
-
           child: SizedBox(
               height: 100,
               width: 50,
@@ -150,10 +149,95 @@ class _MapScreenState extends State<MapScreen> {
                       event: FriendsMapEvent.changeZoom(-1), text: '-')
                 ]),
               )),
-
         ),
+        DataWidget()
       ],
     );
+  }
+}
+
+class DataWidget extends StatefulWidget {
+  DataWidget({super.key});
+
+  bool isshow = false;
+
+  @override
+  State<StatefulWidget> createState() {
+    return DataWidgetState();
+  }
+}
+
+class DataWidgetState extends State<DataWidget> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.isshow) {
+      return  Center(
+              child: SizedBox(
+            width: 300,
+            height: 150,
+            child: GestureDetector(
+              onTap: () {
+                widget.isshow = !widget.isshow;
+                setState(() {});
+              },
+              child:Container(
+              // color: Colors.black,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0),
+                      topLeft: Radius.circular(40.0),
+                      bottomLeft: Radius.circular(40.0)),
+                  color: Colors.white),
+              child: Expanded(
+                  child: Row(
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: CircleAvatar(
+                        backgroundImage: Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j8yrVBdePKb7vbv7CKvpTUGxHqEeFobmQ0W6Y0wUMg&s',
+                          fit: BoxFit.fill,
+                        ).image,
+                        radius: 50,
+                      )),
+                  const Padding(
+                      padding: EdgeInsets.all(25),
+                      child: Expanded(
+                        child: Column(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.all(6),
+                                child: Text(
+                                  'hehe@mail.ru',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 17),
+                                )),
+                            Padding(
+                                padding: EdgeInsets.all(6),
+                                child: Text(
+                                  '@hehe123',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 17),
+                                )),
+                          ],
+                        ),
+                      ))
+                ],
+              )),
+            ),
+          )));
+    }
+    return Center(
+        child: SizedBox(
+            width: 300,
+            height: 150,
+            child: GestureDetector(
+              onTap: () {
+                widget.isshow = !widget.isshow;
+                setState(() {});
+              },
+            )));
   }
 }
 
@@ -165,18 +249,20 @@ class ButtonWithBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Expanded(
-          child:Padding(
-              padding: EdgeInsets.all(4),child:TextButton(
-      style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.white)),
-        onPressed: () {
-          BlocProvider.of<MapBloc>(context).add(event);
-        },
-        child: Text(
-          text,
-          style: const TextStyle(color: Colors.black),
-        ))));
+    return Expanded(
+        child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateColor.resolveWith(
+                        (states) => Colors.white)),
+                onPressed: () {
+                  BlocProvider.of<MapBloc>(context).add(event);
+                },
+                child: Text(
+                  text,
+                  style: const TextStyle(color: Colors.black),
+                ))));
   }
 }
 
