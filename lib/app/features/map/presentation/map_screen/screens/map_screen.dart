@@ -126,12 +126,33 @@ class _MapScreenState extends State<MapScreen> {
               child: Center(
                   child: BlocProvider<MapBloc>.value(
                 value: GetIt.I<MapBloc>(),
-                child: const Row(children: [
-                  ButtonWithBlock(
-                      event: FriendsMapEvent.goHome(), text: 'home'),
+                child: Row(children: [
+                  Expanded(child: SizedBox()),
+                  ButtonWithBlockIcon(
+                    event: FriendsMapEvent.goHome(),
+                    icon: CircleAvatar(
+                        backgroundImage: Image.network(
+                          'https://static-00.iconduck.com/assets.00/target-icon-2048x2048-lthjz0e2.png',
+                          fit: BoxFit.fill,
+                          color: Colors.white,
+                        ).image,
+                        backgroundColor: Colors.white,
+                        radius: 20),
+                  ),
                   SearchButton(),
-                  ButtonWithBlock(
-                      event: FriendsMapEvent.nextFriend(), text: 'next')
+                  ButtonWithBlockIcon(
+                    event: FriendsMapEvent.nextFriend(),
+                    icon: CircleAvatar(
+                        backgroundImage: Image.network(
+                          'https://img.lovepik.com/free-png/20210926/lovepik-arrow-icon-png-image_401446207_wh1200.png',
+                          fit: BoxFit.fill,
+                          color: Colors.white,
+                        ).image,
+                        backgroundColor: Colors.white,
+                        radius: 20),
+                  ),
+
+                  Expanded(child: SizedBox()),
                 ]),
               ))),
         ),
@@ -171,62 +192,62 @@ class DataWidgetState extends State<DataWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.isshow) {
-      return  Center(
-              child: SizedBox(
-            width: 300,
-            height: 150,
-            child: GestureDetector(
-              onTap: () {
-                widget.isshow = !widget.isshow;
-                setState(() {});
-              },
-              child:Container(
-              // color: Colors.black,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40.0),
-                      bottomRight: Radius.circular(40.0),
-                      topLeft: Radius.circular(40.0),
-                      bottomLeft: Radius.circular(40.0)),
-                  color: Colors.white),
-              child: Expanded(
-                  child: Row(
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: CircleAvatar(
-                        backgroundImage: Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j8yrVBdePKb7vbv7CKvpTUGxHqEeFobmQ0W6Y0wUMg&s',
-                          fit: BoxFit.fill,
-                        ).image,
-                        radius: 50,
-                      )),
-                  const Padding(
-                      padding: EdgeInsets.all(25),
-                      child: Expanded(
-                        child: Column(
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.all(6),
-                                child: Text(
-                                  'hehe@mail.ru',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17),
-                                )),
-                            Padding(
-                                padding: EdgeInsets.all(6),
-                                child: Text(
-                                  '@hehe123',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17),
-                                )),
-                          ],
-                        ),
-                      ))
-                ],
-              )),
-            ),
-          )));
+      return Center(
+          child: SizedBox(
+              width: 270,
+              height: 150,
+              child: GestureDetector(
+                onTap: () {
+                  widget.isshow = !widget.isshow;
+                  setState(() {});
+                },
+                child: Container(
+                  // color: Colors.black,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(40.0),
+                          bottomRight: Radius.circular(40.0),
+                          topLeft: Radius.circular(40.0),
+                          bottomLeft: Radius.circular(40.0)),
+                      color: Colors.white),
+                  child: Expanded(
+                      child: Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: CircleAvatar(
+                            backgroundImage: Image.network(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j8yrVBdePKb7vbv7CKvpTUGxHqEeFobmQ0W6Y0wUMg&s',
+                              fit: BoxFit.fill,
+                            ).image,
+                            radius: 50,
+                          )),
+                      const Padding(
+                          padding: EdgeInsets.all(25),
+                          child: Expanded(
+                            child: Column(
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.all(6),
+                                    child: Text(
+                                      'hehe@mail.ru',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 17),
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.all(6),
+                                    child: Text(
+                                      '@hehe123',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 17),
+                                    )),
+                              ],
+                            ),
+                          ))
+                    ],
+                  )),
+                ),
+              )));
     }
     return Center(
         child: SizedBox(
@@ -263,6 +284,29 @@ class ButtonWithBlock extends StatelessWidget {
                   text,
                   style: const TextStyle(color: Colors.black),
                 ))));
+  }
+}
+
+class ButtonWithBlockIcon extends StatelessWidget {
+  const ButtonWithBlockIcon(
+      {required this.event, required this.icon, super.key});
+
+  final FriendsMapEvent event;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(4),
+        child: TextButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.white)),
+          onPressed: () {
+            BlocProvider.of<MapBloc>(context).add(event);
+          },
+          child: icon,
+        ));
   }
 }
 
