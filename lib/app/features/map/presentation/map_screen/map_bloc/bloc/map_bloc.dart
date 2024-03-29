@@ -37,7 +37,7 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           _mapData.mapController.move(
               LatLng(_mapData.markers.last.coordinate.latitude,
                   _mapData.markers.last.coordinate.longitude),
-              _mapData.zoom);
+              17);
         },
         nextFriend: (value) {
           if (_mapData.markers.length <= 1) {
@@ -51,7 +51,7 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
           _mapData.mapController.move(
               LatLng(_mapData.markers[_mapData.friendId].coordinate.latitude,
                   _mapData.markers[_mapData.friendId].coordinate.longitude),
-              _mapData.zoom);
+             17);
         },
         showAllFriends: (value) {},
         changeZoom: (value) {
@@ -114,7 +114,7 @@ class MapBloc extends Bloc<FriendsMapEvent, MapState> {
         _mapData.mapController.move(
               LatLng(_mapData.markers.last.coordinate.latitude,
                   _mapData.markers.last.coordinate.longitude),
-              _mapData.zoom);
+              17);
         _firstEnter = false;
       }
     });
