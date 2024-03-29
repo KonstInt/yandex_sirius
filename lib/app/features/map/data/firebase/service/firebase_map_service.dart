@@ -17,10 +17,10 @@ class FirebaseMapService {
     final friendCoordinates = [
       FirebaseApiMapTagModel(
           photoUrl:
-              'https://img.buzzfeed.com/buzzfeed-static/static/2023-11/14/17/campaign_images/3a682d348ec5/dd-osama-on-drill-being-washed-and-pop-smoke-bein-3-515-1699983197-6_dblbig.jpg',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j8yrVBdePKb7vbv7CKvpTUGxHqEeFobmQ0W6Y0wUMg&s',
           id: 'sdse',
           coordinate: FirebaseApiCoordinateModel(
-              latitude: 50.00003, longitude: 0.00002)),
+              latitude: 48.00003, longitude: 39.00002)),
       FirebaseApiMapTagModel(
           photoUrl:
               'https://img.buzzfeed.com/buzzfeed-static/static/2023-11/14/17/campaign_images/3a682d348ec5/dd-osama-on-drill-being-washed-and-pop-smoke-bein-3-515-1699983197-6_dblbig.jpg',
