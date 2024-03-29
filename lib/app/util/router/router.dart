@@ -25,7 +25,7 @@ class RoutingService {
                 ]),
             GoRoute(
               path: 'map',
-              builder: (context, state) => MapScreen(),
+              builder: (context, state) => const MapScreen(),
             ),
           ]),
     ],

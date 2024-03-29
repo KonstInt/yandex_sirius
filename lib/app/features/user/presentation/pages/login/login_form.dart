@@ -158,7 +158,6 @@ class _LoginButton extends StatelessWidget {
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final l10n = Localization.of(context);
     return TextButton(
       key: const Key('loginForm_createAccount_button'),

@@ -10,7 +10,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localization.of(context);
     //di
 
     return Scaffold(

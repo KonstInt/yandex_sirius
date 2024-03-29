@@ -109,7 +109,8 @@ Future<void> _setUpDev(GetIt getIt) async {
     //Register firebase map repository
     ..registerSingleton<FirebaseMapService>(FirebaseMapService())
     ..registerSingleton<FirebaseCoordinateMapper>(FirebaseCoordinateMapper())
-    ..registerSingleton<FirebaseMapTagMapper>(FirebaseMapTagMapper())
+    ..registerSingleton<FirebaseMapTagMapper>(FirebaseMapTagMapper(
+        coordinateMapper: GetIt.I<FirebaseCoordinateMapper>()))
     ..registerSingleton<FirebaseMapUtil>(FirebaseMapUtil(
         mapMapper: GetIt.I<FirebaseMapTagMapper>(),
         service: GetIt.I<FirebaseMapService>(),

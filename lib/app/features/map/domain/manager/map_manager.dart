@@ -5,6 +5,7 @@ import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordina
 import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_model.dart';
 import 'package:yandex_sirius/app/features/map/domain/repository/coordinates/coordinates_repository.dart';
 import 'package:yandex_sirius/app/features/map/domain/repository/remote/remote_map_repository.dart';
+import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
 
 class MapManager {
   MapManager(
@@ -12,14 +13,12 @@ class MapManager {
       required this.userUseCase,
       required this.userCoordinatesRepository}) {
     userUseCase.broadcast.listen((event) {
-      _friendsTag = event.friendList
-          .map((friend) => MapTagModel(
-              photoUrl: friend.photoUrl,
-              id: friend.id,
-              coordinate: CoordinateModel(longitude: 0.0, latitude: 0.0)))
-          .toList();
+      _user = event;
       if (isStartTrackFriendCallFlag) {
         startTrackFriends();
+      }
+      if (isStartSelfTrackPoling) {
+        startSelfCoordinatePoling();
       }
     });
   }
@@ -27,18 +26,39 @@ class MapManager {
   final UserCoordinatesRepository userCoordinatesRepository;
   final UserUseCase userUseCase;
   late final StreamController<CoordinateModel> _pollingController;
-  List<MapTagModel> _friendsTag = [];
+  UserModel? _user;
   bool isStartTrackFriendCallFlag = false;
-
+  bool isStartSelfTrackPoling = false;
   Future<Stream<List<MapTagModel>>> startTrackFriends() {
-    return remoteMapRepository.getFriendCoordinateStream(_friendsTag);
+    isStartTrackFriendCallFlag = true;
+    if (_user != null) {
+      final friends = _user!.friendList
+          .map((friend) => MapTagModel(
+              photoUrl: friend.photoUrl,
+              id: friend.id,
+              coordinate: CoordinateModel(longitude: 0.0, latitude: 0.0)))
+          .toList();
+      return remoteMapRepository.getFriendCoordinateStream(friends);
+    }
+    return remoteMapRepository.getFriendCoordinateStream([]);
   }
 
   Stream<CoordinateModel> startSelfCoordinatePoling() {
     _pollingController = StreamController();
     //TODO:
-    Timer.periodic(const Duration(seconds: 1), (timer) async {
-      _pollingController.add(await userCoordinatesRepository.getCoordinates());
+    Timer.periodic(const Duration(seconds: 2), (timer) async {
+      isStartSelfTrackPoling = true;
+      final coordinates = await userCoordinatesRepository.getCoordinates();
+      _pollingController.add(coordinates);
+      if (_user != null) {
+        try {
+
+         await remoteMapRepository.sendUserCoordinate(MapTagModel(
+            photoUrl: _user!.photoUrl, id: _user!.id, coordinate: coordinates));}
+            catch(e){
+              int i = 0;
+            }
+      }
     });
     return _pollingController.stream;
   }

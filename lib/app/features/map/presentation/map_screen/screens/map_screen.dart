@@ -7,7 +7,7 @@ import 'package:rive/rive.dart';
 import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 
 class MapScreen extends StatefulWidget {
-  MapScreen({super.key});
+  const MapScreen({super.key});
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -67,16 +67,18 @@ class _MapScreenState extends State<MapScreen> {
                                 ((++cnt) < state.nowCoordinate.length)
                                     ? backgroundAnimation
                                     : const SizedBox(),
-                                Center(
+                                i.photoUrl != null? Center(
                                   child: CircleAvatar(
                                     backgroundImage: Image.network(
-                                      i.photoUrl,
+                                      i.photoUrl!,
                                       fit: BoxFit.fill,
                                     ).image,
                                     radius:
                                         _markerSize / 2 - 0.15 * _markerSize,
                                   ),
-                                ),
+                                ):
+                                //TODO: empty photo
+                                SizedBox(),
                               ],
                             ),
                           ),

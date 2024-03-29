@@ -7,5 +7,4 @@ class MapState with _$MapState {
   const factory MapState.updCoordinates(
       {required List<MapTagModel> nowCoordinate,
       required List<MapTagModel> prevCoordinate}) = _UpdCoordinates;
-
 }
