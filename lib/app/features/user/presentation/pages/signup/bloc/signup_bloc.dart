@@ -175,7 +175,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           isGeoTrackingOn: true);
       user = await _authenticationRepository.signUp(user, _email, _password);
       if (_photoUrl != null) {
-        _authenticationRepository.updateAvatar(user.id, _photoUrl!);
+        await _authenticationRepository.updateAvatar(user.id, _photoUrl!);
       }
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on NicknameAlreadyExistsException catch (e) {

@@ -3,12 +3,12 @@ import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordina
 
 class FirebaseCoordinateMapper {
   CoordinateModel fromApi(FirebaseApiCoordinateModel model) {
-    //TODO:
-    throw UnimplementedError();
+    return CoordinateModel(
+        latitude: model.latitude, longitude: model.longitude);
   }
 
   FirebaseApiCoordinateModel toApi(CoordinateModel model) {
-    //TODO:
-    throw UnimplementedError();
+    return FirebaseApiCoordinateModel(
+        latitude: model.latitude, longitude: model.longitude);
   }
 }

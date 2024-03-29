@@ -23,6 +23,7 @@ import 'package:yandex_sirius/app/features/map/domain/manager/map_manager.dart';
 import 'package:yandex_sirius/app/features/map/domain/repository/coordinates/coordinates_repository.dart';
 import 'package:yandex_sirius/app/features/map/domain/repository/local_storage/local_storage_repository.dart';
 import 'package:yandex_sirius/app/features/map/domain/repository/remote/remote_map_repository.dart';
+import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 import 'package:yandex_sirius/app/features/user/data/local/isar/mappers/isar_friend_mapper.dart';
 import 'package:yandex_sirius/app/features/user/data/local/isar/mappers/isar_user_mapper.dart';
 import 'package:yandex_sirius/app/features/user/data/local/isar/repository/isar_user_repository.dart';
@@ -108,7 +109,8 @@ Future<void> _setUpDev(GetIt getIt) async {
     //Register firebase map repository
     ..registerSingleton<FirebaseMapService>(FirebaseMapService())
     ..registerSingleton<FirebaseCoordinateMapper>(FirebaseCoordinateMapper())
-    ..registerSingleton<FirebaseMapTagMapper>(FirebaseMapTagMapper())
+    ..registerSingleton<FirebaseMapTagMapper>(FirebaseMapTagMapper(
+        coordinateMapper: GetIt.I<FirebaseCoordinateMapper>()))
     ..registerSingleton<FirebaseMapUtil>(FirebaseMapUtil(
         mapMapper: GetIt.I<FirebaseMapTagMapper>(),
         service: GetIt.I<FirebaseMapService>(),
@@ -158,6 +160,8 @@ Future<void> _setUpDev(GetIt getIt) async {
         mapper: GetIt.I<IsarUserMapper>(), service: GetIt.I<IsarUserService>()))
     ..registerSingleton<LocalUserRepository>(IsarUserRepository(
         userUseCase: GetIt.I<UserUseCase>(), util: GetIt.I<IsarUserUtil>()))
+    //Map Bloc
+    ..registerSingleton<MapBloc>(MapBloc(manager: GetIt.I<MapManager>()))
     //Register SignIn bloc
     ..registerSingleton<LoginBloc>(LoginBloc(GetIt.I<RemoteUserRepository>()))
     //Register SignUp bloc

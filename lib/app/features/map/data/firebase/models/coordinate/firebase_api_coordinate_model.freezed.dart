@@ -14,11 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+FirebaseApiCoordinateModel _$FirebaseApiCoordinateModelFromJson(
+    Map<String, dynamic> json) {
+  return _FirebaseApiCoordinateModel.fromJson(json);
+}
+
 /// @nodoc
 mixin _$FirebaseApiCoordinateModel {
   double get longitude => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FirebaseApiCoordinateModelCopyWith<FirebaseApiCoordinateModel>
       get copyWith => throw _privateConstructorUsedError;
@@ -106,10 +112,14 @@ class __$$FirebaseApiCoordinateModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$FirebaseApiCoordinateModelImpl implements _FirebaseApiCoordinateModel {
   _$FirebaseApiCoordinateModelImpl(
       {required this.longitude, required this.latitude});
+
+  factory _$FirebaseApiCoordinateModelImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$FirebaseApiCoordinateModelImplFromJson(json);
 
   @override
   final double longitude;
@@ -132,6 +142,7 @@ class _$FirebaseApiCoordinateModelImpl implements _FirebaseApiCoordinateModel {
                 other.latitude == latitude));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, longitude, latitude);
 
@@ -141,6 +152,13 @@ class _$FirebaseApiCoordinateModelImpl implements _FirebaseApiCoordinateModel {
   _$$FirebaseApiCoordinateModelImplCopyWith<_$FirebaseApiCoordinateModelImpl>
       get copyWith => __$$FirebaseApiCoordinateModelImplCopyWithImpl<
           _$FirebaseApiCoordinateModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FirebaseApiCoordinateModelImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _FirebaseApiCoordinateModel
@@ -148,6 +166,9 @@ abstract class _FirebaseApiCoordinateModel
   factory _FirebaseApiCoordinateModel(
       {required final double longitude,
       required final double latitude}) = _$FirebaseApiCoordinateModelImpl;
+
+  factory _FirebaseApiCoordinateModel.fromJson(Map<String, dynamic> json) =
+      _$FirebaseApiCoordinateModelImpl.fromJson;
 
   @override
   double get longitude;

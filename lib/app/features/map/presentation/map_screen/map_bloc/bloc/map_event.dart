@@ -1,8 +1,10 @@
 part of 'map_bloc.dart';
 
 @freezed
-class MapEvent with _$MapEvent {
-  const factory MapEvent.started() = _Started;
-  const factory MapEvent.startFriendsPoling() = _StartFriendsPoling;
-  const factory MapEvent.startSelfPoling() = _StartSelfPoling;
+class FriendsMapEvent with _$FriendsMapEvent {
+  const factory FriendsMapEvent.started(MapController mapController) = _Started;
+  const factory FriendsMapEvent.goHome() = _GoHome;
+  const factory FriendsMapEvent.nextFriend() = _NextFriend;
+  const factory FriendsMapEvent.showAllFriends() = _ShowAllFriends;
+  const factory FriendsMapEvent.changeZoom(double value) = _changeZoom;
 }
