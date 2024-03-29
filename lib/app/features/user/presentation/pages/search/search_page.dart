@@ -15,7 +15,7 @@ class SearchPage extends StatelessWidget {
     //di
     final search = SearchBloc(FirebaseUserService(), UserUseCase());
     return Scaffold(
-      appBar: AppBar(title: const Text('Friends')),
+      appBar: AppBar(title: Text('Friends')),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider.value(
