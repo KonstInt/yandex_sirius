@@ -75,12 +75,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final List<String> list =
           await _authenticationRepository.getUsersList(event.prefix);
       final int end = (list.length >= 10) ? 10 : list.length;
-      final Map<String, bool> friendsMap = {};
       if (list.isNotEmpty) {
-        if (friends == null) friends = {};
+
         for (int i = 0; i < end; i++) {
           newList.add(await _authenticationRepository.getUser(list[i]));
-          friendsMap[newList[i].id] = friends!.contains(newList[i].id);
+
         }
       }
     }

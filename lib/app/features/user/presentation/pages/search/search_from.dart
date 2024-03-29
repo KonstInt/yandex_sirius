@@ -43,9 +43,8 @@ class SearchForm extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Expanded(
-            child: _UserList(),
-          ),
+         _UserList(),
+
         ],
       ),
     );
@@ -53,7 +52,7 @@ class SearchForm extends StatelessWidget {
 }
 
 class _UserList extends StatelessWidget {
-  const _UserList({Key? key});
+  const _UserList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,45 +60,36 @@ class _UserList extends StatelessWidget {
       builder: (context, state) {
         return state.status.isInProgress
             ? const Center(child: CircularProgressIndicator())
-            : ListView.builder(
-          itemCount: state.peoples.length,
-          itemBuilder: (context, index) {
-            final person = state.peoples[index];
-            return Card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    alignment: Alignment.bottomCenter,
-                    key: const Key('image_picker_search'),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.black45,
-                      ),
-                      image: (person.photoUrl == null ||
-                          person.photoUrl.isEmpty)
+            : Expanded(
+          child: ListView.builder(
+            itemCount: state.peoples.length,
+            itemBuilder: (context, index) {
+              final person = state.peoples[index];
+              return  Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey,
+                      backgroundImage: (person.photoUrl == null || person.photoUrl.isEmpty)
                           ? null
-                          : DecorationImage(
-                        image: NetworkImage(person.photoUrl),
-                        fit: BoxFit.cover,
-                      ),
+                          : NetworkImage(person.photoUrl),
                     ),
-                  ),
-                  Text(person.name),
-                  FloatingActionButton(
-                    onPressed: () {
-                      context.read<SearchBloc>().add(AddFriend(person.id, person.photoUrl));
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
+                    Text(person.name),
+                    FloatingActionButton(
+                      onPressed: () {
+                        context.read<SearchBloc>().add(AddFriend(person.id, person.photoUrl));
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+              ]);
+            },
+          ),
         );
       },
     );
