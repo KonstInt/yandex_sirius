@@ -10,6 +10,6 @@ void main() async {
   FirebaseAuth.instance.authStateChanges().listen((user) {
     GetIt.I<RoutingService>().router.refresh();
   });
-  FirebaseAuth.instance.signOut();
+  // FirebaseAuth.instance.signOut();
   runApp(const App());
 }

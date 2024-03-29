@@ -6,8 +6,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rive/rive.dart';
+import 'package:yandex_sirius/app/base_components/bottom_sheets/bar_bottom_sheet.dart';
 import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 import 'package:yandex_sirius/app/features/map/presentation/map_screen/screens/bottom_search_page/search_button.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/profile/profile_page.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});

@@ -37,6 +37,8 @@ import 'package:yandex_sirius/app/features/user/data/remote/firebase/util/fireba
 import 'package:yandex_sirius/app/features/user/domain/repository/local_user_repository.dart';
 import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/profile/bloc/profile_bloc.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/search/bloc/search_bloc.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/user_enter_controll/bloc/sign_in_control_bloc.dart';
 import 'package:yandex_sirius/app/util/logger/logger.dart';
@@ -170,7 +172,11 @@ Future<void> _setUpDev(GetIt getIt) async {
     ..registerSingleton<RoutingService>(RoutingService())
     //Register SignInBloc
     ..registerSingleton<SignInControlBloc>(SignInControlBloc(
-        GetIt.I<RemoteUserRepository>(), GetIt.I<UserUseCase>()));
+        GetIt.I<RemoteUserRepository>(), GetIt.I<UserUseCase>()))
+    ..registerSingleton<SearchBloc>(
+        SearchBloc(GetIt.I<RemoteUserRepository>(), GetIt.I<UserUseCase>()))
+    ..registerSingleton(
+        ProfileBloc(GetIt.I<RemoteUserRepository>(), GetIt.I<UserUseCase>()));
 }
 
 ///SETUP PROD
