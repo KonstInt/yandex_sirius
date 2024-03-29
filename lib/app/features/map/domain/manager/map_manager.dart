@@ -52,12 +52,13 @@ class MapManager {
       _pollingController.add(coordinates);
       if (_user != null) {
         try {
-
-         await remoteMapRepository.sendUserCoordinate(MapTagModel(
-            photoUrl: _user!.photoUrl, id: _user!.id, coordinate: coordinates));}
-            catch(e){
-              int i = 0;
-            }
+          await remoteMapRepository.sendUserCoordinate(MapTagModel(
+              photoUrl: _user!.photoUrl,
+              id: _user!.id,
+              coordinate: coordinates));
+        } on Exception {
+          // TODO: handle exception
+        }
       }
     });
     return _pollingController.stream;

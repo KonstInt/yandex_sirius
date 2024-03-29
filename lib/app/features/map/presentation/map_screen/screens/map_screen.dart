@@ -67,18 +67,20 @@ class _MapScreenState extends State<MapScreen> {
                                 ((++cnt) < state.nowCoordinate.length)
                                     ? backgroundAnimation
                                     : const SizedBox(),
-                                i.photoUrl != null? Center(
-                                  child: CircleAvatar(
-                                    backgroundImage: Image.network(
-                                      i.photoUrl!,
-                                      fit: BoxFit.fill,
-                                    ).image,
-                                    radius:
-                                        _markerSize / 2 - 0.15 * _markerSize,
-                                  ),
-                                ):
-                                //TODO: empty photo
-                                SizedBox(),
+                                i.photoUrl != null
+                                    ? Center(
+                                        child: CircleAvatar(
+                                          backgroundImage: Image.network(
+                                            i.photoUrl!,
+                                            fit: BoxFit.fill,
+                                          ).image,
+                                          radius: _markerSize / 2 -
+                                              0.15 * _markerSize,
+                                        ),
+                                      )
+                                    :
+                                    //TODO: empty photo
+                                    const SizedBox(),
                               ],
                             ),
                           ),

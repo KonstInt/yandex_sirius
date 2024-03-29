@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:yandex_sirius/app/features/map/data/firebase/models/coordinate/firebase_api_coordinate_model.dart';
 import 'package:yandex_sirius/app/features/map/data/firebase/models/map_tag/firebase_api_map_tag_model.dart';
-import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_model.dart';
 
 class FirebaseMapService {
   late final StreamController<List<FirebaseApiMapTagModel>> friendsStream;
@@ -33,7 +32,7 @@ class FirebaseMapService {
     if (!friendsStreamIsInitialized) {
       friendsStream = StreamController();
       friendsStreamIsInitialized = true;
-      //TODO: check it 
+      //TODO: check it
       //FirebaseDatabase.instance.ref().onValue.where((event) => friendsList.indexWhere((element) => element.id == FirebaseApiMapTagModel.fromJson(event.snapshot.value as Map<String,dynamic>).id )>-1);
       apiStream = Stream<List<FirebaseApiMapTagModel>>.periodic(
           const Duration(seconds: 1), (_) {
@@ -51,7 +50,7 @@ class FirebaseMapService {
         return friendCoordinates;
       }).listen((event) {
         friendsStream.add(event);
-       });
+      });
       //TODO: firebase stream creation
     } else {
       await apiStream.cancel();
@@ -71,8 +70,7 @@ class FirebaseMapService {
         return friendCoordinates;
       }).listen((event) {
         friendsStream.add(event);
-       });
-
+      });
     }
 
     return friendsStream.stream;
@@ -103,7 +101,7 @@ class FirebaseMapService {
         await databaseReference.set(json);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return mapTag;
     //throw UnimplementedError();

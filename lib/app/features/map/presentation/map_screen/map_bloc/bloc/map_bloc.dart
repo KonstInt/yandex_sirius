@@ -6,7 +6,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:yandex_sirius/app/features/map/domain/manager/map_manager.dart';
-import 'package:yandex_sirius/app/features/map/domain/models/coordinate/coordinate_model.dart';
 import 'package:yandex_sirius/app/features/map/domain/models/map_tag/map_tag_model.dart';
 
 part 'map_bloc.freezed.dart';

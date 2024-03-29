@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/bloc/login_bloc.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/login/login_form.dart';
-import 'package:yandex_sirius/generated/l10n.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
