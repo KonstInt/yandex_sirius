@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get_it/get_it.dart';
 import 'package:yandex_sirius/app/features/common_use_case/user_use_case.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/models/user/firebase_api_user_model.dart';
 import 'package:yandex_sirius/app/features/user/data/remote/firebase/service/firebase_user_service.dart';
 import 'package:yandex_sirius/app/features/user/domain/models/friend/friend_model.dart';
 import 'package:yandex_sirius/app/features/user/domain/models/user/user_model.dart';
+import 'package:yandex_sirius/app/features/user/domain/repository/remote_user_repository.dart';
 
 part 'search_bloc.freezed.dart';
 part 'search_event.dart';
@@ -25,7 +27,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<DeleteFriend>(_onDeleteFriend);
   }
 
-  final FirebaseUserService _authenticationRepository;
+  final RemoteUserRepository _authenticationRepository;
   final UserUseCase _userUseCase;
   late UserModel _currentUser;
   late Set<String> _friends;
@@ -48,10 +50,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     _currentUser = _currentUser.copyWith(friendList: list);
     final Map<String, bool> friendsMap = state.isFriend;
     friendsMap[event.id] = true;
-    final FirebaseApiUserModel model =
-        FirebaseApiUserModel.fromJson(_currentUser.toJson());
+    final UserModel model = UserModel.fromJson(_currentUser.toJson());
     await _authenticationRepository.updateUser(model);
-    emit(state.copyWith(isFriend: friendsMap, status: FormzSubmissionStatus.initial));
+    emit(state.copyWith(
+        isFriend: friendsMap, status: FormzSubmissionStatus.initial));
   }
 
   Future<void> _onDeleteFriend(
@@ -70,10 +72,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Future<void> _onCreateUserList(
       CreateUserList event, Emitter<SearchState> emit) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-    final List<FirebaseApiUserModel> newList = [];
+    final List<UserModel> newList = [];
     if (event.prefix != '') {
+      //TODO: AVOID IT !!!!
       final List<String> list =
-          await _authenticationRepository.getUsersList(event.prefix);
+          await GetIt.I<FirebaseUserService>().getUsersList(event.prefix);
       final int end = (list.length >= 10) ? 10 : list.length;
       if (list.isNotEmpty) {
         for (int i = 0; i < end; i++) {

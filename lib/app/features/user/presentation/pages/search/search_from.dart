@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +19,7 @@ class SearchForm extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Friends'),
               ),
             );
@@ -42,7 +40,7 @@ class SearchForm extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          _UserList(),
+          const _UserList(),
         ],
       ),
     );
@@ -50,8 +48,7 @@ class SearchForm extends StatelessWidget {
 }
 
 class _UserList extends StatelessWidget {
-
-  const _UserList({super.key});
+  const _UserList();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
@@ -77,12 +74,16 @@ class _UserList extends StatelessWidget {
                           ),
                           Text(person.name),
                           IconButton(
-                            icon:  Icon((!state.status.isInitial) ? Icons.add : Icons.accessible, size: 30,),
+                            icon: Icon(
+                              (!state.status.isInitial)
+                                  ? Icons.add
+                                  : Icons.accessible,
+                              size: 30,
+                            ),
                             onPressed: () {
                               context
                                   .read<SearchBloc>()
                                   .add(AddFriend(person.id, person.photoUrl));
-
                             },
                           ),
                         ],
@@ -100,7 +101,7 @@ class _UserList extends StatelessWidget {
 }
 
 class _SearchLine extends StatelessWidget {
-  const _SearchLine({super.key});
+  const _SearchLine();
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +128,7 @@ class _SearchLine extends StatelessWidget {
                   onChanged: (value) {
                     context.read<SearchBloc>().add(CreateUserList(value));
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Search',
                   ),

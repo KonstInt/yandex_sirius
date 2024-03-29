@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
-import 'package:yandex_sirius/app/features/user/presentation/pages/search/bloc/search_bloc.dart';
-import 'package:yandex_sirius/generated/l10n.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/profile/bloc/profile_bloc.dart';
-
 
 class ProfileForm extends StatelessWidget {
   const ProfileForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Localization.of(context);
-    return BlocListener<SearchBloc, SearchState>(
+    return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
-        if (state.status.isFailure) {}
+        // if (state.status.isFailure) {}
       },
       child: const Column(
         mainAxisSize: MainAxisSize.min,
@@ -28,7 +23,7 @@ class ProfileForm extends StatelessWidget {
 }
 
 class _Profile extends StatelessWidget {
-  const _Profile({super.key});
+  const _Profile();
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +70,8 @@ class _Profile extends StatelessWidget {
                 Text(state.nickName),
               ],
             ),
-            FloatingActionButton(onPressed: (){
-              context
-                  .read<ProfileBloc>()
-                  .add(LogOut());
+            FloatingActionButton(onPressed: () {
+              context.read<ProfileBloc>().add(LogOut());
             }),
           ],
         );

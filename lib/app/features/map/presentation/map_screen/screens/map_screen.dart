@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get_it/get_it.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rive/rive.dart';
+import 'package:yandex_sirius/app/base_components/bottom_sheets/bar_bottom_sheet.dart';
 import 'package:yandex_sirius/app/features/map/presentation/map_screen/map_bloc/bloc/map_bloc.dart';
 import 'package:yandex_sirius/app/features/map/presentation/map_screen/screens/bottom_search_page/search_button.dart';
+import 'package:yandex_sirius/app/features/user/presentation/pages/profile/profile_page.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -126,11 +126,18 @@ class _MapScreenState extends State<MapScreen> {
               child: Center(
                   child: BlocProvider<MapBloc>.value(
                 value: GetIt.I<MapBloc>(),
-                child: const Row(children: [
-                  ButtonWithBlock(
+                child: Row(children: [
+                  const ButtonWithBlock(
                       event: FriendsMapEvent.goHome(), text: 'home'),
-                  SearchButton(),
-                  ButtonWithBlock(
+                  const SearchButton(),
+                  TextButton(
+                    onPressed: () => showBarModalBottomSheet(
+                      context: context,
+                      builder: (context) => const Profile(),
+                    ),
+                    child: const Text('data'),
+                  ),
+                  const ButtonWithBlock(
                       event: FriendsMapEvent.nextFriend(), text: 'next')
                 ]),
               ))),
@@ -171,62 +178,62 @@ class DataWidgetState extends State<DataWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.isshow) {
-      return  Center(
-              child: SizedBox(
-            width: 300,
-            height: 150,
-            child: GestureDetector(
-              onTap: () {
-                widget.isshow = !widget.isshow;
-                setState(() {});
-              },
-              child:Container(
-              // color: Colors.black,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40.0),
-                      bottomRight: Radius.circular(40.0),
-                      topLeft: Radius.circular(40.0),
-                      bottomLeft: Radius.circular(40.0)),
-                  color: Colors.white),
-              child: Expanded(
-                  child: Row(
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: CircleAvatar(
-                        backgroundImage: Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j8yrVBdePKb7vbv7CKvpTUGxHqEeFobmQ0W6Y0wUMg&s',
-                          fit: BoxFit.fill,
-                        ).image,
-                        radius: 50,
-                      )),
-                  const Padding(
-                      padding: EdgeInsets.all(25),
-                      child: Expanded(
-                        child: Column(
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.all(6),
-                                child: Text(
-                                  'hehe@mail.ru',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17),
-                                )),
-                            Padding(
-                                padding: EdgeInsets.all(6),
-                                child: Text(
-                                  '@hehe123',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 17),
-                                )),
-                          ],
-                        ),
-                      ))
-                ],
-              )),
-            ),
-          )));
+      return Center(
+          child: SizedBox(
+              width: 300,
+              height: 150,
+              child: GestureDetector(
+                onTap: () {
+                  widget.isshow = !widget.isshow;
+                  setState(() {});
+                },
+                child: Container(
+                  // color: Colors.black,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(40.0),
+                          bottomRight: Radius.circular(40.0),
+                          topLeft: Radius.circular(40.0),
+                          bottomLeft: Radius.circular(40.0)),
+                      color: Colors.white),
+                  child: Expanded(
+                      child: Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: CircleAvatar(
+                            backgroundImage: Image.network(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4j8yrVBdePKb7vbv7CKvpTUGxHqEeFobmQ0W6Y0wUMg&s',
+                              fit: BoxFit.fill,
+                            ).image,
+                            radius: 50,
+                          )),
+                      const Padding(
+                          padding: EdgeInsets.all(25),
+                          child: Expanded(
+                            child: Column(
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.all(6),
+                                    child: Text(
+                                      'hehe@mail.ru',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 17),
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.all(6),
+                                    child: Text(
+                                      '@hehe123',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 17),
+                                    )),
+                              ],
+                            ),
+                          ))
+                    ],
+                  )),
+                ),
+              )));
     }
     return Center(
         child: SizedBox(

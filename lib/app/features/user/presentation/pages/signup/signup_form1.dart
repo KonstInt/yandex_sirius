@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:yandex_sirius/app/base_components/buttons/base_rounded_button.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/signup/bloc/signup_bloc.dart';
 import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 import 'package:yandex_sirius/generated/l10n.dart';
@@ -176,15 +177,9 @@ class _SignUpButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('next_elevatedButton'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  backgroundColor: Colors.orangeAccent,
-                ),
-                onPressed: () {
+            : BaseRoundedButton(
+                primaryText: l10n.next,
+                action: () {
                   if (state.isValid) {
                     FocusScope.of(context).unfocus();
                     context
@@ -192,7 +187,6 @@ class _SignUpButton extends StatelessWidget {
                         .add(SignUpEvent.authenticationSubmitted());
                   }
                 },
-                child: Text(l10n.next),
               );
       },
     );
