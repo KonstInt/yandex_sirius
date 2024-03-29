@@ -7,7 +7,7 @@ part 'map_tag_model.freezed.dart';
 @freezed
 abstract class MapTagModel with _$MapTagModel {
   factory MapTagModel(
-      {required String photoUrl,
+      {required String? photoUrl,
       required String id,
       required CoordinateModel coordinate,
       @Default(Colors.pink) Color color}) = _MapTagModel;

@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MapTagModel {
-  String get photoUrl => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   CoordinateModel get coordinate => throw _privateConstructorUsedError;
   Color get color => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $MapTagModelCopyWith<$Res> {
       _$MapTagModelCopyWithImpl<$Res, MapTagModel>;
   @useResult
   $Res call(
-      {String photoUrl, String id, CoordinateModel coordinate, Color color});
+      {String? photoUrl, String id, CoordinateModel coordinate, Color color});
 
   $CoordinateModelCopyWith<$Res> get coordinate;
 }
@@ -51,16 +51,16 @@ class _$MapTagModelCopyWithImpl<$Res, $Val extends MapTagModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? photoUrl = null,
+    Object? photoUrl = freezed,
     Object? id = null,
     Object? coordinate = null,
     Object? color = null,
   }) {
     return _then(_value.copyWith(
-      photoUrl: null == photoUrl
+      photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ abstract class _$$MapTagModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String photoUrl, String id, CoordinateModel coordinate, Color color});
+      {String? photoUrl, String id, CoordinateModel coordinate, Color color});
 
   @override
   $CoordinateModelCopyWith<$Res> get coordinate;
@@ -111,16 +111,16 @@ class __$$MapTagModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? photoUrl = null,
+    Object? photoUrl = freezed,
     Object? id = null,
     Object? coordinate = null,
     Object? color = null,
   }) {
     return _then(_$MapTagModelImpl(
-      photoUrl: null == photoUrl
+      photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -147,7 +147,7 @@ class _$MapTagModelImpl implements _MapTagModel {
       this.color = Colors.pink});
 
   @override
-  final String photoUrl;
+  final String? photoUrl;
   @override
   final String id;
   @override
@@ -186,13 +186,13 @@ class _$MapTagModelImpl implements _MapTagModel {
 
 abstract class _MapTagModel implements MapTagModel {
   factory _MapTagModel(
-      {required final String photoUrl,
+      {required final String? photoUrl,
       required final String id,
       required final CoordinateModel coordinate,
       final Color color}) = _$MapTagModelImpl;
 
   @override
-  String get photoUrl;
+  String? get photoUrl;
   @override
   String get id;
   @override

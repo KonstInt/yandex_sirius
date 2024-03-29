@@ -14,13 +14,19 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+FirebaseApiMapTagModel _$FirebaseApiMapTagModelFromJson(
+    Map<String, dynamic> json) {
+  return _FirebaseApiMapTagModel.fromJson(json);
+}
+
 /// @nodoc
 mixin _$FirebaseApiMapTagModel {
-  String get photoUrl => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
-  CoordinateModel get coordinate => throw _privateConstructorUsedError;
-  Color get color => throw _privateConstructorUsedError;
+  FirebaseApiCoordinateModel get coordinate =>
+      throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FirebaseApiMapTagModelCopyWith<FirebaseApiMapTagModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -33,9 +39,9 @@ abstract class $FirebaseApiMapTagModelCopyWith<$Res> {
       _$FirebaseApiMapTagModelCopyWithImpl<$Res, FirebaseApiMapTagModel>;
   @useResult
   $Res call(
-      {String photoUrl, String id, CoordinateModel coordinate, Color color});
+      {String? photoUrl, String id, FirebaseApiCoordinateModel coordinate});
 
-  $CoordinateModelCopyWith<$Res> get coordinate;
+  $FirebaseApiCoordinateModelCopyWith<$Res> get coordinate;
 }
 
 /// @nodoc
@@ -52,16 +58,15 @@ class _$FirebaseApiMapTagModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? photoUrl = null,
+    Object? photoUrl = freezed,
     Object? id = null,
     Object? coordinate = null,
-    Object? color = null,
   }) {
     return _then(_value.copyWith(
-      photoUrl: null == photoUrl
+      photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -69,18 +74,15 @@ class _$FirebaseApiMapTagModelCopyWithImpl<$Res,
       coordinate: null == coordinate
           ? _value.coordinate
           : coordinate // ignore: cast_nullable_to_non_nullable
-              as CoordinateModel,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as Color,
+              as FirebaseApiCoordinateModel,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CoordinateModelCopyWith<$Res> get coordinate {
-    return $CoordinateModelCopyWith<$Res>(_value.coordinate, (value) {
+  $FirebaseApiCoordinateModelCopyWith<$Res> get coordinate {
+    return $FirebaseApiCoordinateModelCopyWith<$Res>(_value.coordinate,
+        (value) {
       return _then(_value.copyWith(coordinate: value) as $Val);
     });
   }
@@ -96,10 +98,10 @@ abstract class _$$FirebaseApiMapTagModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String photoUrl, String id, CoordinateModel coordinate, Color color});
+      {String? photoUrl, String id, FirebaseApiCoordinateModel coordinate});
 
   @override
-  $CoordinateModelCopyWith<$Res> get coordinate;
+  $FirebaseApiCoordinateModelCopyWith<$Res> get coordinate;
 }
 
 /// @nodoc
@@ -115,16 +117,15 @@ class __$$FirebaseApiMapTagModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? photoUrl = null,
+    Object? photoUrl = freezed,
     Object? id = null,
     Object? coordinate = null,
-    Object? color = null,
   }) {
     return _then(_$FirebaseApiMapTagModelImpl(
-      photoUrl: null == photoUrl
+      photoUrl: freezed == photoUrl
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -132,37 +133,31 @@ class __$$FirebaseApiMapTagModelImplCopyWithImpl<$Res>
       coordinate: null == coordinate
           ? _value.coordinate
           : coordinate // ignore: cast_nullable_to_non_nullable
-              as CoordinateModel,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as Color,
+              as FirebaseApiCoordinateModel,
     ));
   }
 }
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$FirebaseApiMapTagModelImpl implements _FirebaseApiMapTagModel {
   _$FirebaseApiMapTagModelImpl(
-      {required this.photoUrl,
-      required this.id,
-      required this.coordinate,
-      this.color = Colors.pink});
+      {required this.photoUrl, required this.id, required this.coordinate});
+
+  factory _$FirebaseApiMapTagModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FirebaseApiMapTagModelImplFromJson(json);
 
   @override
-  final String photoUrl;
+  final String? photoUrl;
   @override
   final String id;
   @override
-  final CoordinateModel coordinate;
-  @override
-  @JsonKey()
-  final Color color;
+  final FirebaseApiCoordinateModel coordinate;
 
   @override
   String toString() {
-    return 'FirebaseApiMapTagModel(photoUrl: $photoUrl, id: $id, coordinate: $coordinate, color: $color)';
+    return 'FirebaseApiMapTagModel(photoUrl: $photoUrl, id: $id, coordinate: $coordinate)';
   }
 
   @override
@@ -174,12 +169,12 @@ class _$FirebaseApiMapTagModelImpl implements _FirebaseApiMapTagModel {
                 other.photoUrl == photoUrl) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.coordinate, coordinate) ||
-                other.coordinate == coordinate) &&
-            (identical(other.color, color) || other.color == color));
+                other.coordinate == coordinate));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, photoUrl, id, coordinate, color);
+  int get hashCode => Object.hash(runtimeType, photoUrl, id, coordinate);
 
   @JsonKey(ignore: true)
   @override
@@ -187,23 +182,31 @@ class _$FirebaseApiMapTagModelImpl implements _FirebaseApiMapTagModel {
   _$$FirebaseApiMapTagModelImplCopyWith<_$FirebaseApiMapTagModelImpl>
       get copyWith => __$$FirebaseApiMapTagModelImplCopyWithImpl<
           _$FirebaseApiMapTagModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FirebaseApiMapTagModelImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _FirebaseApiMapTagModel implements FirebaseApiMapTagModel {
   factory _FirebaseApiMapTagModel(
-      {required final String photoUrl,
-      required final String id,
-      required final CoordinateModel coordinate,
-      final Color color}) = _$FirebaseApiMapTagModelImpl;
+          {required final String? photoUrl,
+          required final String id,
+          required final FirebaseApiCoordinateModel coordinate}) =
+      _$FirebaseApiMapTagModelImpl;
+
+  factory _FirebaseApiMapTagModel.fromJson(Map<String, dynamic> json) =
+      _$FirebaseApiMapTagModelImpl.fromJson;
 
   @override
-  String get photoUrl;
+  String? get photoUrl;
   @override
   String get id;
   @override
-  CoordinateModel get coordinate;
-  @override
-  Color get color;
+  FirebaseApiCoordinateModel get coordinate;
   @override
   @JsonKey(ignore: true)
   _$$FirebaseApiMapTagModelImplCopyWith<_$FirebaseApiMapTagModelImpl>
