@@ -24,10 +24,11 @@ class FirebaseUserRepository extends RemoteUserRepository {
     return res;
   }
 
+  //Вот этот метод
   @override
   Future<UserModel> getUser(String userId) async {
     final res = await util.getUser(userId);
-    userUseCase.writeUser(res);
+    //userUseCase.writeUser(res);
     return res;
   }
 

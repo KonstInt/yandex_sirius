@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yandex_sirius/app/features/user/presentation/pages/search/bloc/search_bloc.dart';
 import 'package:yandex_sirius/app/features/user/presentation/pages/search/delayed_action.dart';
 import 'package:yandex_sirius/app/util/themes/extensions/build_context_ext.dart';
 
@@ -157,7 +155,6 @@ class _SearchFieldState extends State<SearchField>
                                 controller: _textController,
                                 autofocus: true,
                                 onChanged: (value) {
-
                                   if (widget.onChanged != null) {
                                     widget.onChanged!(value);
                                   }
@@ -171,7 +168,6 @@ class _SearchFieldState extends State<SearchField>
                                   } else {
                                     label = value;
                                   }
-
                                 },
                                 onTapOutside: (event) {
                                   changeFocus();

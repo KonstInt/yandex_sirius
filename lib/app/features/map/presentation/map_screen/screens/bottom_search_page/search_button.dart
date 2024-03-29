@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:yandex_sirius/app/base_components/bottom_sheets/bar_bottom_sheet.dart';
 
@@ -14,7 +13,7 @@ class SearchButton extends StatelessWidget {
       onPressed: () {
         showBarModalBottomSheet(
           context: context,
-          builder: (BuildContext context) => SearchPage(),
+          builder: (context) => const SearchPage(),
         );
       },
       style: ElevatedButton.styleFrom(

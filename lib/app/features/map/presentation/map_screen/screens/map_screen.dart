@@ -128,7 +128,7 @@ class _MapScreenState extends State<MapScreen> {
                       event: FriendsMapEvent.goHome(), text: 'home'),
                   ButtonWithBlock(
                       event: FriendsMapEvent.nextFriend(), text: 'next'),
-                 SearchButton(),
+                  SearchButton(),
                   ButtonWithBlock(
                       event: FriendsMapEvent.changeZoom(1), text: '+'),
                   ButtonWithBlock(
