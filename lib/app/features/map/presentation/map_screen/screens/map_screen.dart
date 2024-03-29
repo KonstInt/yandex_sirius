@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get_it/get_it.dart';
@@ -117,25 +119,39 @@ class _MapScreenState extends State<MapScreen> {
             ],
           ),
         ),
-        Positioned(
-          bottom: 0,
+        Align(
+          alignment: Alignment.bottomCenter,
           child: SizedBox(
-              height: 50,
+            height: 50,
+            child:Center(
               child: BlocProvider<MapBloc>.value(
                 value: GetIt.I<MapBloc>(),
                 child: const Row(children: [
                   ButtonWithBlock(
                       event: FriendsMapEvent.goHome(), text: 'home'),
-                  ButtonWithBlock(
-                      event: FriendsMapEvent.nextFriend(), text: 'next'),
                   SearchButton(),
+                  ButtonWithBlock(
+                      event: FriendsMapEvent.nextFriend(), text: 'next')]),
+              ))),
+
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+
+          child: SizedBox(
+              height: 100,
+              width: 50,
+              child: BlocProvider<MapBloc>.value(
+                value: GetIt.I<MapBloc>(),
+                child: const Column(children: [
                   ButtonWithBlock(
                       event: FriendsMapEvent.changeZoom(1), text: '+'),
                   ButtonWithBlock(
                       event: FriendsMapEvent.changeZoom(-1), text: '-')
                 ]),
               )),
-        )
+
+        ),
       ],
     );
   }
@@ -149,14 +165,18 @@ class ButtonWithBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return
+      Expanded(
+          child:Padding(
+              padding: EdgeInsets.all(4),child:TextButton(
+      style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.white)),
         onPressed: () {
           BlocProvider.of<MapBloc>(context).add(event);
         },
         child: Text(
           text,
           style: const TextStyle(color: Colors.black),
-        ));
+        ))));
   }
 }
 
