@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "authenticationFailure": "Ошибка аунтефикации",
+  "email": "Email",
+  "invalidEmail": "Неверный email",
+  "password": "Пароль",
+  "invalidPassword": "Неверный пароль",
+  "login": "Вход",
+  "createAccount": "Создать аккаунт",
+  "signUpFailure": "Ошибка регистрации",
+  "confirmPassword": "Подтвердите пароль",
+  "passwordNotMatch": "Пароли не совпадают",
+  "signUp": "Регистрация",
+  "home": "Главная",
+  "name": "Имя",
+  "surname": "Фамилия",
+  "alias" : "Никнейм",
+  "next" : "Далее"
+}
