@@ -14,6 +14,7 @@ class SearchForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = Localization.of(context);
+
     return BlocListener<SearchBloc, SearchState>(
       listener: (context, state) {
         if (state.status.isFailure) {
@@ -33,18 +34,15 @@ class SearchForm extends StatelessWidget {
           ScreenUtilInit(
             child: SearchField(
               hintText: 'Search',
-              onChanged:(value) {
-                context
-                    .read<SearchBloc>()
-                    .add(CreateUserList(value));
+              onChanged: (value) {
+                context.read<SearchBloc>().add(CreateUserList(value));
               },
             ),
           ),
           const SizedBox(
             height: 8,
           ),
-         _UserList(),
-
+          _UserList(),
         ],
       ),
     );
@@ -52,8 +50,8 @@ class SearchForm extends StatelessWidget {
 }
 
 class _UserList extends StatelessWidget {
-  const _UserList({super.key});
 
+  const _UserList({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
@@ -61,40 +59,46 @@ class _UserList extends StatelessWidget {
         return state.status.isInProgress
             ? const Center(child: CircularProgressIndicator())
             : Expanded(
-          child: ListView.builder(
-            itemCount: state.peoples.length,
-            itemBuilder: (context, index) {
-              final person = state.peoples[index];
-              return  Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.grey,
-                      backgroundImage: (person.photoUrl == null || person.photoUrl.isEmpty)
-                          ? null
-                          : NetworkImage(person.photoUrl),
-                    ),
-                    Text(person.name),
-                    FloatingActionButton(
-                      onPressed: () {
-                        context.read<SearchBloc>().add(AddFriend(person.id, person.photoUrl));
-                      },
-                    ),
-                  ],
+                child: ListView.builder(
+                  itemCount: state.peoples.length,
+                  itemBuilder: (context, index) {
+                    final person = state.peoples[index];
+                    return Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.grey,
+                            backgroundImage: (person.photoUrl == null ||
+                                    person.photoUrl.isEmpty)
+                                ? null
+                                : NetworkImage(person.photoUrl),
+                          ),
+                          Text(person.name),
+                          IconButton(
+                            icon:  Icon((!state.status.isInitial) ? Icons.add : Icons.accessible, size: 30,),
+                            onPressed: () {
+                              context
+                                  .read<SearchBloc>()
+                                  .add(AddFriend(person.id, person.photoUrl));
+
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    ]);
+                  },
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-              ]);
-            },
-          ),
-        );
+              );
       },
     );
   }
 }
+
 class _SearchLine extends StatelessWidget {
   const _SearchLine({super.key});
 
@@ -104,7 +108,7 @@ class _SearchLine extends StatelessWidget {
 
     return BlocBuilder<SearchBloc, SearchState>(
       buildWhen: (previous, next) =>
-      previous.peoples.length != next.peoples.length,
+          previous.peoples.length != next.peoples.length,
       builder: (context, state) {
         return Container(
           height: 40,

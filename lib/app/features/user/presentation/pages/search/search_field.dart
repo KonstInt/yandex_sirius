@@ -157,7 +157,6 @@ class _SearchFieldState extends State<SearchField>
                                 controller: _textController,
                                 autofocus: true,
                                 onChanged: (value) {
-
                                   if (widget.onChanged != null) {
                                     widget.onChanged!(value);
                                   }
@@ -171,7 +170,6 @@ class _SearchFieldState extends State<SearchField>
                                   } else {
                                     label = value;
                                   }
-
                                 },
                                 onTapOutside: (event) {
                                   changeFocus();
