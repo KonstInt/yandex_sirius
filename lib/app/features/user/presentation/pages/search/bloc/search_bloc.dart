@@ -14,6 +14,7 @@ part 'search_state.dart';
 UserModel? currentUser;
 Set<String>? friends;
 
+
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this._authenticationRepository, this._userUseCase)
       : super(const SearchState()) {
@@ -48,8 +49,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     _currentUser = _currentUser.copyWith(friendList: list);
     final Map<String, bool> friendsMap = state.isFriend;
     friendsMap[event.id] = true;
-    final FirebaseApiUserModel model =
-        FirebaseApiUserModel.fromJson(_currentUser.toJson());
+    final FirebaseApiUserModel model = FirebaseApiUserModel.fromJson(_currentUser.toJson());
     await _authenticationRepository.updateUser(model);
     emit(state.copyWith(isFriend: friendsMap));
   }
@@ -75,12 +75,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final List<String> list =
           await _authenticationRepository.getUsersList(event.prefix);
       final int end = (list.length >= 10) ? 10 : list.length;
-      final Map<String, bool> friendsMap = {};
       if (list.isNotEmpty) {
-        friends ??= {};
+
         for (int i = 0; i < end; i++) {
           newList.add(await _authenticationRepository.getUser(list[i]));
-          friendsMap[newList[i].id] = friends!.contains(newList[i].id);
+
         }
       }
     }
